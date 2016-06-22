@@ -1,14 +1,11 @@
-//
-// Created by DennyByDenny on 03.06.2016.
-//
-
-#include <stdexcept>
-#include <iostream>
+#include "stdafx.h"
 #include "PointSequence.h"
+#include <ostream>
+#include <iostream>
 
 PointSequence::PointSequence(std::initializer_list<double> args)
 {
-   if (args.size() % 2 != 0)
+   if (args.size()%2!=0)
    {
       throw std::invalid_argument("initializer_list should contain even number of elements.");
    }
