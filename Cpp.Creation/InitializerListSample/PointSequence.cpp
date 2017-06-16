@@ -5,7 +5,7 @@
 
 PointSequence::PointSequence(std::initializer_list<double> args)
 {
-   if (args.size()%2!=0)
+   if (args.size() % 2 != 0)
    {
       throw std::invalid_argument("initializer_list should contain even number of elements.");
    }
