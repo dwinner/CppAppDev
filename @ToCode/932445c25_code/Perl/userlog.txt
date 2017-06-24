@@ -1,7 +1,0 @@
-Login: mindy
-Password: qwerty
-
-Login Successful!
-
-> ls
-> exit
