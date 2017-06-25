@@ -5,7 +5,7 @@ void tweakSolution(memberType* member)
 {
 	int y;
 
-	int x = randInterval(0U, MAX_LENGTH);	// BUG: MAX_LENGTH must be upper threshold value
+	int x = randInterval(0U, MAX_LENGTH);
 	do
 	{
 		y = randInterval(0U, MAX_LENGTH);
@@ -21,13 +21,11 @@ void initializeSolution(memberType* member)
 {
 	int i;
 
-	// Начальная инициализация решения
 	for (i = 0; i < MAX_LENGTH; ++i)
 	{
 		member->solution[i] = i;
 	}
 
-	// Изменение решения случайным образом
 	for (i = 0; i < MAX_LENGTH; ++i)
 	{
 		tweakSolution(member);

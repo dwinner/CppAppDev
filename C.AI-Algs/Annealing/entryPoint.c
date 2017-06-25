@@ -1,5 +1,5 @@
 /**
- *	Алгоритм отжига для решения задачи N-ферзей
+ *	Annealing alg
  */
 
 int main(int argc, char* argv[])
