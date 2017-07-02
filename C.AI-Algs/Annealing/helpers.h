@@ -2,10 +2,10 @@
 
 #include "commonTypes.h"
 
-void tweakSolution(memberType *member);
+void tweakSolution(memberType* member);
 
-void initializeSolution(memberType *member);
+void initializeSolution(memberType* member);
 
 unsigned int randInterval(unsigned int min, unsigned int max);
 
-void computeEnergy(memberType *member);
+void computeEnergy(memberType* member);

@@ -4,10 +4,10 @@
 
 typedef int solutionType[MAX_LENGTH];
 
-typedef struct 
+typedef struct
 {
-	solutionType solution;
-	float energy;
+   solutionType solution;
+   float energy;
 } memberType;
 
 #define INITIAL_TEMPERATURE 30.0
