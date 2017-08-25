@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/commonTypes.h
+
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/entryPoint.c
+stdio.h
+-
+
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/helpers.c
+helpers.h
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/helpers.h
+stdlib.h
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/stdlib.h
+
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/helpers.h
+commonTypes.h
+F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/commonTypes.h
+
