@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2017.2.1\bin\cmake\bin\cmake.exe" -E remo
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing
+CMAKE_SOURCE_DIR = F:\Public\CppAppDev\C.AI-Algs\Annealing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug
+CMAKE_BINARY_DIR = F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Annealing.dir/depend.make
@@ -58,16 +58,16 @@ include CMakeFiles/Annealing.dir/flags.make
 
 CMakeFiles/Annealing.dir/entryPoint.c.obj: CMakeFiles/Annealing.dir/flags.make
 CMakeFiles/Annealing.dir/entryPoint.c.obj: ../entryPoint.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Annealing.dir/entryPoint.c.obj"
-	F:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Annealing.dir\entryPoint.c.obj   -c F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\entryPoint.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Annealing.dir/entryPoint.c.obj"
+	C:\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Annealing.dir\entryPoint.c.obj   -c F:\Public\CppAppDev\C.AI-Algs\Annealing\entryPoint.c
 
 CMakeFiles/Annealing.dir/entryPoint.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Annealing.dir/entryPoint.c.i"
-	F:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\entryPoint.c > CMakeFiles\Annealing.dir\entryPoint.c.i
+	C:\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\Public\CppAppDev\C.AI-Algs\Annealing\entryPoint.c > CMakeFiles\Annealing.dir\entryPoint.c.i
 
 CMakeFiles/Annealing.dir/entryPoint.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Annealing.dir/entryPoint.c.s"
-	F:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\entryPoint.c -o CMakeFiles\Annealing.dir\entryPoint.c.s
+	C:\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\Public\CppAppDev\C.AI-Algs\Annealing\entryPoint.c -o CMakeFiles\Annealing.dir\entryPoint.c.s
 
 CMakeFiles/Annealing.dir/entryPoint.c.obj.requires:
 
@@ -82,16 +82,16 @@ CMakeFiles/Annealing.dir/entryPoint.c.obj.provides.build: CMakeFiles/Annealing.d
 
 CMakeFiles/Annealing.dir/helpers.c.obj: CMakeFiles/Annealing.dir/flags.make
 CMakeFiles/Annealing.dir/helpers.c.obj: ../helpers.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Annealing.dir/helpers.c.obj"
-	F:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Annealing.dir\helpers.c.obj   -c F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\helpers.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Annealing.dir/helpers.c.obj"
+	C:\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Annealing.dir\helpers.c.obj   -c F:\Public\CppAppDev\C.AI-Algs\Annealing\helpers.c
 
 CMakeFiles/Annealing.dir/helpers.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Annealing.dir/helpers.c.i"
-	F:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\helpers.c > CMakeFiles\Annealing.dir\helpers.c.i
+	C:\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E F:\Public\CppAppDev\C.AI-Algs\Annealing\helpers.c > CMakeFiles\Annealing.dir\helpers.c.i
 
 CMakeFiles/Annealing.dir/helpers.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Annealing.dir/helpers.c.s"
-	F:\mingw-w64\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\helpers.c -o CMakeFiles\Annealing.dir\helpers.c.s
+	C:\TDM-GCC-64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S F:\Public\CppAppDev\C.AI-Algs\Annealing\helpers.c -o CMakeFiles\Annealing.dir\helpers.c.s
 
 CMakeFiles/Annealing.dir/helpers.c.obj.requires:
 
@@ -118,7 +118,7 @@ Annealing.exe: CMakeFiles/Annealing.dir/build.make
 Annealing.exe: CMakeFiles/Annealing.dir/linklibs.rsp
 Annealing.exe: CMakeFiles/Annealing.dir/objects1.rsp
 Annealing.exe: CMakeFiles/Annealing.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable Annealing.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable Annealing.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Annealing.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -136,6 +136,6 @@ CMakeFiles/Annealing.dir/clean:
 .PHONY : CMakeFiles/Annealing.dir/clean
 
 CMakeFiles/Annealing.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug F:\dwin\GitHub\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles\Annealing.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" F:\Public\CppAppDev\C.AI-Algs\Annealing F:\Public\CppAppDev\C.AI-Algs\Annealing F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug F:\Public\CppAppDev\C.AI-Algs\Annealing\cmake-build-debug\CMakeFiles\Annealing.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Annealing.dir/depend
 

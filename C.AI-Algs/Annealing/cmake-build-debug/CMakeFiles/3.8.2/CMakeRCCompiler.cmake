@@ -1,4 +1,4 @@
-set(CMAKE_RC_COMPILER "F:/mingw-w64/mingw32/bin/windres.exe")
+set(CMAKE_RC_COMPILER "C:/TDM-GCC-64/bin/windres.exe")
 set(CMAKE_RC_COMPILER_ARG1 "")
 set(CMAKE_RC_COMPILER_LOADED 1)
 set(CMAKE_RC_SOURCE_FILE_EXTENSIONS rc;RC)

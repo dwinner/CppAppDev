@@ -4,7 +4,6 @@ project(Annealing)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        CMakeLists.txt
         commonTypes.h
         entryPoint.c
         helpers.c
