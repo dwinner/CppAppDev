@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "F:/Public/CppAppDev/C.AI-Algs/Annealing/entryPoint.c" "F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/CMakeFiles/Annealing.dir/entryPoint.c.obj"
-  "F:/Public/CppAppDev/C.AI-Algs/Annealing/helpers.c" "F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/CMakeFiles/Annealing.dir/helpers.c.obj"
+  "F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/entryPoint.c" "F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/CMakeFiles/Annealing.dir/entryPoint.c.obj"
+  "F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/helpers.c" "F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/CMakeFiles/Annealing.dir/helpers.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

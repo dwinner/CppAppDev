@@ -8,93 +8,91 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
+				<Option working_dir="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Annealing">
-				<Option output="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Annealing.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
+				<Option output="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Annealing.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++/backward"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../include"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include-fixed"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include/c++"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include/c++/backward"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include-fixed"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/../../../../i686-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 Annealing"/>
-					<CompileFile command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 Annealing"/>
+					<CompileFile command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Annealing/fast">
-				<Option output="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Annealing.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
+				<Option output="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Annealing.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include/c++/backward"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../include"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/include-fixed"/>
-					<Add directory="C:/TDM-GCC-64/bin/../lib/gcc/x86_64-w64-mingw32/5.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include/c++"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include/c++/backward"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/include-fixed"/>
+					<Add directory="F:/mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/7.1.0/../../../../i686-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 Annealing/fast"/>
-					<CompileFile command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 Annealing/fast"/>
+					<CompileFile command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
+				<Option working_dir="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
+				<Option working_dir="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/TDM-GCC-64/bin/mingw32-make.exe -f &quot;F:/Public/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="F:/mingw-w64/mingw32/bin/mingw32-make.exe -f &quot;F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="F:/Public/CppAppDev/C.AI-Algs/Annealing/commonTypes.h">
+		<Unit filename="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/commonTypes.h">
 			<Option target="Annealing"/>
 		</Unit>
-		<Unit filename="F:/Public/CppAppDev/C.AI-Algs/Annealing/entryPoint.c">
+		<Unit filename="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/entryPoint.c">
 			<Option target="Annealing"/>
 		</Unit>
-		<Unit filename="F:/Public/CppAppDev/C.AI-Algs/Annealing/helpers.c">
+		<Unit filename="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/helpers.c">
 			<Option target="Annealing"/>
 		</Unit>
-		<Unit filename="F:/Public/CppAppDev/C.AI-Algs/Annealing/helpers.h">
+		<Unit filename="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/helpers.h">
 			<Option target="Annealing"/>
 		</Unit>
-		<Unit filename="F:/Public/CppAppDev/C.AI-Algs/Annealing/CMakeLists.txt">
+		<Unit filename="F:/dwin/GitHub/CppAppDev/C.AI-Algs/Annealing/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
