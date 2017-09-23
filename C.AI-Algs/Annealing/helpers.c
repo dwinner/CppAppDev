@@ -1,5 +1,6 @@
 #include "helpers.h"
 #include "stdlib.h"
+#include <stdio.h>
 
 void tweakSolution(memberType* member)
 {
@@ -92,4 +93,41 @@ void computeEnergy(memberType* member)
    }
 
    member->energy = (float)conflicts;
+}
+
+void copySolution(memberType* dest, memberType* src)
+{
+   for (int i = 0; i < MAX_LENGTH; ++i)
+   {
+      dest->solution[i] = src->solution[i];
+   }
+
+   dest->energy = src->energy;
+}
+
+void emitSolution(memberType* member)
+{
+   char board[MAX_LENGTH][MAX_LENGTH];
+   int x, y;
+
+   // bzero((void *)board, MAX_LENGTH*MAX_LENGTH);
+
+
+   for (x = 0; x < MAX_LENGTH; ++x)
+   {
+      board[x][member->solution[x]] = 'Q';
+   }
+
+   printf("board:\n");
+   for (y = 0; y < MAX_LENGTH; ++y)
+   {
+      for (x = 0; x < MAX_LENGTH; ++x)
+      {
+         printf(board[x][y] == 'Q' ? "Q" : ". ");
+      }
+      
+      printf("\n");
+   }
+
+   printf("\n\n");
 }
