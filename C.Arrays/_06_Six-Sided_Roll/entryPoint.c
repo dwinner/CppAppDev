@@ -11,7 +11,7 @@ int main(void)
 {
    unsigned int frequency[SIZE] = {0}; // clear counts
 
-   srand(time(NULL)); // seed random number generator
+   srand((unsigned int) time(NULL)); // seed random number generator
 
    // roll die 60,000,000 times
    for (unsigned int roll = 1; roll <= 60000000; ++roll)
