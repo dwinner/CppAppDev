@@ -26,7 +26,7 @@ int main(void)
    const size_t index = linearSearch(a, searchKey, SIZE);
 
    // display results
-   if (index != -1)
+   if (index != (size_t) -1)
    {
       printf("Found value at index %d\n", index);
    }
@@ -41,7 +41,7 @@ int main(void)
 size_t linearSearch(const int array[], const int key, const size_t size)
 {
    // loop through array
-   for (int n = 0; n < size; ++n)
+   for (size_t n = 0; n < size; ++n)
    {
       if (array[n] == key)
       {

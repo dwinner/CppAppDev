@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_12_Survey_Data_Aalysis", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_13_Linear_Search", "_13_Linear_Search\_13_Linear_Search.vcxproj", "{7426C17F-ED95-4011-969C-04467D9C4BE2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_14_Binary_Search", "_14_Binary_Search\_14_Binary_Search.vcxproj", "{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -87,6 +89,10 @@ Global
 		{7426C17F-ED95-4011-969C-04467D9C4BE2}.Debug|Win32.Build.0 = Debug|Win32
 		{7426C17F-ED95-4011-969C-04467D9C4BE2}.Release|Win32.ActiveCfg = Release|Win32
 		{7426C17F-ED95-4011-969C-04467D9C4BE2}.Release|Win32.Build.0 = Release|Win32
+		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Debug|Win32.Build.0 = Debug|Win32
+		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Release|Win32.ActiveCfg = Release|Win32
+		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
