@@ -31,6 +31,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_13_Linear_Search", "_13_Li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_14_Binary_Search", "_14_Binary_Search\_14_Binary_Search.vcxproj", "{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_15_Multi_Dim_Arrays", "_15_Multi_Dim_Arrays\_15_Multi_Dim_Arrays.vcxproj", "{0420DF34-679F-4787-8515-8EB2125C1780}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_16_TwoDim_Array_Sample", "_16_TwoDim_Array_Sample\_16_TwoDim_Array_Sample.vcxproj", "{2829BFC1-2396-4AC0-8C13-E14D34A48A9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -93,6 +97,14 @@ Global
 		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Debug|Win32.Build.0 = Debug|Win32
 		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Release|Win32.ActiveCfg = Release|Win32
 		{169FA78B-43AB-4EDF-9C1E-FD4B28388AA6}.Release|Win32.Build.0 = Release|Win32
+		{0420DF34-679F-4787-8515-8EB2125C1780}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0420DF34-679F-4787-8515-8EB2125C1780}.Debug|Win32.Build.0 = Debug|Win32
+		{0420DF34-679F-4787-8515-8EB2125C1780}.Release|Win32.ActiveCfg = Release|Win32
+		{0420DF34-679F-4787-8515-8EB2125C1780}.Release|Win32.Build.0 = Release|Win32
+		{2829BFC1-2396-4AC0-8C13-E14D34A48A9A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2829BFC1-2396-4AC0-8C13-E14D34A48A9A}.Debug|Win32.Build.0 = Debug|Win32
+		{2829BFC1-2396-4AC0-8C13-E14D34A48A9A}.Release|Win32.ActiveCfg = Release|Win32
+		{2829BFC1-2396-4AC0-8C13-E14D34A48A9A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
