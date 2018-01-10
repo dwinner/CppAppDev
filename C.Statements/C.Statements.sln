@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Exponential_Growth", "Exponential_Growth\Exponential_Growth.vcxproj", "{FB861186-BA14-46EC-9814-A587DE476968}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Iteration", "Iteration\Iteration.vcxproj", "{209009D0-C8DA-4ABC-A815-19B64F611A03}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Convert", "Convert\Convert.vcxproj", "{22B47069-A0B5-47CF-B76C-471EA234428D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Division", "Division\Division.vcxproj", "{7EF5C5B3-FCC9-4237-B10C-BA6335B9B658}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB861186-BA14-46EC-9814-A587DE476968}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FB861186-BA14-46EC-9814-A587DE476968}.Debug|Win32.Build.0 = Debug|Win32
+		{FB861186-BA14-46EC-9814-A587DE476968}.Release|Win32.ActiveCfg = Release|Win32
+		{FB861186-BA14-46EC-9814-A587DE476968}.Release|Win32.Build.0 = Release|Win32
+		{209009D0-C8DA-4ABC-A815-19B64F611A03}.Debug|Win32.ActiveCfg = Debug|Win32
+		{209009D0-C8DA-4ABC-A815-19B64F611A03}.Debug|Win32.Build.0 = Debug|Win32
+		{209009D0-C8DA-4ABC-A815-19B64F611A03}.Release|Win32.ActiveCfg = Release|Win32
+		{209009D0-C8DA-4ABC-A815-19B64F611A03}.Release|Win32.Build.0 = Release|Win32
+		{22B47069-A0B5-47CF-B76C-471EA234428D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22B47069-A0B5-47CF-B76C-471EA234428D}.Debug|Win32.Build.0 = Debug|Win32
+		{22B47069-A0B5-47CF-B76C-471EA234428D}.Release|Win32.ActiveCfg = Release|Win32
+		{22B47069-A0B5-47CF-B76C-471EA234428D}.Release|Win32.Build.0 = Release|Win32
+		{7EF5C5B3-FCC9-4237-B10C-BA6335B9B658}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7EF5C5B3-FCC9-4237-B10C-BA6335B9B658}.Debug|Win32.Build.0 = Debug|Win32
+		{7EF5C5B3-FCC9-4237-B10C-BA6335B9B658}.Release|Win32.ActiveCfg = Release|Win32
+		{7EF5C5B3-FCC9-4237-B10C-BA6335B9B658}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
