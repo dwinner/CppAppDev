@@ -5,6 +5,14 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CountingLetters", "CountingLetters\CountingLetters.vcxproj", "{4BA071A4-5332-4012-B9DB-0B2CF310A580}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Animals", "Animals\Animals.vcxproj", "{7F4D864F-5471-41F8-A654-2D4E195B53AD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WordCounter", "WordCounter\WordCounter.vcxproj", "{7E3A511C-DC2A-4215-90E5-544078AE7523}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Divisors", "Divisors\Divisors.vcxproj", "{998F5A42-2366-42F0-8D08-5FF6DC638027}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vowels", "Vowels\Vowels.vcxproj", "{4B754BFF-471D-4578-AB19-4A30EE510711}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +23,22 @@ Global
 		{4BA071A4-5332-4012-B9DB-0B2CF310A580}.Debug|Win32.Build.0 = Debug|Win32
 		{4BA071A4-5332-4012-B9DB-0B2CF310A580}.Release|Win32.ActiveCfg = Release|Win32
 		{4BA071A4-5332-4012-B9DB-0B2CF310A580}.Release|Win32.Build.0 = Release|Win32
+		{7F4D864F-5471-41F8-A654-2D4E195B53AD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F4D864F-5471-41F8-A654-2D4E195B53AD}.Debug|Win32.Build.0 = Debug|Win32
+		{7F4D864F-5471-41F8-A654-2D4E195B53AD}.Release|Win32.ActiveCfg = Release|Win32
+		{7F4D864F-5471-41F8-A654-2D4E195B53AD}.Release|Win32.Build.0 = Release|Win32
+		{7E3A511C-DC2A-4215-90E5-544078AE7523}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7E3A511C-DC2A-4215-90E5-544078AE7523}.Debug|Win32.Build.0 = Debug|Win32
+		{7E3A511C-DC2A-4215-90E5-544078AE7523}.Release|Win32.ActiveCfg = Release|Win32
+		{7E3A511C-DC2A-4215-90E5-544078AE7523}.Release|Win32.Build.0 = Release|Win32
+		{998F5A42-2366-42F0-8D08-5FF6DC638027}.Debug|Win32.ActiveCfg = Debug|Win32
+		{998F5A42-2366-42F0-8D08-5FF6DC638027}.Debug|Win32.Build.0 = Debug|Win32
+		{998F5A42-2366-42F0-8D08-5FF6DC638027}.Release|Win32.ActiveCfg = Release|Win32
+		{998F5A42-2366-42F0-8D08-5FF6DC638027}.Release|Win32.Build.0 = Release|Win32
+		{4B754BFF-471D-4578-AB19-4A30EE510711}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4B754BFF-471D-4578-AB19-4A30EE510711}.Debug|Win32.Build.0 = Debug|Win32
+		{4B754BFF-471D-4578-AB19-4A30EE510711}.Release|Win32.ActiveCfg = Release|Win32
+		{4B754BFF-471D-4578-AB19-4A30EE510711}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
