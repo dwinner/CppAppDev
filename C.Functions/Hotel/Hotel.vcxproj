@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{F124585A-ADD9-44F8-88AC-3966AEF89B2A}</ProjectGuid>
-    <RootNamespace>Rolling</RootNamespace>
+    <ProjectGuid>{83887B69-93CF-4721-B817-44FEB9B78DE0}</ProjectGuid>
+    <RootNamespace>Hotel</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -115,7 +115,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="rolling.c" />
+    <ClCompile Include="holel_entry.c" />
+    <ClCompile Include="hotel.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hotel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
