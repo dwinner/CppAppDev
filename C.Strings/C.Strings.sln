@@ -3,7 +3,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Compare", "Compare\Compare.vcxproj", "{CDC9CE53-F39B-441D-9729-075940620DA2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Compback", "Compback\Compback.vcxproj", "{89AFDD42-9C14-478E-AFA5-5DD2E03091BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello", "Hello\Hello.vcxproj", "{5386648C-59D9-4699-9246-B2211E1D637C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StrCpy_Sample", "StrCpy_Sample\StrCpy_Sample.vcxproj", "{98250829-17D0-4874-A9D5-A3CE524EF44E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Formatting", "Formatting\Formatting.vcxproj", "{27534E4F-74AB-4DE2-B903-11B7A6A2220A}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDC9CE53-F39B-441D-9729-075940620DA2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CDC9CE53-F39B-441D-9729-075940620DA2}.Debug|Win32.Build.0 = Debug|Win32
+		{CDC9CE53-F39B-441D-9729-075940620DA2}.Release|Win32.ActiveCfg = Release|Win32
+		{CDC9CE53-F39B-441D-9729-075940620DA2}.Release|Win32.Build.0 = Release|Win32
+		{89AFDD42-9C14-478E-AFA5-5DD2E03091BE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{89AFDD42-9C14-478E-AFA5-5DD2E03091BE}.Debug|Win32.Build.0 = Debug|Win32
+		{89AFDD42-9C14-478E-AFA5-5DD2E03091BE}.Release|Win32.ActiveCfg = Release|Win32
+		{89AFDD42-9C14-478E-AFA5-5DD2E03091BE}.Release|Win32.Build.0 = Release|Win32
+		{5386648C-59D9-4699-9246-B2211E1D637C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5386648C-59D9-4699-9246-B2211E1D637C}.Debug|Win32.Build.0 = Debug|Win32
+		{5386648C-59D9-4699-9246-B2211E1D637C}.Release|Win32.ActiveCfg = Release|Win32
+		{5386648C-59D9-4699-9246-B2211E1D637C}.Release|Win32.Build.0 = Release|Win32
+		{98250829-17D0-4874-A9D5-A3CE524EF44E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{98250829-17D0-4874-A9D5-A3CE524EF44E}.Debug|Win32.Build.0 = Debug|Win32
+		{98250829-17D0-4874-A9D5-A3CE524EF44E}.Release|Win32.ActiveCfg = Release|Win32
+		{98250829-17D0-4874-A9D5-A3CE524EF44E}.Release|Win32.Build.0 = Release|Win32
+		{27534E4F-74AB-4DE2-B903-11B7A6A2220A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{27534E4F-74AB-4DE2-B903-11B7A6A2220A}.Debug|Win32.Build.0 = Debug|Win32
+		{27534E4F-74AB-4DE2-B903-11B7A6A2220A}.Release|Win32.ActiveCfg = Release|Win32
+		{27534E4F-74AB-4DE2-B903-11B7A6A2220A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
