@@ -17,6 +17,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Func_Pointers", "Func_Point
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sort_Str", "Sort_Str\Sort_Str.vcxproj", "{599238E0-BD97-4C0E-861C-964ACD998F28}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "User_Defined_Functions", "User_Defined_Functions\User_Defined_Functions.vcxproj", "{732852D8-7550-49DC-94AB-59D76AA29680}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stringing", "Stringing\Stringing.vcxproj", "{020AC5C3-9DD5-4A40-B6CA-04CEA09C4873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -51,6 +55,14 @@ Global
 		{599238E0-BD97-4C0E-861C-964ACD998F28}.Debug|Win32.Build.0 = Debug|Win32
 		{599238E0-BD97-4C0E-861C-964ACD998F28}.Release|Win32.ActiveCfg = Release|Win32
 		{599238E0-BD97-4C0E-861C-964ACD998F28}.Release|Win32.Build.0 = Release|Win32
+		{732852D8-7550-49DC-94AB-59D76AA29680}.Debug|Win32.ActiveCfg = Debug|Win32
+		{732852D8-7550-49DC-94AB-59D76AA29680}.Debug|Win32.Build.0 = Debug|Win32
+		{732852D8-7550-49DC-94AB-59D76AA29680}.Release|Win32.ActiveCfg = Release|Win32
+		{732852D8-7550-49DC-94AB-59D76AA29680}.Release|Win32.Build.0 = Release|Win32
+		{020AC5C3-9DD5-4A40-B6CA-04CEA09C4873}.Debug|Win32.ActiveCfg = Debug|Win32
+		{020AC5C3-9DD5-4A40-B6CA-04CEA09C4873}.Debug|Win32.Build.0 = Debug|Win32
+		{020AC5C3-9DD5-4A40-B6CA-04CEA09C4873}.Release|Win32.ActiveCfg = Release|Win32
+		{020AC5C3-9DD5-4A40-B6CA-04CEA09C4873}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
