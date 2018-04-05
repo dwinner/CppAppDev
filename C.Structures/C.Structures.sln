@@ -7,6 +7,27 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1-Simple_Struct", "1-Simple
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2-Card_Shuffling", "2-Card_Shuffling\2-Card_Shuffling.vcxproj", "{B667804D-DB02-432A-B02B-42E40B8FDC83}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3-Bit_Fields_Sample", "3-Bit_Fields_Sample\3-Bit_Fields_Sample.vcxproj", "{CB89ABE8-10AA-4CFC-9F61-05298BDBC532}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{47B45BB5-F000-42F1-B48B-0F6C5B266032}"
+	ProjectSection(SolutionItems) = preProject
+		misc\Array_of_Structs.c = misc\Array_of_Structs.c
+		misc\Compound_Literals.c = misc\Compound_Literals.c
+		misc\Flexible_Array_Member.c = misc\Flexible_Array_Member.c
+		misc\Multiple_Book_Inventory.c = misc\Multiple_Book_Inventory.c
+		misc\Nested_Struct.c = misc\Nested_Struct.c
+		misc\One_Book_Inventory.c = misc\One_Book_Inventory.c
+		misc\Passes_And_Returns_Structs.c = misc\Passes_And_Returns_Structs.c
+		misc\Passing_Struct.c = misc\Passing_Struct.c
+		misc\Passing_Struct_Members.c = misc\Passing_Struct_Members.c
+		misc\Passing_Struct_Pointer.c = misc\Passing_Struct_Pointer.c
+		misc\Pointer_To_Struct1.c = misc\Pointer_To_Struct1.c
+		misc\Pointers_And_Malloc.c = misc\Pointers_And_Malloc.c
+		misc\Pointers_To_Struct2.c = misc\Pointers_To_Struct2.c
+		misc\Saving_Structs.c = misc\Saving_Structs.c
+		misc\Using_Bit_Fields.c = misc\Using_Bit_Fields.c
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +42,10 @@ Global
 		{B667804D-DB02-432A-B02B-42E40B8FDC83}.Debug|Win32.Build.0 = Debug|Win32
 		{B667804D-DB02-432A-B02B-42E40B8FDC83}.Release|Win32.ActiveCfg = Release|Win32
 		{B667804D-DB02-432A-B02B-42E40B8FDC83}.Release|Win32.Build.0 = Release|Win32
+		{CB89ABE8-10AA-4CFC-9F61-05298BDBC532}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CB89ABE8-10AA-4CFC-9F61-05298BDBC532}.Debug|Win32.Build.0 = Debug|Win32
+		{CB89ABE8-10AA-4CFC-9F61-05298BDBC532}.Release|Win32.ActiveCfg = Release|Win32
+		{CB89ABE8-10AA-4CFC-9F61-05298BDBC532}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
