@@ -6,39 +6,41 @@
 #define CPU_WORD_SIZE (sizeof(void*)*CHAR_BIT)
 #define DEFAULT_DISPLAY_MASK (1 << (CPU_WORD_SIZE - 1))
 
-void displayBits(unsigned int value);
+void getBits(unsigned value, char bitArray[CPU_WORD_SIZE]);
 
 int main()
 {
+   char bitArray[CPU_WORD_SIZE];
    unsigned int x;
 
    printf("%s", "Enter a nonnegative int: ");
    scanf_s("%u", &x);
 
-   displayBits(x);
+   getBits(x, bitArray);
 
-   return 0;
-}
-
-/**
- * @brief Display bits of an unsigned int value
- *    @param value 
- */
-void displayBits(unsigned value)
-{
-   printf("%10u = ", value);
-   const unsigned int mask = DEFAULT_DISPLAY_MASK;
-
-   for (unsigned int c = 1; c <= CPU_WORD_SIZE; ++c)
+   for (unsigned int i = 0; i < CPU_WORD_SIZE; ++i)
    {
-      putchar(value & mask ? '1' : '0');
-      value <<= 1;
+      putchar(bitArray[i]);
 
-      if (c % CHAR_BIT == 0)
+      if ((i + 1) % CHAR_BIT == 0)
       {
          putchar(' ');
       }
    }
 
-   putchar('\n');
+   return 0;
+}
+
+/**
+ * \brief Get bits
+ * \param value Value
+ * \param bitArray Array of bits to be set
+ */
+void getBits(unsigned value, char bitArray[CPU_WORD_SIZE])
+{
+   for (unsigned int bitIndex = 0; bitIndex < CPU_WORD_SIZE; ++bitIndex)
+   {
+      bitArray[bitIndex] = value & DEFAULT_DISPLAY_MASK ? '1' : '0';
+      value <<= 1;
+   }
 }
