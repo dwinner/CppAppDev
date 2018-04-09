@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4-Bitwise_Shift", "4-Bitwis
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5-Display_Binary", "5-Display_Binary\5-Display_Binary.vcxproj", "{F8561636-E9D8-47BC-A770-7D68F95FD44C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "6-Dualview", "6-Dualview\6-Dualview.vcxproj", "{47BA9AD8-F238-442A-8BBA-AB89ED7121E2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7-Inverting", "7-Inverting\7-Inverting.vcxproj", "{503C0BF3-FB39-4300-A952-203EFBAEC881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +43,14 @@ Global
 		{F8561636-E9D8-47BC-A770-7D68F95FD44C}.Debug|Win32.Build.0 = Debug|Win32
 		{F8561636-E9D8-47BC-A770-7D68F95FD44C}.Release|Win32.ActiveCfg = Release|Win32
 		{F8561636-E9D8-47BC-A770-7D68F95FD44C}.Release|Win32.Build.0 = Release|Win32
+		{47BA9AD8-F238-442A-8BBA-AB89ED7121E2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{47BA9AD8-F238-442A-8BBA-AB89ED7121E2}.Debug|Win32.Build.0 = Debug|Win32
+		{47BA9AD8-F238-442A-8BBA-AB89ED7121E2}.Release|Win32.ActiveCfg = Release|Win32
+		{47BA9AD8-F238-442A-8BBA-AB89ED7121E2}.Release|Win32.Build.0 = Release|Win32
+		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Debug|Win32.ActiveCfg = Debug|Win32
+		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Debug|Win32.Build.0 = Debug|Win32
+		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Release|Win32.ActiveCfg = Release|Win32
+		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
