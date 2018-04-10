@@ -1,10 +1,6 @@
 #ifndef EMSAPOP_H
 #define EMSAPOP_H
 
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
 #include "common.h"
 
 /**
