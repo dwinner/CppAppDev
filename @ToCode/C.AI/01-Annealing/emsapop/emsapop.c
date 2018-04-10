@@ -1,22 +1,4 @@
 /*
- *  Population-based Simulated Annealing Implementation for n-Queens
- *
- *  ./software/ch2/emsapop/emsapop.c
- *
- *  mtj@cogitollc.com
- *
- */
-
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
-#include "common.h"
-
-memberType population[MAX_MEMBERS];
-
-
-/*
  *  initializePopulation()
  *
  *  Initialize the population of candidate solutions.
