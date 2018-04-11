@@ -4,6 +4,11 @@
 #include "common.h"
 
 /**
+ * \brief Count of checks on diagonal 
+ */
+#define DIAG_CHECK_COUNT  4
+
+/**
  * \brief Population
  */
 Member_type Population[MAX_MEMBERS];
