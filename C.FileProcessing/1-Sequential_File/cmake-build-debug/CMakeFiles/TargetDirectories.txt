@@ -1,0 +1,3 @@
+F:/Public/CppAppDev/C.FileProcessing/1-Sequential_File/cmake-build-debug/CMakeFiles/1_Sequential_File.dir
+F:/Public/CppAppDev/C.FileProcessing/1-Sequential_File/cmake-build-debug/CMakeFiles/edit_cache.dir
+F:/Public/CppAppDev/C.FileProcessing/1-Sequential_File/cmake-build-debug/CMakeFiles/rebuild_cache.dir
