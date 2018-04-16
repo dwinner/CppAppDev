@@ -67,7 +67,7 @@ static unsigned long int getLuckyThreshold(const unsigned int halfTicketNum)
 /**
  * \brief Calculate individual number summary
  * \param number - Number to be separately calculated
- * \return 
+ * \return Individual number summary
  */
 static unsigned int calculateIndividualNumberSum(unsigned int number)
 {
