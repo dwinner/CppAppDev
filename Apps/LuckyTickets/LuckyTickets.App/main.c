@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 /* forward declarations */
-static unsigned long int getLuckyThreshold(unsigned int halfTicketNum);
+static unsigned long int getLuckyThreshold(const unsigned int halfTicketNum);
 static unsigned int calculateIndividualNumberSum(unsigned int number);
 
 /**
@@ -13,12 +13,7 @@ static unsigned int calculateIndividualNumberSum(unsigned int number);
  * \return Exit code
  */
 int main()
-{
-   unsigned int val = 5311;
-   unsigned int separatedSum = calculateIndividualNumberSum(val);
-
-   printf("%u", separatedSum);
-
+{   
    unsigned int numCount; /* lucky ticket length */
    unsigned long int thresholdNumber; /* maximum number for a half ticket number */
 
@@ -28,7 +23,11 @@ int main()
    if (numCount % 2 == 0 && numCount >= 4)
    {
       thresholdNumber = getLuckyThreshold(numCount / 2);
-      printf("%u", thresholdNumber);
+
+      for (size_t i = 1; i <= thresholdNumber; ++i)
+      {
+         printf("Separated number's sum of %d is:\t%d\n", i, calculateIndividualNumberSum(i));
+      }
    }
    else
    {
@@ -66,6 +65,7 @@ static unsigned long int getLuckyThreshold(const unsigned int halfTicketNum)
 
 /**
  * \brief Calculate individual number summary
+ * \details For example separated sum for 1234 is 1+2+3+4=10
  * \param number - Number to be separately calculated
  * \return Individual number summary
  */
