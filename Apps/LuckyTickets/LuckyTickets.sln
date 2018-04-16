@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LuckyTickets.App", "LuckyTickets.App\LuckyTickets.App.vcxproj", "{D0640F5C-C199-4714-92AC-A1E843652CD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0640F5C-C199-4714-92AC-A1E843652CD4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D0640F5C-C199-4714-92AC-A1E843652CD4}.Debug|Win32.Build.0 = Debug|Win32
+		{D0640F5C-C199-4714-92AC-A1E843652CD4}.Release|Win32.ActiveCfg = Release|Win32
+		{D0640F5C-C199-4714-92AC-A1E843652CD4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

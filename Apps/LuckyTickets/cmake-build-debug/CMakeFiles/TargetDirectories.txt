@@ -1,3 +1,0 @@
-F:/Public/CppAppDev/Apps/LuckyTickets/cmake-build-debug/CMakeFiles/edit_cache.dir
-F:/Public/CppAppDev/Apps/LuckyTickets/cmake-build-debug/CMakeFiles/LuckyTickets.dir
-F:/Public/CppAppDev/Apps/LuckyTickets/cmake-build-debug/CMakeFiles/rebuild_cache.dir
