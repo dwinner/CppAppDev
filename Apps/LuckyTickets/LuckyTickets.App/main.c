@@ -15,7 +15,7 @@ static unsigned int calculateIndividualNumberSum(unsigned int number);
 int main()
 {
    unsigned int val = 5311;
-   unsigned int separatedSum = calculateIndividualNumberSum(val);   
+   unsigned int separatedSum = calculateIndividualNumberSum(val);
 
    printf("%u", separatedSum);
 
@@ -73,14 +73,16 @@ static unsigned int calculateIndividualNumberSum(unsigned int number)
 {
    /* Local declarations */
    unsigned int separatedSum = 0;
+   unsigned int stepAccumulator;
 
    /* Code */
    do
    {
-      const unsigned int temp = number % 10;
+      stepAccumulator = number % 10;
       number = (unsigned int)((double)number / 10);
-      separatedSum += temp;
-   } while (number != 0);
+      separatedSum += stepAccumulator;
+   }
+   while (number != 0);
 
    return separatedSum;
 }
