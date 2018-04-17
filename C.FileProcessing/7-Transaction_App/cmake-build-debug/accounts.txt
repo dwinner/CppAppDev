@@ -1,0 +1,3 @@
+Acct  Last name       First name    Balance
+2     Gorohov         Roman       258041.10
+7     Shumakov        Serg         70000.50
