@@ -1,4 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2017.2.1\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\TODO\7-Transaction_App
--- Configuring done
--- Generating done
--- Build files have been written to: D:/TODO/7-Transaction_App/cmake-build-debug

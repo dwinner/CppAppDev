@@ -1,0 +1,3 @@
+F:/Public/CppAppDev/C.FileProcessing/10-Standart-IO/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+F:/Public/CppAppDev/C.FileProcessing/10-Standart-IO/cmake-build-debug/CMakeFiles/10_Standart_IO.dir
+F:/Public/CppAppDev/C.FileProcessing/10-Standart-IO/cmake-build-debug/CMakeFiles/edit_cache.dir

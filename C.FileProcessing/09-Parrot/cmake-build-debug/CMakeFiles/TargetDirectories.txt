@@ -1,0 +1,3 @@
+F:/Public/CppAppDev/C.FileProcessing/9-Parrot/cmake-build-debug/CMakeFiles/9_Parrot.dir
+F:/Public/CppAppDev/C.FileProcessing/9-Parrot/cmake-build-debug/CMakeFiles/edit_cache.dir
+F:/Public/CppAppDev/C.FileProcessing/9-Parrot/cmake-build-debug/CMakeFiles/rebuild_cache.dir

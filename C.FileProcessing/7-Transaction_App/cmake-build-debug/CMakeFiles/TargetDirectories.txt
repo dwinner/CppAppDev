@@ -1,3 +1,0 @@
-D:/TODO/7-Transaction_App/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-D:/TODO/7-Transaction_App/cmake-build-debug/CMakeFiles/7_Transaction_App.dir
-D:/TODO/7-Transaction_App/cmake-build-debug/CMakeFiles/edit_cache.dir
