@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 // self-referential structure                       
-struct listNode {                                      
+struct listNode {
    char data; // each listNode contains a character 
    struct listNode *nextPtr; // pointer to next node
 }; 
@@ -116,7 +116,7 @@ void insert(ListNodePtr *sPtr, char value)
 
 // delete a list element
 char delete(ListNodePtr *sPtr, char value)
-{ 
+{
    // delete first node if a match is found
    if (value == (*sPtr)->data) { 
       ListNodePtr tempPtr = *sPtr; // hold onto node being removed
@@ -148,13 +148,13 @@ char delete(ListNodePtr *sPtr, char value)
 
 // return 1 if the list is empty, 0 otherwise
 int isEmpty(ListNodePtr sPtr)
-{ 
+{
    return sPtr == NULL;
 } 
 
 // print the list
 void printList(ListNodePtr currentPtr)
-{ 
+{
    // if list is empty
    if (isEmpty(currentPtr)) {
       puts("List is empty.\n");
