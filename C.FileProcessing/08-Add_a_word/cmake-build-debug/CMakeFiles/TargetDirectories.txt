@@ -1,3 +1,0 @@
-F:/Public/CppAppDev/C.FileProcessing/8-Add_a_word/cmake-build-debug/CMakeFiles/edit_cache.dir
-F:/Public/CppAppDev/C.FileProcessing/8-Add_a_word/cmake-build-debug/CMakeFiles/8_Add_a_word.dir
-F:/Public/CppAppDev/C.FileProcessing/8-Add_a_word/cmake-build-debug/CMakeFiles/rebuild_cache.dir
