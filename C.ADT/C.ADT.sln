@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linked lists", "Linked list
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ListNodeSample", "Linked lists\ListNodeSample\ListNodeSample.vcxproj", "{5DEEE24A-E77A-48ED-B00C-B4D2EE8ECF78}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ListLib.Test", "Linked lists\ListLib.Test\ListLib.Test.vcxproj", "{93BEF0F0-6DB8-4446-9D53-A58C0E3DBB52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -23,11 +25,16 @@ Global
 		{5DEEE24A-E77A-48ED-B00C-B4D2EE8ECF78}.Debug|Win32.Build.0 = Debug|Win32
 		{5DEEE24A-E77A-48ED-B00C-B4D2EE8ECF78}.Release|Win32.ActiveCfg = Release|Win32
 		{5DEEE24A-E77A-48ED-B00C-B4D2EE8ECF78}.Release|Win32.Build.0 = Release|Win32
+		{93BEF0F0-6DB8-4446-9D53-A58C0E3DBB52}.Debug|Win32.ActiveCfg = Debug|Win32
+		{93BEF0F0-6DB8-4446-9D53-A58C0E3DBB52}.Debug|Win32.Build.0 = Debug|Win32
+		{93BEF0F0-6DB8-4446-9D53-A58C0E3DBB52}.Release|Win32.ActiveCfg = Release|Win32
+		{93BEF0F0-6DB8-4446-9D53-A58C0E3DBB52}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5DEEE24A-E77A-48ED-B00C-B4D2EE8ECF78} = {36E1F40A-A013-4C61-B193-4535E2CEF965}
+		{93BEF0F0-6DB8-4446-9D53-A58C0E3DBB52} = {36E1F40A-A013-4C61-B193-4535E2CEF965}
 	EndGlobalSection
 EndGlobal
