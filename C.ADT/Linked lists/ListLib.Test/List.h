@@ -3,7 +3,6 @@
  */
 
 #ifndef LIST_H
-
 #define LIST_H
 
 #include <stdbool.h>
@@ -78,10 +77,9 @@ bool isEmpty(const List* pList);
 
 /**
  * \brief Determine if list is full
- * \param pList List pointer which points to an initialized list
  * \return True if list is full, False - otherwise
  */
-bool isFull(const List* pList);
+bool isFull();
 
 /**
  * \brief Determine number of items in list

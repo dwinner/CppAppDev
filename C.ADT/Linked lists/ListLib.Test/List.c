@@ -19,14 +19,16 @@ void initializeList(List* pList)
 
 bool isEmpty(const List* pList)
 {
-   return *pList == NULL ? true : false;
+   return *pList == NULL;
 }
 
-bool isFull(const List* pList)
+bool isFull()
 {
+   bool allocated;
    Node* pt = (Node*)malloc(sizeof(Node));
+   allocated = pt != NULL;
    free(pt);
-   return pt == NULL;
+   return allocated;
 }
 
 unsigned getItemCount(const List* pList)
@@ -43,7 +45,7 @@ unsigned getItemCount(const List* pList)
    return count;
 }
 
-bool addItem(Item item, List* pList)
+bool addItem(const Item item, List* pList)
 {
    Node* pNew;
    Node* scan = *pList;
@@ -101,7 +103,7 @@ void makeEmpty(List* pList)
  * \param item Item to copy
  * \param pNode pointer to node where the item will be copied
  */
-static void copyToNode(Item item, Node* pNode)
+static void copyToNode(const Item item, Node* pNode)
 {
    pNode->item = item; /* structure copy */
 }
