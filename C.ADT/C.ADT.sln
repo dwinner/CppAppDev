@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ListLib.Test", "Linked list
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FilmsNotAdt", "Linked lists\FilmsNotAdt\FilmsNotAdt.vcxproj", "{92464474-7023-474A-99C2-AF385C6B1B85}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StackImpl", "StackImpl\StackImpl.vcxproj", "{E56E1C18-FFEA-4270-A778-8DADD8555CFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -35,6 +37,10 @@ Global
 		{92464474-7023-474A-99C2-AF385C6B1B85}.Debug|Win32.Build.0 = Debug|Win32
 		{92464474-7023-474A-99C2-AF385C6B1B85}.Release|Win32.ActiveCfg = Release|Win32
 		{92464474-7023-474A-99C2-AF385C6B1B85}.Release|Win32.Build.0 = Release|Win32
+		{E56E1C18-FFEA-4270-A778-8DADD8555CFE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E56E1C18-FFEA-4270-A778-8DADD8555CFE}.Debug|Win32.Build.0 = Debug|Win32
+		{E56E1C18-FFEA-4270-A778-8DADD8555CFE}.Release|Win32.ActiveCfg = Release|Win32
+		{E56E1C18-FFEA-4270-A778-8DADD8555CFE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
