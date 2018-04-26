@@ -5,24 +5,22 @@
 
 bool push(StackNode* topPtr, const int info)
 {
-   bool isSpaceAvl;
+   bool isSpaceAvailable;
    StackNode* newPtr = (StackNode*)malloc(sizeof(StackNode));
 
    // insert the node at the top of the stack
    if (newPtr != NULL)
    {
       newPtr->data = info;
-      newPtr->nextPtr = topPtr;
-      topPtr = newPtr;
-      //*topPtr = *newPtr;
-      isSpaceAvl = true;
+      newPtr->nextPtr = topPtr != NULL ? topPtr : NULL;      
+      isSpaceAvailable = true;
    }
    else
    {      
-      isSpaceAvl = false;
+      isSpaceAvailable = false;
    }
 
-   return isSpaceAvl;
+   return isSpaceAvailable;
 }
 
 int pop(StackNode* topPtr)
