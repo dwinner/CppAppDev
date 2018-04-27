@@ -23,28 +23,24 @@ struct stackNode
  */
 typedef struct stackNode StackNode;
 
-/**
- * \brief Synonym for StackNode*
- */
-//typedef StackNode* StackNodePtr;
-
 /************************************************************************/
 /* Prototypes                                                     */
 /************************************************************************/
 
 /**
  * \brief Insert a node at the stack top
- * \param topPtr Top of the stack
+ * \param topPtr Pointer to top of the stack
  * \param info Data to push
+ * \return true, if push-operation was successfull, false - otherwise
  */
-bool push(StackNode* topPtr, int info);
+bool push(StackNode** topPtr, int info);
 
 /**
  * \brief Remove a node from the top of the stack
- * \param topPtr The top of the stack
+ * \param topPtr Pointer to the top of the stack
  * \return Poped element
  */
-int pop(StackNode* topPtr);
+int pop(StackNode** topPtr);
 
 /**
  * \brief Check whether the stack is empty

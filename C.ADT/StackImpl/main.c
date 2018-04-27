@@ -27,7 +27,7 @@ int main()
       case 1:
          printf("%s", "Enter an integer: ");
          scanf_s("%d", &value);
-         if (push(stackPtr, value))
+         if (push(&stackPtr, value))
          {
             printStack(stackPtr);
          }
@@ -43,7 +43,7 @@ int main()
          // if stack is not empty
          if (!isEmpty(stackPtr))
          {
-            printf("The popped value is %d.\n", pop(stackPtr));
+            printf("The popped value is %d.\n", pop(&stackPtr));
          }
 
          printStack(stackPtr);

@@ -3,33 +3,29 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-bool push(StackNode* topPtr, const int info)
+bool push(StackNode** topPtr, const int info)
 {
-   bool isSpaceAvailable;
    StackNode* newPtr = (StackNode*)malloc(sizeof(StackNode));
 
    // insert the node at the top of the stack
    if (newPtr != NULL)
    {
       newPtr->data = info;
-      newPtr->nextPtr = topPtr != NULL ? topPtr : NULL;      
-      isSpaceAvailable = true;
-   }
-   else
-   {      
-      isSpaceAvailable = false;
+      newPtr->nextPtr = *topPtr;
+      *topPtr = newPtr;
+
+      return true;
    }
 
-   return isSpaceAvailable;
+   return false;
 }
 
-int pop(StackNode* topPtr)
+int pop(StackNode** topPtr)
 {
-   StackNode* tempPtr = topPtr;
-   const int popValue = topPtr->data;
-   topPtr = topPtr->nextPtr;   
+   StackNode* tempPtr = *topPtr;
+   const int popValue = (*topPtr)->data;
+   *topPtr = (*topPtr)->nextPtr;
    free(tempPtr);
-
    return popValue;
 }
 
