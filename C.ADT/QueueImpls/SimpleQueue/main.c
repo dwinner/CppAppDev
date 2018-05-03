@@ -35,8 +35,8 @@ void instructions();
 
 int main(void)
 {
-   QueueNodePtr headPtr = NULL; // initialize headPtr
-   QueueNodePtr tailPtr = NULL; // initialize tailPtr
+   QueueNodePtr head_ptr = NULL; // initialize headPtr
+   QueueNodePtr tail_ptr = NULL; // initialize tailPtr
    char item; // char input by user
 
    instructions(); // display the menu
@@ -51,10 +51,10 @@ int main(void)
       {
       case 1: // enqueue value
          printf("%s", "Enter a character: ");
-         scanf_s("%c\n", &item); // BUG: In scanning characters
-         if (enqueue(&headPtr, &tailPtr, item))
+         scanf_s("\n%c", &item); // BUG: In scanning characters
+         if (enqueue(&head_ptr, &tail_ptr, item))
          {
-            printQueue(headPtr);
+            printQueue(head_ptr);
          }
          else
          {
@@ -65,13 +65,13 @@ int main(void)
 
       case 2: // dequeue value
          // if queue is not empty
-         if (!isEmpty(headPtr))
+         if (!isEmpty(head_ptr))
          {
-            item = dequeue(&headPtr, &tailPtr);
+            item = dequeue(&head_ptr, &tail_ptr);
             printf("%c has been dequeued.\n", item);
          }
 
-         printQueue(headPtr);
+         printQueue(head_ptr);
          break;
 
       default:
