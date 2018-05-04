@@ -21,6 +21,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleQueue", "QueueImpls\S
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QueueSample", "QueueImpls\QueueSample\QueueSample.vcxproj", "{9B6212B3-72A4-4949-8CF5-FD98A0FAA987}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trees", "Trees", "{16E2E763-1F13-457F-9117-95AB3FFDD05B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleBinaryTree", "Trees\SimpleBinaryTree\SimpleBinaryTree.vcxproj", "{938501E1-6C0E-4D75-95FF-E7AE2E541F35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,6 +59,10 @@ Global
 		{9B6212B3-72A4-4949-8CF5-FD98A0FAA987}.Debug|Win32.Build.0 = Debug|Win32
 		{9B6212B3-72A4-4949-8CF5-FD98A0FAA987}.Release|Win32.ActiveCfg = Release|Win32
 		{9B6212B3-72A4-4949-8CF5-FD98A0FAA987}.Release|Win32.Build.0 = Release|Win32
+		{938501E1-6C0E-4D75-95FF-E7AE2E541F35}.Debug|Win32.ActiveCfg = Debug|Win32
+		{938501E1-6C0E-4D75-95FF-E7AE2E541F35}.Debug|Win32.Build.0 = Debug|Win32
+		{938501E1-6C0E-4D75-95FF-E7AE2E541F35}.Release|Win32.ActiveCfg = Release|Win32
+		{938501E1-6C0E-4D75-95FF-E7AE2E541F35}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +73,6 @@ Global
 		{92464474-7023-474A-99C2-AF385C6B1B85} = {36E1F40A-A013-4C61-B193-4535E2CEF965}
 		{32B25A8D-5416-47B4-9E0B-4944F0566647} = {14BB5FE9-0A47-4CB7-AEA1-40B991550AF3}
 		{9B6212B3-72A4-4949-8CF5-FD98A0FAA987} = {14BB5FE9-0A47-4CB7-AEA1-40B991550AF3}
+		{938501E1-6C0E-4D75-95FF-E7AE2E541F35} = {16E2E763-1F13-457F-9117-95AB3FFDD05B}
 	EndGlobalSection
 EndGlobal
