@@ -11,15 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0abc8361-f0a1-41a3-9fe4-81dd913a2ef0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../../@ToCode/C.DataStructures/petclub.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../@ToCode/C.DataStructures/tree.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../@ToCode/C.DataStructures/tree.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../C.ADT/C.ADT.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../../C.ADT/C.ADT.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emsapop.c" beforeDir="false" afterPath="$PROJECT_DIR$/emsapop.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emsapop.h" beforeDir="false" afterPath="$PROJECT_DIR$/emsapop.h" afterDir="false" />
-    </list>
+    <list default="true" id="0abc8361-f0a1-41a3-9fe4-81dd913a2ef0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,8 +35,8 @@
       <file leaf-file-name="emsapop.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/emsapop.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="320">
+              <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
               <folding>
                 <element signature="e#77#95#0" expanded="true" />
               </folding>
@@ -55,8 +47,8 @@
       <file leaf-file-name="emsapop.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/emsapop.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="500">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -149,18 +141,19 @@
       <workItem from="1525534615308" duration="235000" />
       <workItem from="1525534884117" duration="242000" />
       <workItem from="1525551369782" duration="1417000" />
+      <workItem from="1525585734000" duration="243000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2243000" />
+    <option name="totallyTimeSpent" value="2486000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21875" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3284055" />
       <window_info anchor="bottom" id="CMake" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
@@ -176,6 +169,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3284055" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +184,30 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emsapop.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emsapop.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#77#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -268,15 +286,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/emsapop.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="500">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/emsapop.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="320">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
             <element signature="e#77#95#0" expanded="true" />
           </folding>
