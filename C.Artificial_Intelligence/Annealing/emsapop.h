@@ -22,13 +22,13 @@ void initializePopulation(void);
  * \brief Randomly perturb an encoded solution
  * \param member Member
  */
-void tweakSolution(Member_type* member);
+void tweakSolution(Member_type *restrict member);
 
 /**
  * \brief Emit a solution in chessboard form
  * \param member Member
  */
-void emitSolution(Member_type* member);
+void emitSolution(Member_type *member);
 
 /**
  * \brief Calculates the energy of the passed solution.
@@ -38,7 +38,7 @@ void emitSolution(Member_type* member);
  * \param member Member
  * \return Computed energy
  */
-float computeEnergy(Member_type* member);
+float computeEnergy(Member_type *member);
 
 /**
  * \brief Perform the simulated annealing algorithm

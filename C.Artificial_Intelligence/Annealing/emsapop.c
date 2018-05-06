@@ -68,7 +68,7 @@ void initializePopulation()
    }
 }
 
-void tweakSolution(Member_type* member)
+void tweakSolution(Member_type *restrict member)
 {
    int temp, x, y;
 
@@ -76,20 +76,19 @@ void tweakSolution(Member_type* member)
    do
    {
       y = GET_RAND(MAX_LENGTH);
-   }
-   while (x == y);
+   } while (x == y);
 
    temp = member->solution[x];
    member->solution[x] = member->solution[y];
    member->solution[y] = temp;
 }
 
-void emitSolution(Member_type* member)
+void emitSolution(Member_type *member)
 {
    char board[MAX_LENGTH][MAX_LENGTH];
    int x, y;
 
-   memset((void*)board, 0, sizeof(char) * MAX_LENGTH * MAX_LENGTH);
+   memset((void *) board, 0, sizeof(char) * MAX_LENGTH * MAX_LENGTH);
 
    for (x = 0; x < MAX_LENGTH; x++)
    {
@@ -111,7 +110,7 @@ void emitSolution(Member_type* member)
    printf("\n\n");
 }
 
-float computeEnergy(Member_type* member)
+float computeEnergy(Member_type *member)
 {
    int i, j, x, y, tempX, tempY;
    char board[MAX_LENGTH][MAX_LENGTH];
@@ -119,7 +118,7 @@ float computeEnergy(Member_type* member)
    const int dx[DIAG_CHECK_COUNT] = {-1, 1, -1, 1};
    const int dy[DIAG_CHECK_COUNT] = {-1, 1, 1, -1};
 
-   memset((void*)board, 0, sizeof(char) * MAX_LENGTH * MAX_LENGTH);
+   memset((void *) board, 0, sizeof(char) * MAX_LENGTH * MAX_LENGTH);
 
    for (i = 0; i < MAX_LENGTH; i++)
    {
@@ -145,7 +144,7 @@ float computeEnergy(Member_type* member)
          tempX = x;
          tempY = y;
 
-         while ((_Bool)1)
+         while ((_Bool) 1)
          {
             tempX += dx[j];
             tempY += dy[j];
@@ -163,7 +162,7 @@ float computeEnergy(Member_type* member)
       }
    }
 
-   return (float)conflicts;
+   return (float) conflicts;
 }
 
 int simulateAnnealing(const float curTemp)
