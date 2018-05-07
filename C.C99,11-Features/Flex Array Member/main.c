@@ -1,26 +1,27 @@
 /**
- * Flexible array member
+ * Член типа гибкого массива
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 
 struct flex
 {
-   int count;
+   size_t count;
    double average;
-   double scores[];   // flexible array member
+   double scores[];  // член с типом гибкого массива
 };
 
-void showFlex(const struct flex * p);
+void showFlex(const struct flex *p);
 
-int main(void)
+int main()
 {
-   struct flex * pf1, *pf2;
-   int n = 5;
+   struct flex *pf1, *pf2;
+   size_t n = 5;
    int i;
    int tot = 0;
 
-   // allocate space for structure plus array
+   // выделение памяти для структуры и массива
    pf1 = malloc(sizeof(struct flex) + n * sizeof(double));
    pf1->count = n;
    for (i = 0; i < n; i++)
@@ -29,7 +30,7 @@ int main(void)
       tot += pf1->scores[i];
    }
 
-   pf1->average = tot / n;
+   pf1->average = (double) tot / n;
    showFlex(pf1);
 
    n = 9;
@@ -42,20 +43,19 @@ int main(void)
       tot += pf2->scores[i];
    }
 
-   pf2->average = tot / n;
+   pf2->average = (double) tot / n;
    showFlex(pf2);
    free(pf1);
    free(pf2);
 
-   return 0;
+   return EXIT_SUCCESS;
 }
 
-void showFlex(const struct flex * p)
+void showFlex(const struct flex *restrict p)
 {
    int i;
-   printf("Scores : ");
+   printf("Ratings: ");
    for (i = 0; i < p->count; i++)
       printf("%g ", p->scores[i]);
-
-   printf("\nAverage: %g\n", p->average);
+   printf("\nAverage value: %g\n", p->average);
 }
