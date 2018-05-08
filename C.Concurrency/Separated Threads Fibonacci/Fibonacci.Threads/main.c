@@ -79,13 +79,13 @@ int main(void)
 
    // determine time that first thread started
    const time_t startTime = data[0].startTime < data[1].startTime
-                         ? data[0].startTime
-                         : data[1].startTime;
+                               ? data[0].startTime
+                               : data[1].startTime;
 
    // determine time that last thread terminated
    const time_t endTime = data[0].endTime > data[1].endTime
-                       ? data[0].endTime
-                       : data[1].endTime;
+                             ? data[0].endTime
+                             : data[1].endTime;
 
    // display total time for calculations
    printf("Total calculation time = %f minutes\n",
