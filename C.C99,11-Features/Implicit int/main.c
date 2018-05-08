@@ -1,5 +1,7 @@
-// Fig. E.6: figE_06.c
-// Using implicit int prior to C99 
+/**
+ * Using implicit int prior to C99
+ */
+
 #include <stdio.h>
 
 returnImplicitInt(); // prototype with unspecified return type 
@@ -15,12 +17,14 @@ int main(void)
 
    printf("x is %d\n", x);
    printf("y is %d\n", y);
-}  
+
+   return 0;
+}
 
 returnImplicitInt()
 {
    return 77; // returning an int when return type is not specified 
-} 
+}
 
 int demoImplicitInt(x)
 {
