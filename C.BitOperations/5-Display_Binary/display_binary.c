@@ -9,7 +9,7 @@ void showBstr(const char*);
 
 int main(void)
 {
-   char binStr[8 * sizeof(int) + 1];
+   char binStr[CHAR_BIT * sizeof(int) + 1];
    int number;
 
    puts("Enter integers and see them in binary.");
