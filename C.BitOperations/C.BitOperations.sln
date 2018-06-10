@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "6-Dualview", "6-Dualview\6-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7-Inverting", "7-Inverting\7-Inverting.vcxproj", "{503C0BF3-FB39-4300-A952-203EFBAEC881}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "8-Settings", "8-Settings\8-Settings.vcxproj", "{2DE91F48-129D-443F-ADA9-2CA760DB87B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -51,6 +53,10 @@ Global
 		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Debug|Win32.Build.0 = Debug|Win32
 		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Release|Win32.ActiveCfg = Release|Win32
 		{503C0BF3-FB39-4300-A952-203EFBAEC881}.Release|Win32.Build.0 = Release|Win32
+		{2DE91F48-129D-443F-ADA9-2CA760DB87B5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2DE91F48-129D-443F-ADA9-2CA760DB87B5}.Debug|Win32.Build.0 = Debug|Win32
+		{2DE91F48-129D-443F-ADA9-2CA760DB87B5}.Release|Win32.ActiveCfg = Release|Win32
+		{2DE91F48-129D-443F-ADA9-2CA760DB87B5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
