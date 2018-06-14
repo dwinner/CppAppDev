@@ -5,6 +5,8 @@
 #define SIZE 10
 void show_array(const int ar[], int n);
 
+_Static_assert(sizeof(double) == 2 * sizeof(int), "double doesn't have 2x from int");
+
 int main()
 {
     int values[SIZE] = {1,2,3,4,5,6,7,8,9,10};

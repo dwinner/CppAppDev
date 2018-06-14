@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="GenericVariants" targetName="GenericVariants" />
+      <config projectName="Palindrom" targetName="Palindrom" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -11,8 +11,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="812bcfe8-e83d-4274-a90d-d6191cb84118" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../../@ToCode/03-C.Misc/Use_Noreturn.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../@ToCode/03-C.Misc/Use_Noreturn.c" afterDir="false" />
+    <list default="true" id="ae9da2f1-b62e-46c1-bcd7-ef3d07283bd8" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../C.C99,11-Features/StaticAssert/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/1-Var_Args.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/2-Cmd_Args.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/Use_Noreturn.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/Use_Noreturn.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/mems.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/mems.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../@ToCode/03-C.Misc/varargs.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../C.C99,11-Features/GenericVariants/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../C.C99,11-Features/GenericVariants/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,7 +33,7 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -42,16 +48,13 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="44" />
-    <option name="y" value="66" />
+    <option name="x" value="510" />
+    <option name="y" value="175" />
     <option name="width" value="1219" />
     <option name="height" value="859" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -78,12 +81,12 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.GenericVariants">
-    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="GenericVariants" RUN_TARGET_NAME="GenericVariants" EXPLICIT_BUILD_TARGET_NAME="all" />
-    <configuration name="GenericVariants" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="GenericVariants" TARGET_NAME="GenericVariants" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="GenericVariants" RUN_TARGET_NAME="GenericVariants" />
+  <component name="RunManager" selected="Application.Palindrom">
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all" />
+    <configuration name="Palindrom" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Palindrom" TARGET_NAME="Palindrom" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Palindrom" RUN_TARGET_NAME="Palindrom" />
     <list>
       <item itemvalue="Application.Build All" />
-      <item itemvalue="Application.GenericVariants" />
+      <item itemvalue="Application.Palindrom" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -91,23 +94,23 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="812bcfe8-e83d-4274-a90d-d6191cb84118" name="Default" comment="" />
-      <created>1528664466897</created>
+      <changelist id="ae9da2f1-b62e-46c1-bcd7-ef3d07283bd8" name="Default" comment="" />
+      <created>1528701652235</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1528664466897</updated>
-      <workItem from="1528664468186" duration="1979000" />
-      <workItem from="1528699349449" duration="87000" />
+      <updated>1528701652235</updated>
+      <workItem from="1528701653511" duration="1662000" />
+      <workItem from="1528714169336" duration="51000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2066000" />
+    <option name="totallyTimeSpent" value="1713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21548998" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="CMake" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -121,10 +124,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32900432" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32900432" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,15 +139,28 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="147">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#54#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/5.1.0/include/stdbool.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#54#72#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

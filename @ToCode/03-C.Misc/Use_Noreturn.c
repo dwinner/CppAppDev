@@ -1,0 +1,1 @@
+Use _Noreturn macro in these examples
