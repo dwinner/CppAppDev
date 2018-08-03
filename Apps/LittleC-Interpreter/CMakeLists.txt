@@ -3,4 +3,9 @@ project(LittleC_Interpreter C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(LittleC_Interpreter main.c lclib.h lclib.c)
+include_directories(.)
+
+add_executable(LittleC_Interpreter
+        lclib.c
+        lclib.h
+        main.c parser.c parser.h)
