@@ -1,38 +1,3 @@
-/* These are the constants used to call sntx_err() when
-   a syntax error occurs. Add more if you like.
-   NOTE: SYNTAX is a generic error message used when
-   nothing else seems appropriate.
-*/
-enum error_msg
-{
-	SYNTAX, UNBAL_PARENS, NO_EXP, EQUALS_EXPECTED,
-	NOT_VAR, PARAM_ERR, SEMI_EXPECTED,
-	UNBAL_BRACES, FUNC_UNDEF, TYPE_EXPECTED,
-	NEST_FUNC, RET_NOCALL, PAREN_EXPECTED,
-	WHILE_EXPECTED, QUOTE_EXPECTED, NOT_TEMP,
-	TOO_MANY_LVARS, DIV_BY_ZERO
-};
-
-extern char *prog;  /* current location in source code */
-extern char *p_buf;  /* points to start of program buffer */
-extern jmp_buf e_buf; /* hold environment for longjmp() */
-
-/* An array of these structures will hold the info
-   associated with global variables.
-*/
-extern struct var_type {
-	char var_name[ID_LEN];
-	int v_type;
-	int value;
-}  global_vars[NUM_GLOBAL_VARS];
-
-/*  This is the function call stack. */
-extern struct func_type {
-	char func_name[ID_LEN];
-	int ret_type;
-	char *loc;  /* location of function entry point in file */
-} func_stack[NUM_FUNC];
-
 /* Keyword table */
 extern struct commands {
 	char command[20];

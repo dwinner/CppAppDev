@@ -67,4 +67,68 @@ enum doubleOps
    NE
 };
 
+/**
+ * These are the constants used to call sntxErr() when
+ * a syntax error occurs. Add more if you like.
+ * NOTE: Syntax is a generic error message used when
+ * nothing else seems appropriate.
+ */
+enum errorMsg
+{
+   SYNTAX,
+   UNBAL_PARENS,
+   NO_EXP,
+   EQUALS_EXPECTED,
+   NOT_VAR,
+   PARAM_ERR,
+   SEMI_EXPECTED,
+   UNBAL_BRACES,
+   FUNC_UNDEF,
+   TYPE_EXPECTED,
+   NEST_FUNC,
+   RET_NOCALL,
+   PAREN_EXPECTED,
+   WHILE_EXPECTED,
+   QUOTE_EXPECTED,
+   NOT_TEMP,
+   TOO_MANY_LVARS,
+   DIV_BY_ZERO
+};
+
+/**
+ * Current location in source code
+ */
+extern char *prog;
+
+/**
+ * Points to start of program buffer
+ */
+extern char *p_buf;
+
+/**
+ * Hold environment for longjmp()
+ */
+extern jmp_buf e_buf;
+
+/**
+ * An array of these structures will hold the
+ * info associated with global variables.
+ */
+extern struct var_type
+{
+   char var_name[ID_LEN];
+   int v_type;
+   int value;
+} global_vars[NUM_GLOBAL_VARS];
+
+/**
+ * Function call stack
+ */
+extern struct func_type
+{
+   char func_name[ID_LEN];
+   int ret_type;
+   char *loc;  /* location in function entry point in file */
+} func_stack[NUM_FUNC];
+
 #endif //LITTLEC_INTERPRETER_PARSER_H
