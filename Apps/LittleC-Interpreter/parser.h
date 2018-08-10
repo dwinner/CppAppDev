@@ -18,4 +18,53 @@
 #define PROG_SIZE          10000
 #define FOR_NEST           31
 
+/**
+ * Token types
+ */
+enum tokTypes
+{
+   DELIMETER,
+   IDENTIFIER,
+   NUMBER,
+   KEYWORD,
+   TEMP,
+   STRING,
+   BLOCK
+};
+
+/**
+ * Tokens
+ */
+enum tokens
+{
+   ARG,
+   CHAR,
+   INT,
+   IF,
+   ELSE,
+   FOR,
+   DO,
+   WHILE,
+   SWITCH,
+   RETURN,
+   CONTINUE,
+   BREAK,
+   EOL,
+   FINISHED,
+   END
+};
+
+/**
+ * Operations with 2 operands
+ */
+enum doubleOps
+{
+   LT = 1,
+   LE,
+   GT,
+   GE,
+   EQ,
+   NE
+};
+
 #endif //LITTLEC_INTERPRETER_PARSER_H

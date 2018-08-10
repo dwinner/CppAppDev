@@ -1,15 +1,3 @@
-enum tok_types {
-	DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
-	TEMP, STRING, BLOCK
-};
-
-enum tokens {
-	ARG, CHAR, INT, IF, ELSE, FOR, DO, WHILE,
-	SWITCH, RETURN, CONTINUE, BREAK, EOL, FINISHED, END
-};
-
-enum double_ops { LT = 1, LE, GT, GE, EQ, NE };
-
 /* These are the constants used to call sntx_err() when
    a syntax error occurs. Add more if you like.
    NOTE: SYNTAX is a generic error message used when
