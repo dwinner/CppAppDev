@@ -194,7 +194,7 @@ extern int ret_value;
 
 void eval_exp0(int* value);
 
-void eval_exp(int* value);
+void evalExp(int* value);
 
 void eval_exp1(int* value);
 
