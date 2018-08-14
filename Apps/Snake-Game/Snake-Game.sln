@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnakeApp", "SnakeApp\SnakeApp.vcxproj", "{6BE618F3-4F6C-4AC3-B324-899A061C3D84}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnakeApp", "SnakeApp\SnakeApp.vcxproj", "{60B2E881-D7F2-445A-BF99-B995F6443DE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6BE618F3-4F6C-4AC3-B324-899A061C3D84}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6BE618F3-4F6C-4AC3-B324-899A061C3D84}.Debug|Win32.Build.0 = Debug|Win32
-		{6BE618F3-4F6C-4AC3-B324-899A061C3D84}.Release|Win32.ActiveCfg = Release|Win32
-		{6BE618F3-4F6C-4AC3-B324-899A061C3D84}.Release|Win32.Build.0 = Release|Win32
+		{60B2E881-D7F2-445A-BF99-B995F6443DE3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{60B2E881-D7F2-445A-BF99-B995F6443DE3}.Debug|Win32.Build.0 = Debug|Win32
+		{60B2E881-D7F2-445A-BF99-B995F6443DE3}.Release|Win32.ActiveCfg = Release|Win32
+		{60B2E881-D7F2-445A-BF99-B995F6443DE3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

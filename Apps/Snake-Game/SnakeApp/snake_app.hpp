@@ -1,6 +1,10 @@
 ﻿#ifndef SNAKEAPP_HPP_H
 #define SNAKEAPP_HPP_H
-#include "stdafx.h"
+
+#if !defined(WIN32)
+#define WIN32
+#endif
+
 #include <iostream>
 #include <cstdio>
 #include <ctime>
@@ -122,7 +126,6 @@ void show_table();
  * \brief Очищаем координаты, в которых располагалась змейка
  */
 void clear_snake_on_table();
-
 
 
 #endif // SNAKEAPP_HPP_H

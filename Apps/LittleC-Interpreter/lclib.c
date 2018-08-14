@@ -98,8 +98,6 @@ int getNum(void)
       prog++;  /* advance to end of line */
       return atoi(s);
    }
-   else
-   {
-      return 0;
-   }
+
+   return 0;
 }
