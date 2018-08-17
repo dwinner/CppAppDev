@@ -208,3 +208,138 @@ void eval_exp5(int* value)
       atom(value);
    }
 }
+
+/**
+ * \brief Find value of number, variable, or function
+ * \param value Value to parse
+ */
+void atom(int* value)
+{
+   int i;
+
+   switch (token_type)
+   {
+   case IDENTIFIER:
+      i = internal_func(token);
+      if (i != -1) /* call "standart library" function */
+      {
+         *value = (*intern_func[i].p)();
+      }
+      else if (find_func(token)) /* call user-defined function */
+      {
+         call();
+         *value = ret_value;
+      }
+      else
+      {
+         *value = find_var(token); /* get var's value */
+      }
+
+      get_token();
+      return;
+   case NUMBER: /* is numeric constant */
+      *value = atoi(token);
+      get_token();
+      return;
+   case DELIMETER: /* see if character constant */
+      if (*token == '\'')
+      {
+         *value = *prog;
+         prog++;
+         if (*prog != '\'')
+         {
+            sntx_err(QUOTE_EXPECTED);
+         }
+
+         prog++;
+         get_token();
+         return;
+      }
+
+      if (*token == ')')
+      {
+         return; /* process empty expression */
+      }
+      sntx_err(SYNTAX); /* syntax error */
+      break;
+   default:
+      sntx_err(SYNTAX); /* syntax error */
+   }
+}
+
+/**
+ * \brief Display an error message
+ * \param error Error number
+ */
+void sntx_err(int error)
+{
+   char *p, *temp;
+   int linecount = 0;
+   register int i;
+
+   static char* e[] =
+   {
+      "syntax error",
+      "unbalanced parentheses",
+      "no expression present",
+      "equals sign expected",
+      "not a variable",
+      "parameter error",
+      "semicolon expected",
+      "unbalanced braces",
+      "function undefined",
+      "type specifier expected",
+      "too many nested function calls",
+      "return without call",
+      "parentheses expected",
+      "while expected",
+      "closing quote expected",
+      "not a string",
+      "too many local variables",
+      "division by zero"
+   };
+
+   printf("\n%s", e[error]);
+   p = p_buf;
+   while (p != prog && *p != '\0') /* find line number of error */
+   {
+      p++;
+      if (*p == '\r')
+      {
+         linecount++;
+         if (p == prog)
+         {
+            break;
+         }
+
+         /* See if this is a Windows or Mac newline */
+         p++;
+         /* If we are a mac, backtrack */
+         if (*p != '\n')
+         {
+            p--;
+         }
+      }
+      else if (*p == '\n')
+      {
+         linecount++;
+      }
+      else if (*p == '\0')
+      {
+         linecount++;
+      }
+   }
+
+   printf(" in line %d\n", linecount);
+   temp = p--;
+   for (i = 0; i < 20 && p > p_buf && *p != '\n' && *p != '\r'; i++, p--)
+   {
+   }
+
+   for (i = 0; i < 30 && p <= temp; i++, p++)
+   {
+      printf("%c", *p);
+   }
+
+   longjmp(e_buf, 1); /* return to safe point */
+}
