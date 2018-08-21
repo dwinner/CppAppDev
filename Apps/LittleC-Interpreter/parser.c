@@ -4,6 +4,10 @@
  */
 
 #include "parser.h"
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * \brief Process an assignment expression

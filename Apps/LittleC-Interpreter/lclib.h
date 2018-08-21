@@ -32,7 +32,7 @@ extern char tok;
 /**
  * Token types
  */
-enum tokTypes
+enum tok_types
 {
    DELIMETER,
    IDENTIFIER,

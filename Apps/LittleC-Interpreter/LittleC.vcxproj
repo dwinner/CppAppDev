@@ -79,6 +79,7 @@
     <ClCompile Include="parser.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common_defines.h" />
     <ClInclude Include="lclib.h" />
     <ClInclude Include="littlec.h" />
     <ClInclude Include="parser.h" />

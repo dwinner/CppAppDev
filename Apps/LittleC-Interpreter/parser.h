@@ -4,24 +4,12 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <setjmp.h>
-#include <math.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-#define NUM_FUNC           100
-#define NUM_GLOBAL_VARS    100
-#define NUM_LOCAL_VARS     200
-#define ID_LEN             32
-#define FUNC_CALLS         31
-#define PROG_SIZE          10000
-#define FOR_NEST           31
+#include "common_defines.h"
 
 /**
  * Token types
  */
-enum tokTypes
+enum tok_types
 {
    DELIMETER,
    IDENTIFIER,
@@ -55,7 +43,7 @@ enum tokens
 };
 
 /**
- * Operations with 2 operands
+ * Additional double operators here (such as ->)
  */
 enum doubleOps
 {
@@ -141,8 +129,8 @@ extern struct commands
 } table[];
 
 /************************************************************************/
-/* "standard library" functions are declared here so                *
- * they can be put into the internal function table that follows     */
+/* "standard library" functions are declared here so                    *
+ * they can be put into the internal function table that follows        */
 /************************************************************************/
 
 int call_getche(void), call_putch();
