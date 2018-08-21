@@ -74,11 +74,13 @@
     <ClCompile Include="cmake-build-debug\cmakefiles\3.10.2\compileridc\CMakeCCompilerId.c" />
     <ClCompile Include="cmake-build-debug\cmakefiles\feature_tests.c" />
     <ClCompile Include="lclib.c" />
+    <ClCompile Include="littlec.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="parser.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lclib.h" />
+    <ClInclude Include="littlec.h" />
     <ClInclude Include="parser.h" />
   </ItemGroup>
   <ItemGroup>

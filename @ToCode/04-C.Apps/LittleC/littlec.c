@@ -1,7 +1,3 @@
-/* A Little C interpreter. */
-
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 #include <setjmp.h>
 #include <math.h>

@@ -30,12 +30,18 @@
     <ClCompile Include="cmake-build-debug\cmakefiles\3.10.2\compileridc\CMakeCCompilerId.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="littlec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lclib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="littlec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -218,26 +218,26 @@ void sntx_err(int error);
 
 void putback(void);
 
-void assign_var(char *var_name, int value);
+void assign_var(char* var_name, int value);
 
 int isdelim(char c);
 
 int iswhite(char c);
 
-int find_var(char *s);
+int find_var(char* s);
 
-int internal_func(char *s);
+int internal_func(char* s);
 
-int is_var(char *s);
+int is_var(char* s);
 
-char *find_func(char *name);
+char* find_func(char* name);
 
-char look_up(char *s);
+char look_up(char* s);
 
 char get_token(void);
 
 void call(void);
 
-static void str_replace(char *line, const char* search, const char* replace);
+static void str_replace(char* line, const char* search, const char* replace);
 
 #endif //LITTLEC_INTERPRETER_PARSER_H

@@ -343,3 +343,371 @@ void sntx_err(int error)
 
    longjmp(e_buf, 1); /* return to safe point */
 }
+
+/**
+ * \brief Return a token to input stream
+ */
+void putback()
+{
+   char* t;
+   t = token;
+   for (; *t; t++)
+   {
+      prog--;
+   }
+}
+
+/**
+ * \brief Checks whether c is delimeter or not
+ * \param c Char to be checked
+ * \return True if c is a delimeter, False - otherwise
+ */
+int isdelim(char c)
+{
+   return strchr(" !;,+-<>'/*%^=()", c) || c == 9 || c == '\r' || c == '\n' || c == 0
+             ? 1
+             : 0;
+}
+
+/**
+ * \brief Returns 1 if c is space or tab
+ * \param c Char to be checked
+ * \return 1 if c is space or tab
+ */
+int iswhite(char c)
+{
+   return c == ' ' || c == '\t' ? 1 : 0;
+}
+
+/**
+ * \brief Return index of internal library function or -1 if nothing's been found
+ * \param s The function name
+ * \return Found index or -1 if nothing's been found
+ */
+int internal_func(char* s)
+{
+   int i = -1;
+
+   for (i = 0; i < intern_func[i].f_name[0]; i++)
+   {
+      if (!strcmp(intern_func[i].f_name, s))
+      {
+         break;
+      }
+   }
+
+   return i;
+}
+
+/**
+ * \brief Looks up a token's internal representation in the token table
+ * \param s Token to be looked up
+ * \return Found token or 0 if nothing has been found
+ */
+char look_up(char* s)
+{
+   register int i;
+   char* p;
+   char foundToken = 0; /* unknown command */
+
+   /* convert to lower case */
+   p = s;
+   while (*p)
+   {
+      *p = (char)tolower(*p);
+      p++;
+   }
+
+   /* see if token is in table */
+   for (i = 0; *table[i].command; i++)
+   {
+      if (!strcmp(table[i].command, s))
+      {
+         foundToken = table[i].tok;
+         break;
+      }
+   }
+
+   return foundToken;
+}
+
+/**
+ * \brief Get a token
+ * \return Consumed token char
+ */
+char get_token(void)
+{
+   register char* temp;
+   token_type = 0;
+   tok = 0;
+   temp = token;
+   *temp = '\0';
+
+   /* skip over white space */
+   while (iswhite(*prog) && *prog)
+   {
+      ++prog;
+   }
+
+   /* Handle windows and mac new lines */
+   if (*prog == '\r')
+   {
+      ++prog;
+
+      /* Only skip \n if it exists (if it doesn't, we are running on mac) */
+      if (*prog == '\n')
+      {
+         ++prog;
+      }
+
+      /* skip over white space */
+      while (iswhite(*prog) && *prog)
+      {
+         ++prog;
+      }
+   }
+
+   /* Handle Unix new lines */
+   if (*prog == '\n')
+   {
+      ++prog;
+
+      /* skip over white space */
+      while (iswhite(*prog) && *prog)
+      {
+         ++prog;
+      }
+   }
+
+   if (*prog == '\0') /* end of file */
+   {
+      *token = '\0';
+      tok = FINISHED;
+      return (token_type == DELIMETER);
+   }
+
+   if (strchr("{}", *prog)) /* block delimeters */
+   {
+      *temp = *prog;
+      temp++;
+      *temp = '\0';
+      prog++;
+      return (token_type == BLOCK);
+   }
+
+   /* look for comments */
+   if (*prog == '/' && *(prog + 1) == '*')
+   {
+      prog += 2;
+      do /* find end of comment */
+      {
+         while (*prog != '*' && *prog != '\0')
+         {
+            prog++;
+         }
+
+         if (*prog == '\0')
+         {
+            prog--;
+            break;
+         }
+
+         prog++;
+      }
+      while (*prog != '/');
+
+      prog++;
+   }
+
+   /* look for C++ style comments */
+   if (*prog == '/' && *(prog + 1) == '/')
+   {
+      prog += 2;
+
+      /* find end of line */
+      while (*prog != '\r' && *prog != '\n' && *prog != '\0')
+      {
+         prog++;
+      }
+
+      if (*prog == '\r' && *(prog + 1) == '\n')
+      {
+         prog++;
+      }
+   }
+
+   /* look for the end of file after a comment */
+   if (*prog == '\0')
+   {
+      *token = '\0';
+      tok = FINISHED;
+      return (token_type == DELIMETER);
+   }
+
+   if (strchr("!<>=", *prog)) /* is or might be a relational operator */
+   {
+      switch (*prog)
+      {
+      case '=':
+         if (*(prog + 1) == '=')
+         {
+            prog++;
+            prog++;
+            *temp = EQ;
+            temp++;
+            *temp = EQ;
+            temp++;
+            *temp = '\0';
+         }
+
+         break;
+      case '!':
+         if (*(prog + 1) == '=')
+         {
+            prog++;
+            prog++;
+            *temp = NE;
+            temp++;
+            *temp = NE;
+            temp++;
+            *temp = '\0';
+         }
+
+         break;
+      case '<':
+         if (*(prog + 1) == '=')
+         {
+            prog++;
+            prog++;
+            *temp = LE;
+            temp++;
+            *temp = LE;
+         }
+         else
+         {
+            prog++;
+            *temp = LT;
+         }
+
+         temp++;
+         *temp = '\0';
+         break;
+      case '>':
+         if (*(prog + 1) == '=')
+         {
+            prog++;
+            prog++;
+            *temp = GE;
+            temp++;
+            *temp = GE;
+         }
+         else
+         {
+            prog++;
+            *temp = GT;
+         }
+
+         temp++;
+         *temp = '\0';
+         break;
+      }
+
+      if (*token)
+      {
+         return (token_type = DELIMETER);
+      }
+   }
+
+   if (strchr("+-*^/%=;(),'", *prog)) /* delimeter */
+   {
+      *temp = *prog;
+      prog++; /* advance to the next position */
+      temp++;
+      *temp = '\0';
+      return (token_type = DELIMETER);
+   }
+
+   if (*prog == '"') /* quoted string */
+   {
+      prog++;
+      while ((*prog != '"' && *prog != '\r' && *prog != '\n' && *prog != '\0')
+         || (*prog == '"' && *(prog - 1) == '\\'))
+      {
+         *temp++ = *prog++;
+      }
+
+      if (*prog == '\r' || *prog == '\n' || *prog == '\0')
+      {
+         sntx_err(SYNTAX);
+      }
+
+      prog++;
+      *temp = '\0';
+
+      str_replace(token, "\\a", "\a");
+      str_replace(token, "\\b", "\b");
+      str_replace(token, "\\f", "\f");
+      str_replace(token, "\\n", "\n");
+      str_replace(token, "\\r", "\r");
+      str_replace(token, "\\t", "\t");
+      str_replace(token, "\\v", "\v");
+      str_replace(token, "\\\\", "\\");
+      str_replace(token, "\\\'", "\'");
+      str_replace(token, "\\\"", "\"");
+      return (token_type = STRING);
+   }
+
+   if (isdigit((int)*prog)) /* number */
+   {
+      while (!isdelim(*prog))
+      {
+         *temp++ = *prog++;
+      }
+
+      *temp = '\0';
+      return (token_type = NUMBER);
+   }
+
+   if (isalpha((int)*prog)) /* var or command */
+   {
+      while (!isdelim(*prog))
+      {
+         *temp++ = *prog++;
+      }
+
+      token_type = TEMP;
+   }
+
+   *temp = '\0';
+
+   /* see if a string is a command or a variable */
+   if (token_type == TEMP)
+   {
+      tok = look_up(token); /* convert to internal representation */
+      token_type = tok ? KEYWORD : IDENTIFIER;
+   }
+
+   return token_type;
+}
+
+/**
+ * \brief   An in-place modification find and replace of the string.
+ *          Assumes the buffer pointed to by line is large enough
+ *          to hold the resulting string
+ * \param line    Source line
+ * \param search  String to search
+ * \param replace String for replacement
+ */
+static void str_replace(char* line, const char* search, const char* replace)
+{
+   char* sp;
+   while ((sp = strstr(line, search)) != NULL)
+   {
+      int search_len = (int)strlen(search);
+      int replace_len = (int)strlen(replace);
+      int tail_len = (int)strlen(sp + search_len);
+
+      memmove(sp + replace_len, sp + search_len, tail_len + 1);
+      memcpy(sp, replace, replace_len);
+   }
+}
