@@ -4,6 +4,8 @@
 
 #include "littlec.h"
 
+#define _CRT_SECURE_NO_WARNINGS
+
 /**
  * \brief Load a program
  * \param p Current symbol to process

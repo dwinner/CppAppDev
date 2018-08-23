@@ -12,7 +12,7 @@
 /**
  * Points to current location in program
  */
-extern char *prog;
+extern char* prog;
 
 /**
  * Holds string representation of token
@@ -33,7 +33,7 @@ int get_token(void);
 
 void sntx_err(int error);
 
-void eval_exp(int *result);
+void eval_exp(int* result);
 
 void putback(void);
 

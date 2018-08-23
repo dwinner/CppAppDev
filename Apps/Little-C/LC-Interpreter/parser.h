@@ -1,24 +1,13 @@
 #ifndef LITTLEC_INTERPRETER_PARSER_H
 #define LITTLEC_INTERPRETER_PARSER_H
 
+#if !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
+#endif
+
 
 #include <setjmp.h>
 #include "common_defines.h"
-
-/**
- * Token types
- */
-enum tok_types
-{
-   DELIMETER,
-   IDENTIFIER,
-   NUMBER,
-   KEYWORD,
-   TEMP,
-   STRING,
-   BLOCK
-};
 
 /**
  * Additional double operators here (such as ->)
@@ -31,34 +20,6 @@ enum doubleOps
    GE,
    EQ,
    NE
-};
-
-/**
- * These are the constants used to call sntxErr() when
- * a syntax error occurs. Add more if you like.
- * NOTE: Syntax is a generic error message used when
- * nothing else seems appropriate.
- */
-enum errorMsg
-{
-   SYNTAX,
-   UNBAL_PARENS,
-   NO_EXP,
-   EQUALS_EXPECTED,
-   NOT_VAR,
-   PARAM_ERR,
-   SEMI_EXPECTED,
-   UNBAL_BRACES,
-   FUNC_UNDEF,
-   TYPE_EXPECTED,
-   NEST_FUNC,
-   RET_NOCALL,
-   PAREN_EXPECTED,
-   WHILE_EXPECTED,
-   QUOTE_EXPECTED,
-   NOT_TEMP,
-   TOO_MANY_LVARS,
-   DIV_BY_ZERO
 };
 
 /**
@@ -75,36 +36,6 @@ extern char* p_buf;
  * Hold environment for longjmp()
  */
 extern jmp_buf e_buf;
-
-/**
- * An array of these structures will hold the
- * info associated with global variables.
- */
-extern struct var_type
-{
-   char var_name[ID_LEN];
-   int v_type;
-   int value;
-} global_vars[NUM_GLOBAL_VARS];
-
-/**
- * Function call stack
- */
-extern struct func_type
-{
-   char func_name[ID_LEN];
-   int ret_type;
-   char* loc; /* location in function entry point in file */
-} func_stack[NUM_FUNC];
-
-/**
- * \brief Keyword table
- */
-extern struct commands
-{
-   char command[20];
-   char tok;
-} table[];
 
 /************************************************************************/
 /* "standard library" functions are declared here so                    *

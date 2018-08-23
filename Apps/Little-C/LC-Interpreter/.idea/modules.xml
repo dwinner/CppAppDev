@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/LittleC-Interpreter.iml" filepath="$PROJECT_DIR$/.idea/LittleC-Interpreter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/LC-Interpreter.iml" filepath="$PROJECT_DIR$/.idea/LC-Interpreter.iml" />
     </modules>
   </component>
 </project>

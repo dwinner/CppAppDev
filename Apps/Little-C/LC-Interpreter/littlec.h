@@ -9,17 +9,20 @@
 #include <string.h>
 #include "common_defines.h"
 
+#if !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
+#endif
+
 
 /**
  * \brief Current location in source code
  */
-char *prog;
+char* prog;
 
 /**
  * \brief Points to start of program buffer
  */
-char *p_buf;
+char* p_buf;
 
 /**
  * \brief Holds the environment for longjmp()
@@ -27,19 +30,29 @@ char *p_buf;
 jmp_buf e_buf;
 
 /**
- * \brief   An array of these structures will hold the info
- *          associated with global variables
+ * \brief Variable type
  */
-struct var_type {
+struct var_type
+{
    char var_name[ID_LEN];
    int v_type;
    int value;
-}  global_vars[NUM_GLOBAL_VARS];
+};
+
+/**
+ * Variable type definition
+ */
+typedef struct var_type VariableType;
+
+/**
+ * \brief An array of these structures will hold the info associated with global variables
+ */
+VariableType global_vars[NUM_GLOBAL_VARS];
 
 /**
  * \brief Local variable stack
  */
-struct var_type local_var_stack[NUM_LOCAL_VARS];
+VariableType local_var_stack[NUM_LOCAL_VARS];
 
 /**
  * \brief Function type table
@@ -50,7 +63,7 @@ struct func_type
     * \brief Function name
     */
    char func_name[ID_LEN];
-   
+
    /**
     * \brief Return type
     */
@@ -59,7 +72,7 @@ struct func_type
    /**
     * \brief Location od entry point in file
     */
-   char *loc;
+   char* loc;
 } func_table[NUM_FUNC];
 
 /**
@@ -77,18 +90,18 @@ struct commands
    char tok;
 } table[] =
 {
-   { "if", IF }, /* in this table. */
-   { "else", ELSE },
-   { "for", FOR },
-   { "do", DO },
-   { "while", WHILE },
-   { "char", CHAR },
-   { "int", INT },
-   { "return", RETURN },
-   { "continue", CONTINUE },
-   { "break", BREAK },
-   { "end", END },
-   { "", END } /* mark end of table */
+   {"if", IF}, /* in this table. */
+   {"else", ELSE},
+   {"for", FOR},
+   {"do", DO},
+   {"while", WHILE},
+   {"char", CHAR},
+   {"int", INT},
+   {"return", RETURN},
+   {"continue", CONTINUE},
+   {"break", BREAK},
+   {"end", END},
+   {"", END} /* mark end of table */
 };
 
 /**
@@ -141,7 +154,7 @@ int ret_occurring;
  */
 int break_occuring;
 
-void print(void);
+/*void print(void);*/
 
 void prescan(void);
 
@@ -155,7 +168,7 @@ void decl_local(void);
 
 void local_push(struct var_type i);
 
-void eval_exp(int *value);
+void eval_exp(int* value);
 
 void sntx_err(int error);
 
@@ -175,11 +188,11 @@ void func_push(int i);
 
 void exec_do(void);
 
-void assign_var(char *var_name, int value);
+void assign_var(char* var_name, int value);
 
-int load_program(char *p, char *fname);
+int load_program(char* p, char* fname);
 
-int find_var(char *s);
+int find_var(char* s);
 
 void interp_block(void);
 
@@ -187,9 +200,9 @@ void func_ret(void);
 
 int func_pop(void);
 
-int is_var(char *s);
+int is_var(char* s);
 
-char *find_func(char *name);
+char* find_func(char* name);
 
 char get_token(void);
 

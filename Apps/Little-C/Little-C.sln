@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LittleC", "LittleC.vcxproj", "{E152D8A7-DF38-422F-88B9-922B3570739A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LC-Interpreter", "LC-Interpreter\LC-Interpreter.vcxproj", "{9FAE254B-5B12-406D-B1D4-035E533A5E69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E152D8A7-DF38-422F-88B9-922B3570739A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E152D8A7-DF38-422F-88B9-922B3570739A}.Debug|Win32.Build.0 = Debug|Win32
-		{E152D8A7-DF38-422F-88B9-922B3570739A}.Release|Win32.ActiveCfg = Release|Win32
-		{E152D8A7-DF38-422F-88B9-922B3570739A}.Release|Win32.Build.0 = Release|Win32
+		{9FAE254B-5B12-406D-B1D4-035E533A5E69}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9FAE254B-5B12-406D-B1D4-035E533A5E69}.Debug|Win32.Build.0 = Debug|Win32
+		{9FAE254B-5B12-406D-B1D4-035E533A5E69}.Release|Win32.ActiveCfg = Release|Win32
+		{9FAE254B-5B12-406D-B1D4-035E533A5E69}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

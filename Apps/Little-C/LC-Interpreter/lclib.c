@@ -1,4 +1,5 @@
 #include "lclib.h"
+#include "common_defines.h"
 
 int callGetche(void)
 {
@@ -6,7 +7,7 @@ int callGetche(void)
 #if defined(_QC)
    ch = (char) getche();
 #elif defined(_MSC_VER)
-   ch = (char) _getche();
+   ch = (char)_getche();
 #else
    ch = (char) getchar();
 #endif
@@ -14,7 +15,7 @@ int callGetche(void)
    while (*prog != ')')
       prog++;
 
-   prog++;  /* advance to end of line */
+   prog++; /* advance to end of line */
 
    return ch;
 }
@@ -64,11 +65,11 @@ int print(void)
    }
 
    get_token();
-   if (tokenType == STRING)  /* output a string */
+   if (tokenType == STRING) /* output a string */
    {
       printf("%s ", token);
    }
-   else  /* output a number */
+   else /* output a number */
    {
       putback();
       eval_exp(&i);
@@ -101,7 +102,7 @@ int getNum(void)
       while (*prog != ')')
          prog++;
 
-      prog++;  /* advance to end of line */
+      prog++; /* advance to end of line */
       return atoi(s);
    }
 

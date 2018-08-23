@@ -4,10 +4,27 @@
  */
 
 #include "parser.h"
+#include "littlec.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+
+/**
+ * An array of these structures will hold the
+ * info associated with global variables.
+ */
+extern VariableType global_vars[NUM_GLOBAL_VARS];
+
+/**
+ * Function call stack
+ */
+extern struct func_type func_stack[NUM_FUNC];
+
+/**
+ * \brief Keyword table
+ */
+extern struct commands table[];
 
 /**
  * \brief Process an assignment expression
