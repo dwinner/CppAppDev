@@ -21,28 +21,6 @@ enum tok_types
 };
 
 /**
- * Tokens
- */
-enum tokens
-{
-   ARG,
-   CHAR,
-   INT,
-   IF,
-   ELSE,
-   FOR,
-   DO,
-   WHILE,
-   SWITCH,
-   RETURN,
-   CONTINUE,
-   BREAK,
-   EOL,
-   FINISHED,
-   END
-};
-
-/**
  * Additional double operators here (such as ->)
  */
 enum doubleOps
@@ -133,8 +111,15 @@ extern struct commands
  * they can be put into the internal function table that follows        */
 /************************************************************************/
 
-int call_getche(void), call_putch();
-int call_puts(void), print(void), getnum(void);
+int call_getche(void);
+
+int call_putch();
+
+int call_puts(void);
+
+int print(void);
+
+int getnum(void);
 
 /**
  * \brief Internal function types
@@ -182,7 +167,7 @@ extern int ret_value;
 
 void eval_exp0(int* value);
 
-void evalExp(int* value);
+void eval_exp(int* value);
 
 void eval_exp1(int* value);
 

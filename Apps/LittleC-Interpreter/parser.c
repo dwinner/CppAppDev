@@ -46,7 +46,7 @@ void eval_exp0(int* value)
  * \brief Entry point to parser
  * \param value Value to parse
  */
-void evalExp(int* value)
+void eval_exp(int* value)
 {
    get_token();
    if (!*token)

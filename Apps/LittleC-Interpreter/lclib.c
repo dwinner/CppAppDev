@@ -23,7 +23,7 @@ int callPutch(void)
 {
    int value;
 
-   evalExp(&value);
+   eval_exp(&value);
    printf("%c", value);
 
    return value;
@@ -31,22 +31,22 @@ int callPutch(void)
 
 int callPuts(void)
 {
-   getToken();
+   get_token();
    if (*token != '(')
-      sntxErr(PAREN_EXPECTED);
+      sntx_err(PAREN_EXPECTED);
 
-   getToken();
+   get_token();
    if (tokenType != STRING)
-      sntxErr(QUOTE_EXPECTED);
+      sntx_err(QUOTE_EXPECTED);
 
    puts(token);
-   getToken();
+   get_token();
    if (*token != ')')
-      sntxErr(PAREN_EXPECTED);
+      sntx_err(PAREN_EXPECTED);
 
-   getToken();
+   get_token();
    if (*token != ';')
-      sntxErr(SEMI_EXPECTED);
+      sntx_err(SEMI_EXPECTED);
 
    putback();
 
@@ -57,11 +57,13 @@ int print(void)
 {
    int i;
 
-   getToken();
+   get_token();
    if (*token != '(')
-      sntxErr(PAREN_EXPECTED);
+   {
+      sntx_err(PAREN_EXPECTED);
+   }
 
-   getToken();
+   get_token();
    if (tokenType == STRING)  /* output a string */
    {
       printf("%s ", token);
@@ -69,17 +71,21 @@ int print(void)
    else  /* output a number */
    {
       putback();
-      evalExp(&i);
+      eval_exp(&i);
       printf("%d ", i);
    }
 
-   getToken();
+   get_token();
    if (*token != ')')
-      sntxErr(PAREN_EXPECTED);
+   {
+      sntx_err(PAREN_EXPECTED);
+   }
 
-   getToken();
+   get_token();
    if (*token != ';')
-      sntxErr(SEMI_EXPECTED);
+   {
+      sntx_err(SEMI_EXPECTED);
+   }
 
    putback();
 
