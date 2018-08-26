@@ -1,12 +1,7 @@
 #ifndef LITTLEC_H
 #define LITTLEC_H
 
-#include <stdio.h>
 #include <setjmp.h>
-#include <math.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
 #include "common_defines.h"
 
 #if !defined(_CRT_SECURE_NO_WARNINGS)
@@ -17,12 +12,12 @@
 /**
  * \brief Current location in source code
  */
-char* prog;
+char *prog;
 
 /**
  * \brief Points to start of program buffer
  */
-char* p_buf;
+char *p_buf;
 
 /**
  * \brief Holds the environment for longjmp()
@@ -72,7 +67,7 @@ struct func_type
    /**
     * \brief Location od entry point in file
     */
-   char* loc;
+   char *loc;
 } func_table[NUM_FUNC];
 
 /**
@@ -89,20 +84,20 @@ struct commands
    char command[20];
    char tok;
 } table[] =
-{
-   {"if", IF}, /* in this table. */
-   {"else", ELSE},
-   {"for", FOR},
-   {"do", DO},
-   {"while", WHILE},
-   {"char", CHAR},
-   {"int", INT},
-   {"return", RETURN},
-   {"continue", CONTINUE},
-   {"break", BREAK},
-   {"end", END},
-   {"", END} /* mark end of table */
-};
+   {
+      {"if",       IF}, /* in this table. */
+      {"else",     ELSE},
+      {"for",      FOR},
+      {"do",       DO},
+      {"while",    WHILE},
+      {"char",     CHAR},
+      {"int",      INT},
+      {"return",   RETURN},
+      {"continue", CONTINUE},
+      {"break",    BREAK},
+      {"end",      END},
+      {"",         END} /* mark end of table */
+   };
 
 /**
  * \brief string representation of token
@@ -168,7 +163,7 @@ void decl_local(void);
 
 void local_push(struct var_type i);
 
-void eval_exp(int* value);
+void eval_exp(int *value);
 
 void sntx_err(int error);
 
@@ -188,11 +183,11 @@ void func_push(int i);
 
 void exec_do(void);
 
-void assign_var(char* var_name, int value);
+void assign_var(char *var_name, int value);
 
-int load_program(char* p, char* fname);
+int load_program(char *p, char *fname);
 
-int find_var(char* s);
+int find_var(char *s);
 
 void interp_block(void);
 
@@ -200,9 +195,9 @@ void func_ret(void);
 
 int func_pop(void);
 
-int is_var(char* s);
+int is_var(char *s);
 
-char* find_func(char* name);
+char *find_func(char *name);
 
 char get_token(void);
 

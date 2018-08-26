@@ -14,7 +14,7 @@
  * An array of these structures will hold the
  * info associated with global variables.
  */
-extern VariableType global_vars[NUM_GLOBAL_VARS];
+//extern VariableType global_vars[NUM_GLOBAL_VARS];
 
 /**
  * Function call stack
@@ -24,13 +24,13 @@ extern struct func_type func_stack[NUM_FUNC];
 /**
  * \brief Keyword table
  */
-extern struct commands table[];
+//extern struct commands table[];
 
 /**
  * \brief Process an assignment expression
  * \param value Value to parse
  */
-void eval_exp0(int* value)
+void eval_exp0(int *value)
 {
    char temp[ID_LEN]; /* holds name of var receiving the assignment */
    register char temp_tok;
@@ -63,7 +63,7 @@ void eval_exp0(int* value)
  * \brief Entry point to parser
  * \param value Value to parse
  */
-void eval_exp(int* value)
+void eval_exp(int *value)
 {
    get_token();
    if (!*token)
@@ -86,7 +86,7 @@ void eval_exp(int* value)
  * \brief Process relational operators
  * \param value Value to process
  */
-void eval_exp1(int* value)
+void eval_exp1(int *value)
 {
    int partial_value;
    register char op;
@@ -100,24 +100,26 @@ void eval_exp1(int* value)
       eval_exp2(&partial_value);
       switch (op) /* perform the relational operation */
       {
-      case LT:
-         *value = *value < partial_value;
-         break;
-      case LE:
-         *value = *value <= partial_value;
-         break;
-      case GT:
-         *value = *value > partial_value;
-         break;
-      case GE:
-         *value = *value >= partial_value;
-         break;
-      case EQ:
-         *value = *value == partial_value;
-         break;
-      case NE:
-         *value = *value != partial_value;
-         break;
+         case LT:
+            *value = *value < partial_value;
+            break;
+         case LE:
+            *value = *value <= partial_value;
+            break;
+         case GT:
+            *value = *value > partial_value;
+            break;
+         case GE:
+            *value = *value >= partial_value;
+            break;
+         case EQ:
+            *value = *value == partial_value;
+            break;
+         case NE:
+            *value = *value != partial_value;
+            break;
+         default:
+            break;
       }
    }
 }
@@ -126,7 +128,7 @@ void eval_exp1(int* value)
  * \brief Add or subtract two terms
  * \param value Value to process
  */
-void eval_exp2(int* value)
+void eval_exp2(int *value)
 {
    register char op;
    int partial_value;
@@ -139,12 +141,12 @@ void eval_exp2(int* value)
       eval_exp3(&partial_value);
       switch (op) /* Add or subtract */
       {
-      case '-':
-         *value = *value - partial_value;
-         break;
-      case '+':
-         *value = *value + partial_value;
-         break;
+         case '-':
+            *value = *value - partial_value;
+            break;
+         case '+':
+            *value = *value + partial_value;
+            break;
       }
    }
 }
@@ -153,7 +155,7 @@ void eval_exp2(int* value)
  * \brief Multiply or divide two factors
  * \param value Value to parse
  */
-void eval_exp3(int* value)
+void eval_exp3(int *value)
 {
    register char op;
    int partial_value, t;
@@ -166,21 +168,21 @@ void eval_exp3(int* value)
       eval_exp4(&partial_value);
       switch (op) /* mul, div, or modulus */
       {
-      case '*':
-         *value = *value * partial_value;
-         break;
-      case '/':
-         if (partial_value == 0)
-         {
-            sntx_err(DIV_BY_ZERO);
-         }
+         case '*':
+            *value = *value * partial_value;
+            break;
+         case '/':
+            if (partial_value == 0)
+            {
+               sntx_err(DIV_BY_ZERO);
+            }
 
-         *value = (*value) / partial_value;
-         break;
-      case '%':
-         t = (*value) / partial_value;
-         *value = *value - (t * partial_value);
-         break;
+            *value = (*value) / partial_value;
+            break;
+         case '%':
+            t = (*value) / partial_value;
+            *value = *value - (t * partial_value);
+            break;
       }
    }
 }
@@ -189,7 +191,7 @@ void eval_exp3(int* value)
  * \brief Is unary '+' or '-' token
  * \param value Value to parse
  */
-void eval_exp4(int* value)
+void eval_exp4(int *value)
 {
    register char op;
 
@@ -211,7 +213,7 @@ void eval_exp4(int* value)
  * \brief Process parenthesized expression
  * \param value Value to parse
  */
-void eval_exp5(int* value)
+void eval_exp5(int *value)
 {
    if (*token == '(')
    {
@@ -234,57 +236,57 @@ void eval_exp5(int* value)
  * \brief Find value of number, variable, or function
  * \param value Value to parse
  */
-void atom(int* value)
+void atom(int *value)
 {
    int i;
 
    switch (token_type)
    {
-   case IDENTIFIER:
-      i = internal_func(token);
-      if (i != -1) /* call "standart library" function */
-      {
-         *value = (*intern_func[i].p)();
-      }
-      else if (find_func(token)) /* call user-defined function */
-      {
-         call();
-         *value = ret_value;
-      }
-      else
-      {
-         *value = find_var(token); /* get var's value */
-      }
-
-      get_token();
-      return;
-   case NUMBER: /* is numeric constant */
-      *value = atoi(token);
-      get_token();
-      return;
-   case DELIMETER: /* see if character constant */
-      if (*token == '\'')
-      {
-         *value = *prog;
-         prog++;
-         if (*prog != '\'')
+      case IDENTIFIER:
+         i = internal_func(token);
+         if (i != -1) /* call "standart library" function */
          {
-            sntx_err(QUOTE_EXPECTED);
+            *value = (*intern_func[i].p)();
+         }
+         else if (find_func(token)) /* call user-defined function */
+         {
+            call();
+            *value = ret_value;
+         }
+         else
+         {
+            *value = find_var(token); /* get var's value */
          }
 
-         prog++;
          get_token();
          return;
-      }
+      case NUMBER: /* is numeric constant */
+         *value = atoi(token);
+         get_token();
+         return;
+      case DELIMETER: /* see if character constant */
+         if (*token == '\'')
+         {
+            *value = *prog;
+            prog++;
+            if (*prog != '\'')
+            {
+               sntx_err(QUOTE_EXPECTED);
+            }
 
-      if (*token == ')')
-      {
-         return; /* process empty expression */
-      }
-      sntx_err(SYNTAX); /* syntax error */
-      break;
-   default:
-      sntx_err(SYNTAX); /* syntax error */
+            prog++;
+            get_token();
+            return;
+         }
+
+         if (*token == ')')
+         {
+            return; /* process empty expression */
+         }
+         sntx_err(SYNTAX); /* syntax error */
+         break;
+      default:
+         sntx_err(SYNTAX); /* syntax error */
    }
 }
 
@@ -298,27 +300,27 @@ void sntx_err(int error)
    int linecount = 0;
    register int i;
 
-   static char* e[] =
-   {
-      "syntax error",
-      "unbalanced parentheses",
-      "no expression present",
-      "equals sign expected",
-      "not a variable",
-      "parameter error",
-      "semicolon expected",
-      "unbalanced braces",
-      "function undefined",
-      "type specifier expected",
-      "too many nested function calls",
-      "return without call",
-      "parentheses expected",
-      "while expected",
-      "closing quote expected",
-      "not a string",
-      "too many local variables",
-      "division by zero"
-   };
+   static char *e[] =
+      {
+         "syntax error",
+         "unbalanced parentheses",
+         "no expression present",
+         "equals sign expected",
+         "not a variable",
+         "parameter error",
+         "semicolon expected",
+         "unbalanced braces",
+         "function undefined",
+         "type specifier expected",
+         "too many nested function calls",
+         "return without call",
+         "parentheses expected",
+         "while expected",
+         "closing quote expected",
+         "not a string",
+         "too many local variables",
+         "division by zero"
+      };
 
    printf("\n%s", e[error]);
    p = p_buf;
@@ -366,11 +368,85 @@ void sntx_err(int error)
 }
 
 /**
+ * \brief Find the location of all functions in the program
+ *        and store global variables.
+ */
+void prescan()
+{
+   char *p, *tp;
+   char temp[ID_LEN + 1];
+   int datatype;
+   int brace = 0; /* When 0, this var tells us that current
+                     source position is outside of any function. */
+   p = prog;
+   func_index = 0;
+   do
+   {
+      while (brace) /* bypass code inside functions */
+      {
+         get_token();
+         if (*token == '{')
+         {
+            brace++;
+         }
+
+         if (*token == '}')
+         {
+            brace--;
+         }
+      }
+
+      tp = prog; /* save current position */
+      get_token();
+      /* global var type or function return type */
+      if (tok == CHAR || tok == INT)
+      {
+         datatype = tok; /* save data type */
+         get_token();
+         if (token_type == IDENTIFIER)
+         {
+            strcpy(temp, token);
+            get_token();
+            if (*token != '(') /* must be global var */
+            {
+               prog = tp; /* return to start of declaration */
+               decl_global();
+            }
+            else if (*token == '(') /* must be a function */
+            {
+               func_table[func_index].loc = prog;
+               func_table[func_index].ret_type = datatype;
+               strcpy(func_table[func_index].func_name, temp);
+               func_index++;
+               while (*prog != ')')
+               {
+                  prog++;
+               }
+
+               prog++;
+               /* now prog points to opening curly brace of function */
+            }
+            else
+            {
+               putback();
+            }
+         }
+         else if (*token == '{')
+         {
+            brace++;
+         }
+      }
+   } while (tok != FINISHED);
+
+   prog = p;
+}
+
+/**
  * \brief Return a token to input stream
  */
 void putback()
 {
-   char* t;
+   char *t;
    t = token;
    for (; *t; t++)
    {
@@ -386,8 +462,8 @@ void putback()
 int isdelim(char c)
 {
    return strchr(" !;,+-<>'/*%^=()", c) || c == 9 || c == '\r' || c == '\n' || c == 0
-             ? 1
-             : 0;
+          ? 1
+          : 0;
 }
 
 /**
@@ -405,7 +481,7 @@ int iswhite(char c)
  * \param s The function name
  * \return Found index or -1 if nothing's been found
  */
-int internal_func(char* s)
+int internal_func(char *s)
 {
    int i = -1;
 
@@ -425,17 +501,17 @@ int internal_func(char* s)
  * \param s Token to be looked up
  * \return Found token or 0 if nothing has been found
  */
-char look_up(char* s)
+char look_up(char *s)
 {
    register int i;
-   char* p;
+   char *p;
    char foundToken = 0; /* unknown command */
 
    /* convert to lower case */
    p = s;
    while (*p)
    {
-      *p = (char)tolower(*p);
+      *p = (char) tolower(*p);
       p++;
    }
 
@@ -453,12 +529,33 @@ char look_up(char* s)
 }
 
 /**
+ * \brief Find the function by name
+ * \param name The function name
+ * \return The entry point of the specified function, NULL - if not found
+ */
+char *find_func(char *name)
+{
+   char *location = NULL;
+
+   for (register int i = 0; i < func_index; i++)
+   {
+      if (!strcmp(name, func_table[i].func_name))
+      {
+         char *t = func_table[i].loc;
+         break;
+      }
+   }
+
+   return location;
+}
+
+/**
  * \brief Get a token
  * \return Consumed token char
  */
 char get_token(void)
 {
-   register char* temp;
+   register char *temp;
    token_type = 0;
    tok = 0;
    temp = token;
@@ -534,8 +631,7 @@ char get_token(void)
          }
 
          prog++;
-      }
-      while (*prog != '/');
+      } while (*prog != '/');
 
       prog++;
    }
@@ -569,68 +665,68 @@ char get_token(void)
    {
       switch (*prog)
       {
-      case '=':
-         if (*(prog + 1) == '=')
-         {
-            prog++;
-            prog++;
-            *temp = EQ;
-            temp++;
-            *temp = EQ;
+         case '=':
+            if (*(prog + 1) == '=')
+            {
+               prog++;
+               prog++;
+               *temp = EQ;
+               temp++;
+               *temp = EQ;
+               temp++;
+               *temp = '\0';
+            }
+
+            break;
+         case '!':
+            if (*(prog + 1) == '=')
+            {
+               prog++;
+               prog++;
+               *temp = NE;
+               temp++;
+               *temp = NE;
+               temp++;
+               *temp = '\0';
+            }
+
+            break;
+         case '<':
+            if (*(prog + 1) == '=')
+            {
+               prog++;
+               prog++;
+               *temp = LE;
+               temp++;
+               *temp = LE;
+            }
+            else
+            {
+               prog++;
+               *temp = LT;
+            }
+
             temp++;
             *temp = '\0';
-         }
+            break;
+         case '>':
+            if (*(prog + 1) == '=')
+            {
+               prog++;
+               prog++;
+               *temp = GE;
+               temp++;
+               *temp = GE;
+            }
+            else
+            {
+               prog++;
+               *temp = GT;
+            }
 
-         break;
-      case '!':
-         if (*(prog + 1) == '=')
-         {
-            prog++;
-            prog++;
-            *temp = NE;
-            temp++;
-            *temp = NE;
             temp++;
             *temp = '\0';
-         }
-
-         break;
-      case '<':
-         if (*(prog + 1) == '=')
-         {
-            prog++;
-            prog++;
-            *temp = LE;
-            temp++;
-            *temp = LE;
-         }
-         else
-         {
-            prog++;
-            *temp = LT;
-         }
-
-         temp++;
-         *temp = '\0';
-         break;
-      case '>':
-         if (*(prog + 1) == '=')
-         {
-            prog++;
-            prog++;
-            *temp = GE;
-            temp++;
-            *temp = GE;
-         }
-         else
-         {
-            prog++;
-            *temp = GT;
-         }
-
-         temp++;
-         *temp = '\0';
-         break;
+            break;
       }
 
       if (*token)
@@ -652,7 +748,7 @@ char get_token(void)
    {
       prog++;
       while ((*prog != '"' && *prog != '\r' && *prog != '\n' && *prog != '\0')
-         || (*prog == '"' && *(prog - 1) == '\\'))
+             || (*prog == '"' && *(prog - 1) == '\\'))
       {
          *temp++ = *prog++;
       }
@@ -678,7 +774,7 @@ char get_token(void)
       return (token_type = STRING);
    }
 
-   if (isdigit((int)*prog)) /* number */
+   if (isdigit((int) *prog)) /* number */
    {
       while (!isdelim(*prog))
       {
@@ -689,7 +785,7 @@ char get_token(void)
       return (token_type = NUMBER);
    }
 
-   if (isalpha((int)*prog)) /* var or command */
+   if (isalpha((int) *prog)) /* var or command */
    {
       while (!isdelim(*prog))
       {
@@ -719,14 +815,14 @@ char get_token(void)
  * \param search  String to search
  * \param replace String for replacement
  */
-static void str_replace(char* line, const char* search, const char* replace)
+static void str_replace(char *line, const char *search, const char *replace)
 {
-   char* sp;
+   char *sp;
    while ((sp = strstr(line, search)) != NULL)
    {
-      int search_len = (int)strlen(search);
-      int replace_len = (int)strlen(replace);
-      int tail_len = (int)strlen(sp + search_len);
+      int search_len = (int) strlen(search);
+      int replace_len = (int) strlen(replace);
+      int tail_len = (int) strlen(sp + search_len);
 
       memmove(sp + replace_len, sp + search_len, tail_len + 1);
       memcpy(sp, replace, replace_len);

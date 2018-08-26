@@ -1,58 +1,26 @@
 #include "lclib.h"
 #include "common_defines.h"
+#include "parser.h"
 
-int callGetche(void)
-{
-   char ch;
-#if defined(_QC)
-   ch = (char) getche();
-#elif defined(_MSC_VER)
-   ch = (char)_getche();
-#else
-   ch = (char) getchar();
-#endif
+/**
+* Points to current location in program
+*/
+//extern char *prog;
 
-   while (*prog != ')')
-      prog++;
+/**
+* Holds string representation of token
+*/
+//extern char token[80];
 
-   prog++; /* advance to end of line */
+/**
+* Contains type of token
+*/
+extern char tokenType;
 
-   return ch;
-}
-
-int callPutch(void)
-{
-   int value;
-
-   eval_exp(&value);
-   printf("%c", value);
-
-   return value;
-}
-
-int callPuts(void)
-{
-   get_token();
-   if (*token != '(')
-      sntx_err(PAREN_EXPECTED);
-
-   get_token();
-   if (tokenType != STRING)
-      sntx_err(QUOTE_EXPECTED);
-
-   puts(token);
-   get_token();
-   if (*token != ')')
-      sntx_err(PAREN_EXPECTED);
-
-   get_token();
-   if (*token != ';')
-      sntx_err(SEMI_EXPECTED);
-
-   putback();
-
-   return 0;
-}
+/**
+* Holds the internal representation of token
+*/
+//extern char tok;
 
 int print(void)
 {
@@ -89,22 +57,6 @@ int print(void)
    }
 
    putback();
-
-   return 0;
-}
-
-int getNum(void)
-{
-   char s[80];
-
-   if (fgets(s, sizeof(s), stdin) != NULL)
-   {
-      while (*prog != ')')
-         prog++;
-
-      prog++; /* advance to end of line */
-      return atoi(s);
-   }
 
    return 0;
 }
