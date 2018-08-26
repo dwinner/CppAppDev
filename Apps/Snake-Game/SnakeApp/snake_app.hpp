@@ -82,8 +82,8 @@ int change_x, change_y;
 int coords_x[1000], coords_y[1000];
 
 /**
-* Координаты еды
-*/
+ * Координаты еды
+ */
 int food_x = -1, food_y = -1;
 
 /**
@@ -127,5 +127,18 @@ void show_table();
  */
 void clear_snake_on_table();
 
+void show_snake_on_table();
+
+bool game_over();
+
+void check_coordinates();
+
+void next_step();
+
+bool food_check();
+
+void place_food();
+
+void standart_settings();
 
 #endif // SNAKEAPP_HPP_H
