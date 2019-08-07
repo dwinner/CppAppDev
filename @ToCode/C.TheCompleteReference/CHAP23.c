@@ -1,36 +1,3 @@
-listing 6
-struct cell {
-  char cell_name[9];  /* cell name e.g., A1, B34 */
-  char  formula[128]; /* info e.g., 10/B2 */
-  struct cell *left;  /* pointer to left subtree */
-  struct cell *right; /* pointer to right subtree */
-} list_entry;
-
-listing 7
-struct cell *stree(
-        struct cell *root,
-        struct cell *r,
-        struct cell *n)
-{
-  if(!r) {    /* first node in subtree */
-    n->left = NULL;
-    n->right = NULL;
-    if(!root) return n;  /* first entry in tree */
-    if(strcmp(n->cell_name, root->cell_name) < 0)
-      root->left = n;
-    else
-      root->right = n;
-    return n;
-  }
-
-  if(strcmp(r->cell_name, n->cell_name) <= 0)
-    stree(r, r->right, n);
-  else
-    stree(r, r->left, n);
-
-  return root;
-}
-
 listing 8
 struct cell *dtree(
         struct cell *root,
