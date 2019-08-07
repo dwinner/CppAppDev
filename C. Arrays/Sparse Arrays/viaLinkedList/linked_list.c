@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include "linked_list.h"
 #include "string.h"
+#include "stdio.h"
 
-void dls_store(struct cell *i, struct cell **start, struct cell **last)
+void dlsStore(struct cell *i, struct cell **start, struct cell **last)
 {
    struct cell *old, *p;
 
@@ -48,4 +49,64 @@ void dls_store(struct cell *i, struct cell **start, struct cell **last)
    i->next = NULL;
    i->prior = old;
    *last = i;
+}
+
+void deleteCell(char *cell_name, struct cell **start, struct cell **last)
+{
+   struct cell *info;
+
+   info = findCell(cell_name, *start);
+   if (info)
+   {
+      if (*start == info)
+      {
+         *start = info->next;
+         if (*start)
+         {
+            (*start)->prior = NULL;
+         }
+         else
+         {
+            *last = NULL;
+         }
+      }
+      else
+      {
+         if (info->prior)
+         {
+            info->prior->next = info->next;
+         }
+
+         if (info != *last)
+         {
+            info->next->prior = info->prior;
+         }
+         else
+         {
+            *last = info->prior;
+         }
+      }
+
+      free(info);
+   }
+}
+
+struct cell *findCell(char *cell_name, struct cell *start)
+{
+   struct cell *info;
+
+   info = start;
+   while (info)
+   {
+      if (!strcmp(cell_name, info->cell_name))
+      {
+         return info;
+      }
+
+      info = info->next;  /* get next cell */
+   }
+
+   printf("Cell is not found\n");
+
+   return NULL;   /* not found */
 }
