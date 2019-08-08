@@ -3,7 +3,7 @@
 /**
  *	E-Table cell
  */
-struct cell
+struct tree_cell
 {
 	/**
 	 *	cell name e.g., A1, B34
@@ -18,22 +18,37 @@ struct cell
 	/**
 	 *	Pointer to left subtree
 	 */
-	struct cell *left;
+	struct tree_cell *left;
 
 	/**
 	 *	Pointer to right subtree
 	 */
-	struct cell *right;
+	struct tree_cell *right;
 };
 
-typedef struct cell list_entry;
-
+typedef struct tree_cell TreeCell;
 
 /**
- * \brief 
+ * \brief Build tree
  * \param root 
  * \param base_node 
  * \param node_to_insert 
  * \return 
  */
-list_entry *build_tree(list_entry *root, list_entry *base_node, list_entry *node_to_insert);
+TreeCell* build_tree(TreeCell* root, TreeCell* base_node, TreeCell* node_to_insert);
+
+/**
+ * \brief Delete item from the tree
+ * \param root 
+ * \param key 
+ * \return 
+ */
+TreeCell* delete_tree_item(TreeCell* root, char* key);
+
+/**
+ * \brief Search item in tree
+ * \param root 
+ * \param key 
+ * \return 
+ */
+TreeCell* search_tree(TreeCell* root, char* key);
