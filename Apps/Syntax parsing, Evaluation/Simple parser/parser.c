@@ -1,40 +1,32 @@
 ﻿#include "parser.h"
 
-/**
- * \brief Точка входа анализатора
- * \param answer 
- */
 void start_evaluation(double* answer)
 {
 	get_token();
 	if (!*token)
 	{
-		seterror(2);
+		set_error(2);
 		return;
 	}
 
-	add_or_subtract(answer);
+	eval_add_or_subtract(answer);
 
 	if (*token)
 	{
-		seterror(0);	/* Последней лексемой должен быть нуль */
+		set_error(0);	/* Последней лексемой должен быть нуль */
 	}
 }
 
-/**
- * \brief Сложение или вычитание 2-х слагаемых
- * \param answer 
- */
-void add_or_subtract(double* answer)
+void eval_add_or_subtract(double* answer)
 {
 	register char op;
 	double temp;
 
-	multiply_or_divide(answer);
-	while ((op=*token)=='+'||op=='-')
+	eval_multiply_or_divide(answer);
+	while ((op = *token) == '+' || op == '-')
 	{
 		get_token();
-		multiply_or_divide(&temp);
+		eval_multiply_or_divide(&temp);
 		switch (op)
 		{
 		case '-':
@@ -45,26 +37,22 @@ void add_or_subtract(double* answer)
 			*answer = *answer + temp;
 			break;
 
-		default: 
+		default:
 			break;
 		}
 	}
 }
 
-/**
- * \brief Умножение или деление 2-х множителей
- * \param answer 
- */
-void multiply_or_divide(double* answer)
+void eval_multiply_or_divide(double* answer)
 {
 	register char op;
 	double temp;
 
-	power(answer);
-	while ((op=*token)=='*'||op=='/'||op=='%')
+	eval_power(answer);
+	while ((op = *token) == '*' || op == '/' || op == '%')
 	{
 		get_token();
-		power(&temp);
+		eval_power(&temp);
 		switch (op)
 		{
 		case '*':
@@ -72,9 +60,9 @@ void multiply_or_divide(double* answer)
 			break;
 
 		case '/':
-			if (temp==0.0)
+			if (temp == 0.0)
 			{
-				seterror(3);	/* Деление на 0 */
+				set_error(3);	/* Деление на 0 */
 				*answer = 0.0;
 			}
 			else
@@ -94,23 +82,19 @@ void multiply_or_divide(double* answer)
 	}
 }
 
-/**
- * \brief Возведение в степень
- * \param answer 
- */
-void power(double* answer)
+void eval_power(double* answer)
 {
 	double temp, ex;
 	register int t;
 
-	unary_plus_minus(answer);
+	eval_unary_plus_minus(answer);
 
-	if (*token=='^')
+	if (*token == '^')
 	{
 		get_token();
-		power(&temp);
+		eval_power(&temp);
 		ex = *answer;
-		if (temp==0.0)
+		if (temp == 0.0)
 		{
 			*answer = 1.0;
 			return;
@@ -123,16 +107,12 @@ void power(double* answer)
 	}
 }
 
-/**
- * \brief Вычисление унарных операторов + и -
- * \param answer 
- */
-void unary_plus_minus(double* answer)
+void eval_unary_plus_minus(double* answer)
 {
 	register char op;
 
 	op = 0;
-	if ((token_type==DELIMETER) && *token=='+'|| *token=='-')
+	if ((token_type == DELIMETER) && *token == '+' || *token == '-')
 	{
 		op = *token;
 		get_token();
@@ -140,25 +120,21 @@ void unary_plus_minus(double* answer)
 
 	eval_brackets(answer);
 
-	if (op=='-')
+	if (op == '-')
 	{
 		*answer = -(*answer);
 	}
 }
 
-/**
- * \brief Вычисление выражения в скобках
- * \param answer 
- */
 void eval_brackets(double* answer)
 {
-	if ((*token=='('))
+	if ((*token == '('))
 	{
 		get_token();
-		add_or_subtract(answer);
-		if (*token!=')')
+		eval_add_or_subtract(answer);
+		if (*token != ')')
 		{
-			seterror(1);
+			set_error(1);
 		}
 
 		get_token();
@@ -169,25 +145,18 @@ void eval_brackets(double* answer)
 	}
 }
 
-/**
- * \brief Получение значения числа
- * \param answer 
- */
 void atom(double* answer)
 {
-	if (token_type==NUMBER)
+	if (token_type == NUMBER)
 	{
 		*answer = atof(token);
 		get_token();
 		return;
 	}
 
-	seterror(0);	/* иначе синтаксическая ошибка в выражении */
+	set_error(0);	/* иначе синтаксическая ошибка в выражении */
 }
 
-/**
- * \brief Возврат очередной лексемы
- */
 void get_token()
 {
 	register char *temp;
@@ -207,9 +176,10 @@ void get_token()
 		++prog;
 	}
 
-	if (strchr("+-*/%^=()",*prog))
+	if (strchr("+-*/%^=()", *prog))
 	{
 		token_type = DELIMETER;
+
 		/* Перейти к следующему символу */
 		*temp++ = *prog++;
 	}
@@ -235,10 +205,7 @@ void get_token()
 	*temp = '\0';
 }
 
-/**
- * \brief Возврат лексемы в выходной поток 
- */
-void putback()
+void put_back()
 {
 	char *t;
 	t = token;
@@ -248,13 +215,9 @@ void putback()
 	}
 }
 
-/**
- * \brief Отображение сообщения об ошибке
- * \param error Код ошибки
- */
-void seterror(int error)
+void set_error(int error)
 {
-	static char *e[]=
+	static char *e[] =
 	{
 		"Syntax error",
 		"Unbalanced brackets",
@@ -265,11 +228,6 @@ void seterror(int error)
 	printf("%s\n", e[error]);
 }
 
-/**
- * \brief Возвращает значение true, если c является разделителем
- * \param c Символ
- * \return 1, если c разделитель, 0 в противном случае
- */
 int is_delim(char c)
 {
 	return strchr(" +-/*%^=()", c) || c == 9 || c == '\r' || c == 0
