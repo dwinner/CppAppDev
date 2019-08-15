@@ -4,19 +4,17 @@
  */
 
 #include <stdlib.h>
-#include <ctype.h>
 #include <stdio.h>
-#include <string.h>
 #include "parser.h"
 
-char *prog;
+char* prog;
 
 int main(int argc, char* argv[])
 {
 	double answer;
-	char *p;
 
-	p = (char*)malloc(100);
+	const int memory_size = 100;
+	char* p = (char*)malloc(memory_size);
 	if (!p)
 	{
 		printf("Memory allocation error.\n");
@@ -28,7 +26,7 @@ int main(int argc, char* argv[])
 	{
 		prog = p;
 		printf("Enter expression: ");
-		gets_s(prog, 100);
+		gets_s(prog, memory_size);
 		if (!*prog)
 		{
 			break;

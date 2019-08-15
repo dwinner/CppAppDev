@@ -1,4 +1,8 @@
 ﻿#include "parser.h"
+#include <stdlib.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 
 void start_evaluation(double* answer)
 {
@@ -13,7 +17,7 @@ void start_evaluation(double* answer)
 
 	if (*token)
 	{
-		set_error(0);	/* Последней лексемой должен быть нуль */
+		set_error(0); /* Последней лексемой должен быть нуль */
 	}
 }
 
@@ -56,13 +60,13 @@ void eval_multiply_or_divide(double* answer)
 		switch (op)
 		{
 		case '*':
-			*answer = *answer*temp;
+			*answer = *answer * temp;
 			break;
 
 		case '/':
 			if (temp == 0.0)
 			{
-				set_error(3);	/* Деление на 0 */
+				set_error(3); /* Деление на 0 */
 				*answer = 0.0;
 			}
 			else
@@ -84,8 +88,7 @@ void eval_multiply_or_divide(double* answer)
 
 void eval_power(double* answer)
 {
-	double temp, ex;
-	register int t;
+	double temp;
 
 	eval_unary_plus_minus(answer);
 
@@ -93,25 +96,23 @@ void eval_power(double* answer)
 	{
 		get_token();
 		eval_power(&temp);
-		ex = *answer;
+		const double ex = *answer;
 		if (temp == 0.0)
 		{
 			*answer = 1.0;
 			return;
 		}
 
-		for (t = temp - 1; t > 0; --t)
+		for (register int t = (int)temp - 1; t > 0; --t)
 		{
-			*answer = (*answer)*(double)ex;
+			*answer = (*answer) * (double)ex;
 		}
 	}
 }
 
 void eval_unary_plus_minus(double* answer)
 {
-	register char op;
-
-	op = 0;
+	register char op = 0;
 	if ((token_type == DELIMETER) && *token == '+' || *token == '-')
 	{
 		op = *token;
@@ -149,25 +150,23 @@ void atom(double* answer)
 {
 	if (token_type == NUMBER)
 	{
-		*answer = atof(token);
+		*answer = atof(token);  // NOLINT
 		get_token();
 		return;
 	}
 
-	set_error(0);	/* иначе синтаксическая ошибка в выражении */
+	set_error(0); /* иначе синтаксическая ошибка в выражении */
 }
 
 void get_token()
 {
-	register char *temp;
-
 	token_type = 0;
-	temp = token;
+	register char* temp = token;
 	*temp = '\0';
 
 	if (!*prog)
 	{
-		return;	/* Конец выражения */
+		return; /* Конец выражения */
 	}
 
 	while (isspace(*prog))
@@ -207,17 +206,16 @@ void get_token()
 
 void put_back()
 {
-	char *t;
-	t = token;
+	char* t = token;
 	for (; *t; t++)
 	{
 		prog--;
 	}
 }
 
-void set_error(int error)
+void set_error(const int error)
 {
-	static char *e[] =
+	static char* e[] =
 	{
 		"Syntax error",
 		"Unbalanced brackets",
@@ -228,9 +226,9 @@ void set_error(int error)
 	printf("%s\n", e[error]);
 }
 
-int is_delim(char c)
+int is_delim(const char c)
 {
 	return strchr(" +-/*%^=()", c) || c == 9 || c == '\r' || c == 0
-		? 1
-		: 0;
+		       ? 1
+		       : 0;
 }
