@@ -163,6 +163,7 @@ void get_token()
    token_type = 0;
    register char* temp = token;
    *temp = '\0';
+   const char* delimeters = "+-*/%^=()";
 
    if (!*prog)
    {
@@ -174,8 +175,8 @@ void get_token()
       /* пропустить пробелы, символы табуляции и пустой строки */
       ++prog;
    }
-
-   if (strchr("+-*/%^=()", *prog))
+   
+   if (strchr(delimeters, *prog))
    {
       token_type = DELIMETER;
 
