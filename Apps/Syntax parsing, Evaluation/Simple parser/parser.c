@@ -113,7 +113,7 @@ void eval_power(double* answer)
 void eval_unary_plus_minus(double* answer)
 {
    register char op = 0;
-   if ((token_type == DELIMETER) && *token == '+' || *token == '-')
+   if (token_type == DELIMETER && *token == '+' || *token == '-')
    {
       op = *token;
       get_token();
@@ -129,7 +129,7 @@ void eval_unary_plus_minus(double* answer)
 
 void eval_brackets(double* answer)
 {
-   if ((*token == '('))
+   if (*token == '(')
    {
       get_token();
       eval_add_or_subtract(answer);
