@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include "parser.h"
 
-char* prog;
+char* program;
 
 int main(int argc, char* argv[])
 {
@@ -24,10 +24,10 @@ int main(int argc, char* argv[])
    /* Обработка выражений до ввода пустой строки */
    do
    {
-      prog = p;
+      program = p;
       printf("Enter expression: ");
-      gets_s(prog, memory_size);
-      if (!*prog)
+      gets_s(program, memory_size);
+      if (!*program)
       {
          break;
       }

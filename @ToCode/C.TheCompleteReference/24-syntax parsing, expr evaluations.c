@@ -69,24 +69,11 @@ void putback(void)
   t = token;
   for(; *t; t++) prog--;
 }
-
-listing 8
-/* This module contains the recursive descent
-   parser that recognizes variables.
-*/
-
+=========================================================================================================
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-
-#define DELIMITER 1
-#define VARIABLE  2
-#define NUMBER    3
-
-extern char *prog; /* points to the expression to be analyzed */
-char token[80];
-char tok_type;
 
 double vars[26] = { /* 26 user variables,  A-Z */
  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,

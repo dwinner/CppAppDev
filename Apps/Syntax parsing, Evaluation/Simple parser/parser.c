@@ -165,38 +165,38 @@ void get_token()
    *temp = '\0';
    const char* delimeters = "+-*/%^=()";
 
-   if (!*prog)
+   if (!*program)
    {
       return; /* Конец выражения */
    }
 
-   while (isspace(*prog))
+   while (isspace(*program))
    {
       /* пропустить пробелы, символы табуляции и пустой строки */
-      ++prog;
+      ++program;
    }
    
-   if (strchr(delimeters, *prog))
+   if (strchr(delimeters, *program))
    {
       token_type = DELIMETER;
 
       /* Перейти к следующему символу */
-      *temp++ = *prog++;
+      *temp++ = *program++;
    }
-   else if (isalpha(*prog))
+   else if (isalpha(*program))
    {
-      while (!is_delim(*prog))
+      while (!is_delim(*program))
       {
-         *temp++ = *prog++;
+         *temp++ = *program++;
       }
 
       token_type = VARIABLE;
    }
-   else if (isdigit(*prog))
+   else if (isdigit(*program))
    {
-      while (!is_delim(*prog))
+      while (!is_delim(*program))
       {
-         *temp++ = *prog++;
+         *temp++ = *program++;
       }
 
       token_type = NUMBER;
@@ -210,7 +210,7 @@ void put_back()
    char* t = token;
    for (; *t; t++)
    {
-      prog--;
+      program--;
    }
 }
 
