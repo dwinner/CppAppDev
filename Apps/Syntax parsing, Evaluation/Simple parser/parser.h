@@ -9,7 +9,7 @@
 /**
  *	Содержит анализируемое выражение
  */
-extern char* prog;
+extern char* program;
 char token[80];
 char token_type;
 

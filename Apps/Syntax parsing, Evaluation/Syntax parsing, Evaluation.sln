@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simple parser", "Simple parser\Simple parser.vcxproj", "{AEB8F052-F966-43C0-99E4-185EB5584F30}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simple parser (improved)", "Simple parser (improved)\Simple parser (improved).vcxproj", "{7413727F-6CE8-45C3-80EB-C2FBDAF74333}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{AEB8F052-F966-43C0-99E4-185EB5584F30}.Debug|Win32.Build.0 = Debug|Win32
 		{AEB8F052-F966-43C0-99E4-185EB5584F30}.Release|Win32.ActiveCfg = Release|Win32
 		{AEB8F052-F966-43C0-99E4-185EB5584F30}.Release|Win32.Build.0 = Release|Win32
+		{7413727F-6CE8-45C3-80EB-C2FBDAF74333}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7413727F-6CE8-45C3-80EB-C2FBDAF74333}.Debug|Win32.Build.0 = Debug|Win32
+		{7413727F-6CE8-45C3-80EB-C2FBDAF74333}.Release|Win32.ActiveCfg = Release|Win32
+		{7413727F-6CE8-45C3-80EB-C2FBDAF74333}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
