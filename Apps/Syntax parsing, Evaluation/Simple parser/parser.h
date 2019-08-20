@@ -69,13 +69,13 @@ void put_back();
  * \brief Отображение сообщения об ошибке
  * \param error Код ошибки
  */
-void set_error(int error);
+void set_error(const int error);
 
 /**
  * \brief Возвращает значение true, если c является разделителем
  * \param c Символ
  * \return 1, если c разделитель, 0 в противном случае
  */
-int is_delim(char c);
+int is_delim(const char c);
 
 #endif // PARSER_H
