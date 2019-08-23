@@ -135,7 +135,7 @@ void eval_exp4(double* answer)
    register int t;
 
    eval_exp5(answer);
-   if (*token == '^')
+   if (*token == '^') /* TODO: Introduce enum for token types */
    {
       get_token();
       eval_exp4(&temp);
@@ -158,7 +158,7 @@ void eval_exp5(double* answer)
    register char operator; /* TODO: Introduce enum for operator types */
 
    operator = 0;
-   if ((token_type == DELIMETER) && *token == '+' || *token == '-')
+   if (token_type == DELIMETER && *token == '+' || *token == '-')
    {
       operator = *token;
       get_token();
@@ -174,30 +174,132 @@ void eval_exp5(double* answer)
 
 void eval_exp6(double* answer)
 {
+   if (*token == '(')
+   {
+      get_token();
+      eval_exp2(answer);
+      if (*token != ')') /* TODO: Introduce enum for token types */
+      {
+         set_error(1); /* TODO: Introduce enum for error types */
+      }
+
+      get_token();
+   }
+   else
+   {
+      atom(answer);
+   }
 }
 
 void atom(double* answer)
 {
+   switch (token_type) /* TODO: Introduce enum for token types */
+   {
+   case VARIABLE:
+      *answer = find_var(token);
+      get_token();
+      return;
+
+   case NUMBER:
+      *answer = atof(token);
+      get_token();
+      return;
+
+   default:
+      set_error(0); /* TODO: Introduce enum for error types */
+   }
 }
 
 void get_token(void)
 {
+   register char* temp;
+
+   token_type = 0;
+   temp = token;
+   *temp = '\0';
+
+   if (!*program)
+   {
+      return; /* At the end of expression */
+   }
+
+   /* Skip over white spaces */
+   while (isspace(*program))
+   {
+      ++program;
+   }
+
+   /* TODO: Introduce delimeter types */
+   if (strchr("+-*/%^=()", *program))
+   {
+      token_type = DELIMETER;
+      *temp++ = *program++; /* advance to the next char */
+   }
+   else if (isalpha(*program))
+   {
+      while (!is_delimeter(*program)) /* TOREFACTOR: Move it to function */
+      {
+         *temp++ = *program++;
+      }
+
+      token_type = VARIABLE;
+   }
+   else if (isdigit(*program))
+   {
+      while (!is_delimeter(*program)) /* TOREFACTOR: Move it to function */
+      {
+         *temp++ = *program++;
+      }
+
+      token_type = NUMBER;
+   }
+
+   *temp = '\0';
 }
 
 void put_back(void)
 {
+   char* charToRet;
+
+   charToRet = token;
+   for (; *charToRet; charToRet++)
+   {
+      program--;
+   }
 }
 
-void set_error(int error)
+void set_error(int errorIndex)
 {
+   /* NOTE: Due to recursive nature, you can get a lot of errors.
+    * If you want to stop on the first error, use longjmp()/setjmp()
+    */
+   static char* error_types[] =
+   {
+      "Syntax Error",
+      "Unbalanced Parentheses",
+      "No Expression Present",
+      "Division by Zero"
+   };
+
+   printf("%s\n", error_types[errorIndex]);
 }
 
-double find_var(char* s)
+double find_var(char* symbol)
 {
-   return 0.0;
+   if (!isalpha(*symbol))
+   {
+      set_error(1); /* TODO: Introduce enum for error types */
+      return 0.0;
+   }
+
+   return vars[toupper(*token) - 'A']; /* TOREFACTOR: Strange way to obtain variable value */
 }
 
+/* TODO: Use _Bool for all such return values and checking */
 int is_delimeter(char symbol)
 {
-   return 0;
+   /* TODO: Introduce delimeter types */
+   return strchr(" +-/*%^=()", symbol) || symbol == 9 || symbol == '\r' || symbol == 0
+             ? 1
+             : 0;
 }

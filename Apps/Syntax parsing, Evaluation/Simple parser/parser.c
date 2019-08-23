@@ -214,7 +214,7 @@ void put_back()
    }
 }
 
-void set_error(const int error)
+void set_error(const int errorIndex)
 {
    static char* e[] =
    {
@@ -224,7 +224,7 @@ void set_error(const int error)
       "Dividing by zero"
    };
 
-   printf("%s\n", e[error]);
+   printf("%s\n", e[errorIndex]);
 }
 
 int is_delim(const char c)

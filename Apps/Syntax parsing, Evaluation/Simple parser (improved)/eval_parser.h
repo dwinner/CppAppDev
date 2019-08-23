@@ -59,18 +59,46 @@ void eval_exp4(double* answer);
  */
 void eval_exp5(double* answer);
 
+/**
+ * \brief Process a parenthesized expression
+ * \param answer Recursively return expression value
+ */
 void eval_exp6(double* answer);
 
+/**
+ * \brief Get the value of a number or a variable
+ * \param answer Recursively return expression value
+ */
 void atom(double* answer);
 
+/**
+ * \brief Return the next token
+ */
 void get_token(void);
 
+/**
+ * \brief Return a token to the input stream
+ */
 void put_back(void);
 
-void set_error(int error);
+/**
+ * \brief Display a syntax error
+ * \param errorIndex Error type
+ */
+void set_error(int errorIndex);
 
-double find_var(char* s);
+/**
+ * \brief Get variable value
+ * \param symbol Variable symbol
+ * \return Variable value
+ */
+double find_var(char* symbol);
 
+/**
+ * \brief Finds out if the symbol is delimeter or not
+ * \param symbol The symbol
+ * \return True if the symbol is a delimeter
+ */
 int is_delimeter(char symbol);
 
 #endif // EVAL_PARSER_H

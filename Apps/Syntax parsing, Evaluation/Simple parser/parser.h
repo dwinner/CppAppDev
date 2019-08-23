@@ -67,9 +67,9 @@ void put_back();
 
 /**
  * \brief Отображение сообщения об ошибке
- * \param error Код ошибки
+ * \param errorIndex Код ошибки
  */
-void set_error(const int error);
+void set_error(const int errorIndex);
 
 /**
  * \brief Возвращает значение true, если c является разделителем
