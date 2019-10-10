@@ -14,7 +14,7 @@ void start_evaluation(double* answer)
       return;
    }
 
-   eval_exp1(answer);
+   process_assignment(answer);
 
    if (*token)
    {
@@ -23,7 +23,7 @@ void start_evaluation(double* answer)
    }
 }
 
-void eval_exp1(double* answer)
+void process_assignment(double* answer)
 {
    int slot;
    char ttok_type;

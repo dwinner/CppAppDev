@@ -33,7 +33,7 @@ void start_evaluation(double* answer);
  * \brief Process an assignment
  * \param answer Recursively return expression value
  */
-void eval_exp1(double* answer);
+void process_assignment(double* answer);
 
 /**
  * \brief Add or subtract two terms
