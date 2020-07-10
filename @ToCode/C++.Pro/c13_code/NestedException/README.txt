@@ -1,0 +1,1 @@
+Visual C++ 2013 does not yet support nested exceptions, __func__, and noexcept.

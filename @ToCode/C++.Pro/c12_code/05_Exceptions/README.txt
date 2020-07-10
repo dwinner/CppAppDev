@@ -1,0 +1,1 @@
+Exceptions.cpp does not compile in g++ 4.9.0 and clang++ 3.4.1.
