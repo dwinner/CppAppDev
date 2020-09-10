@@ -32,6 +32,7 @@ mov esi, 0
 mov (MyStruct ptr array1[esi]).field1, 30h
 add esi, type MyStruct
 mov(MyStruct ptr array1[esi]).field1, 30h
+
 mov eax, type MyStruct
 mov eax, sizeof MyStruct
 
