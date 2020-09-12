@@ -2,11 +2,26 @@
 // voidPointer.c
 
 #include <stdlib.h>
+#include <math.h>
 
 #define ARR_LEN 20
 
 /**
- * A function to compare any two float elements,
+ * Point structure
+ */
+struct point
+{
+   float x;
+   float y;
+};
+
+/**
+ * Point structure
+ */
+typedef struct point Point;
+
+/**
+ * A function to compare any two point elements,
  * for use as a call-back function by qsort().
  * Arguments are passed by pointer.
  *
@@ -14,12 +29,15 @@
  * 0 if the elements are equal;
  * 1 if the first is greater than the second.
  */
-int floatcmp(const void *p1, const void *p2)
+int pointCmp(const void *p1, const void *p2)
 {
-   float x = *(float *) p1,
-      y = *(float *) p2;
+   Point point1 = *(Point *) p1,
+      point2 = *(Point *) p2;
 
-   return (x < y) ? -1 : ((x == y) ? 0 : 1);
+   float distance1 = sqrtf(powf(point1.x, 2) + powf(point1.y, 2));
+   float distance2 = sqrtf(powf(point2.x, 2) + powf(point2.y, 2));
+
+   return (distance1 < distance2) ? -1 : ((distance1 == distance2) ? 0 : 1);
 }
 
 /**
@@ -34,13 +52,13 @@ int floatcmp(const void *p1, const void *p2)
 int main()
 {
    /* Allocate space for the array dynamically: */
-   float *pNumbers = malloc(ARR_LEN * sizeof(float));
+   Point *pPoints = malloc(ARR_LEN * sizeof(Point));
 
    /* ... Handle errors, initialize array elements ... */
-   if (pNumbers == NULL)
+   if (pPoints == NULL)
    {
       fprintf(stderr, "Insufficient memory.\n");
-      exit(1);
+      exit(EXIT_FAILURE);
    }
 
    srand((unsigned) time(NULL));
@@ -48,16 +66,17 @@ int main()
    for (int i = 0; i < ARR_LEN; ++i)
    {
       // random numbers
-      pNumbers[i] = (rand() - RAND_MAX / 2) * (100.0F / RAND_MAX);
+      pPoints[i].x = (rand() - RAND_MAX / 2) * (100.0F / RAND_MAX);
+      pPoints[i].y = (rand() - RAND_MAX / 2) * (100.0F / RAND_MAX);
    }
 
    /* Sort the array: */
-   qsort(pNumbers, ARR_LEN, sizeof(float), floatcmp);
+   qsort(pPoints, ARR_LEN, sizeof(Point), pointCmp);
 
    /* ... Work with the sorted array ... */
    for (int i = 0; i < ARR_LEN; ++i)   // The sorted array
    {
-      printf("%8.2f", pNumbers[i]);
+      printf("(%8.2f;%8.2f)", pPoints[i].x, pPoints[i].y);
    }
 
    return 0;
