@@ -26,14 +26,14 @@ void start_evaluation(double* answer)
 void process_assignment(double* answer)
 {
    int slot;
-   char ttok_type;
+   TokenTypes ttokType = none;
    char temp_token[PROGRAM_BUFFER];
 
-   if (token_type == VARIABLE)
+   if (token_type == variable)
    {
       /* save old token */
       strcpy_s(temp_token, PROGRAM_BUFFER, token);
-      ttok_type = token_type;
+      ttokType = token_type;
 
       /* compute the index of the variable */
       slot = toupper(*token) - 'A';
@@ -46,31 +46,31 @@ void process_assignment(double* answer)
 
          /* restore old token - not assignment */
          strcpy_s(token, PROGRAM_BUFFER, temp_token);
-         token_type = ttok_type;
+         token_type = ttokType;
       }
       else
       {
          get_token(); /* get the next part of expression */
-         eval_exp2(answer);
+         process_add_or_subtract(answer);
          vars[slot] = *answer;
          return;
       }
    }
 
-   eval_exp2(answer);
+   process_add_or_subtract(answer);
 }
 
-void eval_exp2(double* answer)
+void process_add_or_subtract(double* answer)
 {
    register char operator; /* TODO: Introduce enum for operator types */
    double temp;
 
-   eval_exp3(answer);
+   process_mult_or_divide(answer);
 
    while ((operator = *token) == '+' || operator == '-')
    {
       get_token();
-      eval_exp3(&temp);
+      process_mult_or_divide(&temp);
 
       switch (operator) /* TOREFACTOR: Move it to function */
       {
@@ -88,17 +88,17 @@ void eval_exp2(double* answer)
    }
 }
 
-void eval_exp3(double* answer)
+void process_mult_or_divide(double* answer)
 {
    register char operator; /* TODO: Introduce enum for operator types */
    double temp;
 
-   eval_exp4(answer);
+   process_exponent(answer);
 
    while ((operator = *token) == '*' || operator == '/' || operator == '%')
    {
       get_token();
-      eval_exp4(&temp);
+      process_exponent(&temp);
 
       switch (operator) /* TODO: Move it to function */
       {
@@ -129,16 +129,16 @@ void eval_exp3(double* answer)
    }
 }
 
-void eval_exp4(double* answer)
+void process_exponent(double* answer)
 {
    double temp, ex;
    register int t;
 
-   eval_exp5(answer);
+   evaluate_plus_or_minus(answer);
    if (*token == '^') /* TODO: Introduce enum for token types */
    {
       get_token();
-      eval_exp4(&temp);
+      process_exponent(&temp);
       ex = *answer;
       if (temp == 0.0)
       {
@@ -153,18 +153,18 @@ void eval_exp4(double* answer)
    }
 }
 
-void eval_exp5(double* answer)
+void evaluate_plus_or_minus(double* answer)
 {
    register char operator; /* TODO: Introduce enum for operator types */
 
    operator = 0;
-   if (token_type == DELIMETER && *token == '+' || *token == '-')
+   if (token_type == delimeter && *token == '+' || *token == '-')
    {
       operator = *token;
       get_token();
    }
 
-   eval_exp6(answer);
+   process_parenthesized_expr(answer);
 
    if (operator == '-')
    {
@@ -172,12 +172,12 @@ void eval_exp5(double* answer)
    }
 }
 
-void eval_exp6(double* answer)
+void process_parenthesized_expr(double* answer)
 {
    if (*token == '(')
    {
       get_token();
-      eval_exp2(answer);
+      process_add_or_subtract(answer);
       if (*token != ')') /* TODO: Introduce enum for token types */
       {
          set_error(1); /* TODO: Introduce enum for error types */
@@ -193,17 +193,17 @@ void eval_exp6(double* answer)
 
 void atom(double* answer)
 {
-   switch (token_type) /* TODO: Introduce enum for token types */
+   switch (token_type)
    {
-   case VARIABLE:
+   case variable:
       *answer = find_var(token);
       get_token();
-      return;
+      break;
 
-   case NUMBER:
+   case number:
       *answer = atof(token);
       get_token();
-      return;
+      break;
 
    default:
       set_error(0); /* TODO: Introduce enum for error types */
@@ -214,7 +214,7 @@ void get_token(void)
 {
    register char* temp;
 
-   token_type = 0;
+   token_type = none;
    temp = token;
    *temp = '\0';
 
@@ -232,7 +232,7 @@ void get_token(void)
    /* TODO: Introduce delimeter types */
    if (strchr("+-*/%^=()", *program))
    {
-      token_type = DELIMETER;
+      token_type = delimeter;
       *temp++ = *program++; /* advance to the next char */
    }
    else if (isalpha(*program))
@@ -242,7 +242,7 @@ void get_token(void)
          *temp++ = *program++;
       }
 
-      token_type = VARIABLE;
+      token_type = variable;
    }
    else if (isdigit(*program))
    {
@@ -251,7 +251,7 @@ void get_token(void)
          *temp++ = *program++;
       }
 
-      token_type = NUMBER;
+      token_type = number;
    }
 
    *temp = '\0';
@@ -268,12 +268,11 @@ void put_back(void)
    }
 }
 
-void set_error(int errorIndex)
+void set_error(const int errorIndex)
 {
-   /* NOTE: Due to recursive nature, you can get a lot of errors.
-    * If you want to stop on the first error, use longjmp()/setjmp()
-    */
-   static char* error_types[] =
+   /* Due to recursive nature, you can get a lot of errors.
+      If you want to stop on the first error, use longjmp()/setjmp() */
+   static char* errorTypes[] =
    {
       "Syntax Error",
       "Unbalanced Parentheses",
@@ -281,18 +280,18 @@ void set_error(int errorIndex)
       "Division by Zero"
    };
 
-   printf("%s\n", error_types[errorIndex]);
+   printf("%s\n", errorTypes[errorIndex]);
 }
 
-double find_var(char* symbol)
+double find_var(const char* symbol)
 {
    if (!isalpha(*symbol))
    {
-      set_error(1); /* TODO: Introduce enum for error types */
+      set_error(1);
       return 0.0;
    }
 
-   return vars[toupper(*token) - 'A']; /* TOREFACTOR: Strange way to obtain variable value */
+   return vars[toupper(*token) - 'A'];
 }
 
 /* TODO: Use _Bool for all such return values and checking */
