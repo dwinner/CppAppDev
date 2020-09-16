@@ -25,7 +25,7 @@ int main()
 
 /**
  * @brief Transform integer to binary format
- *		@param n integer number
+ *	@param n integer number
  */
 void toBinary(const unsigned long n)
 {
