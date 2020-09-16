@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConditionCompilation", "Con
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PredefinedIdentifiers", "PredefinedIdentifiers\PredefinedIdentifiers.vcxproj", "{93177810-BB12-4AD8-A9CB-80BED7AB263C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NestedMacros", "NestedMacros\NestedMacros.vcxproj", "{1E9F228B-098F-4BDA-9E37-B0C6D0D25343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -69,6 +71,10 @@ Global
 		{93177810-BB12-4AD8-A9CB-80BED7AB263C}.Debug|Win32.Build.0 = Debug|Win32
 		{93177810-BB12-4AD8-A9CB-80BED7AB263C}.Release|Win32.ActiveCfg = Release|Win32
 		{93177810-BB12-4AD8-A9CB-80BED7AB263C}.Release|Win32.Build.0 = Release|Win32
+		{1E9F228B-098F-4BDA-9E37-B0C6D0D25343}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1E9F228B-098F-4BDA-9E37-B0C6D0D25343}.Debug|Win32.Build.0 = Debug|Win32
+		{1E9F228B-098F-4BDA-9E37-B0C6D0D25343}.Release|Win32.ActiveCfg = Release|Win32
+		{1E9F228B-098F-4BDA-9E37-B0C6D0D25343}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
