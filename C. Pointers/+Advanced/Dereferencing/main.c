@@ -1,7 +1,9 @@
-// Example 9-1. Dereferencing a pointer
-// dereferencing.c
+/**
+ * Dereferencing a pointer
+ */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -14,6 +16,5 @@ int main()
    y = *ptr + 0.5;          // Assign y the result of the addition x + 0.5.
    printf("y = %6.2f\n", y);
 
-   return 0;
+   return EXIT_SUCCESS;
 }
-
