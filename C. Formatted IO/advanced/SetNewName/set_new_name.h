@@ -3,17 +3,33 @@
 
 #include <stdio.h>
 
-typedef struct
+/**
+ * Record
+ */
+struct Record
 {
    long key;
    char name[32];
-} Record_t;
+};
 
-typedef struct
+/**
+ * Record_t
+ */
+typedef struct Record Record_t;
+
+/**
+ * IndexEntry
+ */
+struct IndexEntry
 {
    long key,
       pos;
-} IndexEntry_t;
+};
+
+/**
+ * IndexEntry
+ */
+typedef struct IndexEntry IndexEntry_t;
 
 Record_t *setNewName(FILE *fp, long key, const char *newName);
 
