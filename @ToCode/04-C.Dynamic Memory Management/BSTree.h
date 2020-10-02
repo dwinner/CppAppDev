@@ -1,19 +1,3 @@
-// A binary search tree (BST)
-// BSTree.h
-
-#include <stdbool.h>
-
-typedef int CmpFunc_t( const void *pKey1, const void *pKey2);
-typedef const void *GetKeyFunc_t( const void *pData);
-
-typedef struct { struct Node  *pRoot;       // Pointer to the root.
-                 CmpFunc_t    *cmp;         // Compares two keys.
-                 GetKeyFunc_t *getKey;      // Converts data into a key value
-               } BST_t;
-
-BST_t *     newBST( CmpFunc_t *cmp, GetKeyFunc_t *getKey);
-_Bool       BST_insert( BST_t *pBST, const void *pData, size_t size);
-const void *BST_search( BST_t *pBST, const void *pKey);
 _Bool       BST_erase( BST_t *pBST, const void *pKey);
 void        BST_clear( BST_t *pBST);
 
