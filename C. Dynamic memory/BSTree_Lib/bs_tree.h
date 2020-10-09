@@ -96,7 +96,7 @@ BstT* new_bst(CmpFuncT* cmp, GetKeyFuncT* getKey);
  * \param size Size of the data
  * \return true if it succeeds in inserting the new data, false - otherwise
  */
-bool bst_insert(BstT* pBst, const void* pData, size_t size);
+bool bst_insert(BstT* pBst, const void* pData, const size_t size);
 
 /**
  * \brief Uses the binary search algorithm to find a data item that matches a given key
@@ -112,6 +112,44 @@ const void* bst_search(BstT* pBst, const void* pKey);
  * \param pKey Key to search
  * \return false if it fails to find a matching node to delete, or true if successful.
  */
-bool bst_erase(BstT *pBst, const void *pKey);
+bool bst_erase(BstT* pBst, const void* pKey);
+
+/**
+ * \brief Deletes all the nodes of a tree
+ * \param pBst The tree root  
+ */
+void bst_clear(BstT* pBst);
+
+/**
+ * \brief Traverses the tree in direct order
+ * \param pBst The tree
+ * \param action Traverse action (calls for each node visited)
+ * \return The number of times the action was performed successfully
+ */
+int bst_inorder(BstT* pBst, bool (*action)(void* pData));
+
+/**
+ * \brief Traverses the tree in reverse order
+ * \param pBst The tree
+ * \param action Traverse action (calls for each node visited)
+ * \return The number of times the action was performed successfully
+ */
+int bst_rev_inorder(BstT* pBst, bool (*action)(void* pData));
+
+/**
+ * \brief Traverses the tree in pre order
+ * \param pBst The tree
+ * \param action Traverse action (calls for each node visited)
+ * \return The number of times the action was performed successfully
+ */
+int bst_preorder(BstT* pBst, bool (*action)(void* pData));
+
+/**
+ * \brief Traverses the tree in post order
+ * \param pBst The tree
+ * \param action Traverse action (calls for each node visited)
+ * \return The number of times the action was performed successfully
+ */
+int bst_postorder(BstT* pBst, bool (*action)(void* pData));
 
 #endif // BS_TREE_H
