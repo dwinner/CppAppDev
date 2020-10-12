@@ -28,25 +28,25 @@ typedef const void* GetKeyFuncT(const void* pData);
  */
 struct node
 {
-	/**
-	 * \brief Pointer to the left node
-	 */
-	struct node* left;
+   /**
+    * \brief Pointer to the left node
+    */
+   struct node* left;
 
-	/**
-	 * \brief Pointer to the right node
-	 */
-	struct node* right;
+   /**
+    * \brief Pointer to the right node
+    */
+   struct node* right;
 
-	/**
-	 * \brief Size of the data payload
-	 */
-	size_t size;
+   /**
+    * \brief Size of the data payload
+    */
+   size_t size;
 
-	/**
-	 * \brief The data itself
-	 */
-	char data[];
+   /**
+    * \brief The data itself
+    */
+   char data[];
 };
 
 /**
@@ -64,20 +64,20 @@ typedef NodeT* NodePtr;
  */
 struct b_tree
 {
-	/**
-	 * \brief Pointer to the root
-	 */
-	NodeT* p_root;
+   /**
+    * \brief Pointer to the root
+    */
+   NodeT* p_root;
 
-	/**
-	 * \brief Comparison function - compares two keys
-	 */
-	CmpFuncT* cmp;
+   /**
+    * \brief Comparison function - compares two keys
+    */
+   CmpFuncT* cmp;
 
-	/**
-	 * \brief Get key function - converts data into a key value
-	 */
-	GetKeyFuncT* get_key;
+   /**
+    * \brief Get key function - converts data into a key value
+    */
+   GetKeyFuncT* get_key;
 };
 
 /**
