@@ -55,6 +55,11 @@ struct node
 typedef struct node NodeT;
 
 /**
+* \brief Poiner to Node pseuvo name
+*/
+typedef NodeT* NodePtr;
+
+/**
  * \brief Binary search tree
  */
 struct b_tree
@@ -81,6 +86,13 @@ struct b_tree
 typedef struct b_tree BstT;
 
 /**
+ * \brief Action function
+ * \param pData Data to visit
+ * \return true, if data has been taken into accout, false - otherwise
+ */
+typedef bool (ActionFunc)(void* pData);
+
+/**
  * \brief Creates a new binary search tree
  * \param cmp Comparison function
  * \param getKey Key generator by data function
@@ -96,7 +108,7 @@ BstT* new_bst(CmpFuncT* cmp, GetKeyFuncT* getKey);
  * \param size Size of the data
  * \return true if it succeeds in inserting the new data, false - otherwise
  */
-bool bst_insert(BstT* pBst, const void* pData, const size_t size);
+bool bst_insert(BstT* pBst, const void* pData, size_t size);
 
 /**
  * \brief Uses the binary search algorithm to find a data item that matches a given key

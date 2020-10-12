@@ -21,7 +21,7 @@ const void* default_get_key(const void* pData);
  * \param size Data size
  * \return true if it succeeds in inserting the new data, false - otherwise
  */
-static bool internal_insert(BstT* pBst, NodeT** ppNode, const void* pData, const size_t size);
+static bool internal_insert(BstT* pBst, NodePtr* ppNode, const void* pData, const size_t size);
 
 /**
  * \brief Uses the binary search algorithm to find a data item that matches a given key
@@ -30,7 +30,7 @@ static bool internal_insert(BstT* pBst, NodeT** ppNode, const void* pData, const
  * \param pKey Key
  * \return A pointer to the data item of the first node that matches the key, or a null pointer if no match was found
  */
-static const void* internal_search(BstT* pBst, const NodeT* pNode, const void* pKey);
+static const void* internal_search(BstT* pBst, NodePtr pNode, const void* pKey);
 
 /**
  * \brief Searches for a node that matches the specified key, and deletes it if found.
@@ -39,20 +39,20 @@ static const void* internal_search(BstT* pBst, const NodeT* pNode, const void* p
  * \param pKey Key to search
  * \return false if it fails to find a matching node to delete, or true if successful
  */
-static bool internal_erase(BstT* pBst, NodeT** ppNode, const void* pKey);
+static bool internal_erase(BstT* pBst, NodePtr* ppNode, const void* pKey);
 
 /**
  * \brief Plucks the minimum node from a specified subtree, and returns 
  * \param ppNode Pointer to pointer to the starting node
  * \return A pointer to the detached node
  */
-static NodeT* detach_min(NodeT** ppNode);
+static NodePtr detach_min(NodePtr* ppNode);
 
 /**
  * \brief Deletes all the nodes of a tree
  * \param pNode The tree root
  */
-static void internal_clear(NodeT* pNode);
+static void internal_clear(NodePtr pNode);
 
 /**
  * \brief Traverses the tree in post order
@@ -60,7 +60,7 @@ static void internal_clear(NodeT* pNode);
  * \param action Traverse action
  * \return Traversed node's count
  */
-static int post_order(NodeT* pNode, bool (*action)(void* pData));
+static int post_order(NodePtr pNode, ActionFunc *action);
 
 /**
  * \brief Traverses the tree in pre order
@@ -68,7 +68,7 @@ static int post_order(NodeT* pNode, bool (*action)(void* pData));
  * \param action Traverse action
  * \return Traversed node's count
  */
-static int pre_order(NodeT* pNode, bool (*action)(void* pData));
+static int pre_order(NodePtr pNode, ActionFunc *action);
 
 /**
  * \brief Traverses the tree in reverse order
@@ -76,7 +76,7 @@ static int pre_order(NodeT* pNode, bool (*action)(void* pData));
  * \param action Traverse action
  * \return Traversed node's count
  */
-static int rev_inorder(NodeT* pNode, bool (*action)(void* pData));
+static int rev_inorder(NodePtr pNode, ActionFunc *action);
 
 /**
  * \brief Traverses the tree in direct order
@@ -84,7 +84,7 @@ static int rev_inorder(NodeT* pNode, bool (*action)(void* pData));
  * \param action Traverse action
  * \return Traversed node's count
  */
-static int in_order(NodeT* pNode, bool (*action)(void* pData));
+static int in_order(NodePtr pNode, ActionFunc *action);
 
 /************************************************************************/
 /* External functions                                                   */
@@ -141,28 +141,28 @@ void bst_clear(BstT* pBst)
 	}
 }
 
-int bst_inorder(BstT* pBst, bool (* action)(void* pData))
+int bst_inorder(BstT* pBst, ActionFunc * action)
 {
 	return pBst == NULL || action == NULL
 		       ? 0
 		       : in_order(pBst->p_root, action);
 }
 
-int bst_rev_inorder(BstT* pBst, bool (* action)(void* pData))
+int bst_rev_inorder(BstT* pBst, ActionFunc * action)
 {
 	return pBst == NULL || action == NULL
 		       ? 0
 		       : rev_inorder(pBst->p_root, action);
 }
 
-int bst_preorder(BstT* pBst, bool (* action)(void* pData))
+int bst_preorder(BstT* pBst, ActionFunc * action)
 {
 	return pBst == NULL || action == NULL
 		       ? 0
 		       : pre_order(pBst->p_root, action);
 }
 
-int bst_postorder(BstT* pBst, bool (* action)(void* pData))
+int bst_postorder(BstT* pBst, ActionFunc * action)
 {
 	return pBst == NULL || action == NULL
 		       ? 0
@@ -178,9 +178,9 @@ const void* default_get_key(const void* pData)
 	return pData;
 }
 
-static bool internal_insert(BstT* pBst, NodeT** ppNode, const void* pData, const size_t size)
+static bool internal_insert(BstT* pBst, NodePtr* ppNode, const void* pData, const size_t size)
 {
-	NodeT* pNode = *ppNode; // Pointer to the root node of the subtree to insert the new node in.
+	NodePtr pNode = *ppNode; // Pointer to the root node of the subtree to insert the new node in.
 
 	if (pNode == NULL) // There's a place for a new leaf here.
 	{
@@ -208,7 +208,7 @@ static bool internal_insert(BstT* pBst, NodeT** ppNode, const void* pData, const
 	                       size);
 }
 
-static const void* internal_search(BstT* pBst, const NodeT* pNode, const void* pKey)
+static const void* internal_search(BstT* pBst, NodePtr pNode, const void* pKey)
 {
 	if (pNode == NULL)
 	{
@@ -225,9 +225,9 @@ static const void* internal_search(BstT* pBst, const NodeT* pNode, const void* p
 		                         pKey);
 }
 
-static bool internal_erase(BstT* pBst, NodeT** ppNode, const void* pKey)
+static bool internal_erase(BstT* pBst, NodePtr* ppNode, const void* pKey)
 {
-	NodeT* pNode = *ppNode; // Pointer to the current node.
+	NodePtr pNode = *ppNode; // Pointer to the current node.
 
 	if (pNode == NULL)
 	{
@@ -258,7 +258,7 @@ static bool internal_erase(BstT* pBst, NodeT** ppNode, const void* pKey)
 	}
 	else // Two children: replace the node with the minimum from the right subtree.
 	{
-		NodeT* pMin = detach_min(&pNode->right);
+		NodePtr pMin = detach_min(&pNode->right);
 		*ppNode = pMin; // Graft it onto the deleted node's parent.
 		pMin->left = pNode->left; // Graft the deleted node's children.
 		pMin->right = pNode->right;
@@ -268,9 +268,9 @@ static bool internal_erase(BstT* pBst, NodeT** ppNode, const void* pKey)
 	return true;
 }
 
-static NodeT* detach_min(NodeT** ppNode)
+static NodePtr detach_min(NodePtr* ppNode)
 {
-	NodeT* pNode = *ppNode; // A pointer to the current node.
+	NodePtr pNode = *ppNode; // A pointer to the current node.
 
 	if (pNode == NULL) // pNode is an empty subtree.
 	{
@@ -287,7 +287,7 @@ static NodeT* detach_min(NodeT** ppNode)
 	return pNode;
 }
 
-static void internal_clear(NodeT* pNode)
+static void internal_clear(NodePtr pNode)
 {
 	if (pNode != NULL)
 	{
@@ -297,7 +297,7 @@ static void internal_clear(NodeT* pNode)
 	}
 }
 
-static int post_order(NodeT* pNode, bool (*action)(void* pData))
+static int post_order(NodePtr pNode, ActionFunc *action)
 {
 	int count = 0;
 	if (pNode == NULL)
@@ -316,7 +316,7 @@ static int post_order(NodeT* pNode, bool (*action)(void* pData))
 	return count;
 }
 
-static int pre_order(NodeT* pNode, bool (*action)(void* pData))
+static int pre_order(NodePtr pNode, ActionFunc *action)
 {
 	int count = 0;
 	if (pNode == NULL)
@@ -335,7 +335,7 @@ static int pre_order(NodeT* pNode, bool (*action)(void* pData))
 	return count;
 }
 
-static int rev_inorder(NodeT* pNode, bool (*action)(void* pData))
+static int rev_inorder(NodePtr pNode, ActionFunc *action)
 {
 	int count = 0;
 	if (pNode == NULL)
@@ -354,7 +354,7 @@ static int rev_inorder(NodeT* pNode, bool (*action)(void* pData))
 	return count;
 }
 
-static int in_order(NodeT* pNode, bool (*action)(void* pData))
+static int in_order(NodePtr pNode, ActionFunc *action)
 {
 	int count = 0;
 	if (pNode == NULL)
