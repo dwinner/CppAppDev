@@ -21,7 +21,7 @@ int startFibonacci(void* nPtr);
  * \param n Number
  * \return Fibonacci numbers
  */
-unsigned long long int fibonacci(unsigned int n);
+unsigned long long int fibonacci(const unsigned int n);
 
 /**
  * \brief Thread data

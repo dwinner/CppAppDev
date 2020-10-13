@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fibonacci.Threads", "Parall
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Parallel_Sum", "Parallel_Sum\Parallel_Sum.vcxproj", "{8E29C50F-9943-4324-8E2E-103F19904BA2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Race_Condition", "Race_Condition\Race_Condition.vcxproj", "{E4B37FBA-2D6F-42A7-9579-FCE6A469D6B5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Race_Condition_Fixed_By_Mutex", "Race_Condition_Fixed_By_Mutex\Race_Condition_Fixed_By_Mutex.vcxproj", "{6295A4DC-4634-4B50-B2FE-37FE51425A58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +25,14 @@ Global
 		{8E29C50F-9943-4324-8E2E-103F19904BA2}.Debug|Win32.Build.0 = Debug|Win32
 		{8E29C50F-9943-4324-8E2E-103F19904BA2}.Release|Win32.ActiveCfg = Release|Win32
 		{8E29C50F-9943-4324-8E2E-103F19904BA2}.Release|Win32.Build.0 = Release|Win32
+		{E4B37FBA-2D6F-42A7-9579-FCE6A469D6B5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E4B37FBA-2D6F-42A7-9579-FCE6A469D6B5}.Debug|Win32.Build.0 = Debug|Win32
+		{E4B37FBA-2D6F-42A7-9579-FCE6A469D6B5}.Release|Win32.ActiveCfg = Release|Win32
+		{E4B37FBA-2D6F-42A7-9579-FCE6A469D6B5}.Release|Win32.Build.0 = Release|Win32
+		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Debug|Win32.Build.0 = Debug|Win32
+		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Release|Win32.ActiveCfg = Release|Win32
+		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
