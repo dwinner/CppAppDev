@@ -1,9 +1,9 @@
-﻿# CMakeList.txt : Top-level CMake project file, do global configuration
-# and include sub-projects here.
+﻿# CMakeList.txt : CMake project for Parallel_Sum, include source and define
+# project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("Parallel_Sum")
+# Add source to this project's executable.
+add_executable (Parallel_Sum "Parallel_Sum.c" "Parallel_Sum.h")
 
-# Include sub-projects.
-add_subdirectory ("Parallel_Sum")
+# TODO: Add tests and install targets if needed.
