@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Race_Condition", "Race_Cond
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Race_Condition_Fixed_By_Mutex", "Race_Condition_Fixed_By_Mutex\Race_Condition_Fixed_By_Mutex.vcxproj", "{6295A4DC-4634-4B50-B2FE-37FE51425A58}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Producer_Consumer_Ex", "Producer_Consumer_Ex\Producer_Consumer_Ex.vcxproj", "{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Debug|Win32.Build.0 = Debug|Win32
 		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Release|Win32.ActiveCfg = Release|Win32
 		{6295A4DC-4634-4B50-B2FE-37FE51425A58}.Release|Win32.Build.0 = Release|Win32
+		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Debug|Win32.Build.0 = Debug|Win32
+		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Release|Win32.ActiveCfg = Release|Win32
+		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
