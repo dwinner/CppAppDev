@@ -3,7 +3,17 @@
  */
 
 #include <stdio.h>
+
+#ifdef __MINGW32__
+
+#include <pthread.h>
+
+#elif WIN32
 #include <thr/threads.h>
+#else
+#error "Unsupported thread library"
+#endif
+
 #include <time.h>
 #include <stdlib.h>
 
@@ -14,7 +24,7 @@
  * \param nPtr Generic poiner
  * \return Number
  */
-int startFibonacci(void* nPtr);
+int startFibonacci(void *nPtr);
 
 /**
  * \brief Recursively calculates fibonacci numbers
@@ -48,10 +58,10 @@ int main(void)
 {
    // data passed to the threads; uses designated initializers
    ThreadData data[NUMBER_OF_THREADS] =
-   {
-      [0] = {.number=50},
-      [1] = {.number=49}
-   };
+      {
+         [0] = {.number=50},
+         [1] = {.number=49}
+      };
 
    // each thread needs a thread identifier of type thrd_t
    thrd_t threads[NUMBER_OF_THREADS];
@@ -79,13 +89,13 @@ int main(void)
 
    // determine time that first thread started
    const time_t startTime = data[0].startTime < data[1].startTime
-                               ? data[0].startTime
-                               : data[1].startTime;
+                            ? data[0].startTime
+                            : data[1].startTime;
 
    // determine time that last thread terminated
    const time_t endTime = data[0].endTime > data[1].endTime
-                             ? data[0].endTime
-                             : data[1].endTime;
+                          ? data[0].endTime
+                          : data[1].endTime;
 
    // display total time for calculations
    printf("Total calculation time = %f minutes\n",
@@ -94,10 +104,10 @@ int main(void)
    return EXIT_SUCCESS;
 }
 
-int startFibonacci(void* nPtr)
+int startFibonacci(void *nPtr)
 {
    // cast ptr to ThreadData* so we can access arguments
-   ThreadData* dataPtr = (ThreadData*)nPtr;
+   ThreadData *dataPtr = (ThreadData *) nPtr;
    dataPtr->startTime = time(NULL); // time before calculation
 
    printf("Calculating fibonacci(%d)\n", dataPtr->number);
@@ -116,6 +126,6 @@ int startFibonacci(void* nPtr)
 unsigned long long fibonacci(const unsigned int n)
 {
    return n == 0 || n == 1
-             ? n
-             : fibonacci(n - 1) + fibonacci(n - 2);
+          ? n
+          : fibonacci(n - 1) + fibonacci(n - 2);
 }
