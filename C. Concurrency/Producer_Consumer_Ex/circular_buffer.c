@@ -1,7 +1,14 @@
 #include <stdlib.h>
 #include "circular_buffer.h"
 
-bool buf_init(buffer_t* buf_ptr, size_t size)
+/**
+ * \brief Produces the time out from the current time
+ * \param delay Delay in seconds
+ * \return Timeout in seconds
+ */
+static xtime make_timeout_sec(const int delay);
+
+bool buf_init(BufferT* buf_ptr, const size_t size)
 {
    if ((buf_ptr->data = malloc(size * sizeof(int))) == NULL)
    {
@@ -17,7 +24,7 @@ bool buf_init(buffer_t* buf_ptr, size_t size)
       && cnd_init(&buf_ptr->cnd_get) == thrd_success;
 }
 
-void buf_destroy(buffer_t* buf_ptr)
+void buf_destroy(BufferT* buf_ptr)
 {
    cnd_destroy(&buf_ptr->cnd_get);
    cnd_destroy(&buf_ptr->cnd_put);
@@ -25,15 +32,18 @@ void buf_destroy(buffer_t* buf_ptr)
    free(buf_ptr->data);
 }
 
-bool buf_put(buffer_t* buf_ptr, int data)
+bool buf_put(BufferT* buf_ptr, const int data, const int sec)
 {
+   // set the 'sec'-seconds time out from the current time
+   xtime timeout = make_timeout_sec(sec);
+
    mtx_lock(&buf_ptr->mtx);
 
    // while the buffer_t is full
    while (buf_ptr->count == buf_ptr->size)
    {
-      // waiting for consumer to set put-condition
-      if (cnd_wait(&buf_ptr->cnd_put, &buf_ptr->mtx) != thrd_success)
+      // waiting for consumer to set put-condition with timeout
+      if (cnd_timedwait(&buf_ptr->cnd_put, &buf_ptr->mtx, &timeout) != thrd_success)
       {
          return false;
       }
@@ -49,10 +59,10 @@ bool buf_put(buffer_t* buf_ptr, int data)
    return true;
 }
 
-bool buf_get(buffer_t* buf_ptr, int* data_ptr, int sec)
+bool buf_get(BufferT* buf_ptr, int* data_ptr, const int sec)
 {
-   xtime time_out;
-   time_out.sec = 1; // The current time + sec seconds delay.   
+   // set the 'sec'-seconds time out from the current time
+   xtime timeout = make_timeout_sec(sec);
 
    mtx_lock(&buf_ptr->mtx);
 
@@ -60,7 +70,7 @@ bool buf_get(buffer_t* buf_ptr, int* data_ptr, int sec)
    while (buf_ptr->count == 0)
    {
       // waiting for producer to set get-condition with timeout
-      if (cnd_timedwait(&buf_ptr->cnd_get, &buf_ptr->mtx, &time_out) != thrd_success)
+      if (cnd_timedwait(&buf_ptr->cnd_get, &buf_ptr->mtx, &timeout) != thrd_success)
       {
          return false;
       }
@@ -74,4 +84,13 @@ bool buf_get(buffer_t* buf_ptr, int* data_ptr, int sec)
    cnd_signal(&buf_ptr->cnd_put);
 
    return true;
+}
+
+static xtime make_timeout_sec(const int delay)
+{
+   xtime time_out;
+   xtime_get(&time_out, TIME_UTC);
+   time_out.sec += delay;
+
+   return time_out;
 }

@@ -1,8 +1,8 @@
 #ifndef CIRCULAR_BUFFER_H
 #define CIRCULAR_BUFFER_H
 
-#include <stdbool.h>
 #include <thr/threads.h>
+#include <stdbool.h>
 
 /**
  * \brief A ring buffer_t for the producer-consumer model
@@ -48,7 +48,7 @@ typedef struct buffer
     * \brief Condition variable for get-operations
     */
    cnd_t cnd_get;
-} buffer_t;
+} BufferT;
 
 /**
  * \brief Buffer init
@@ -56,21 +56,22 @@ typedef struct buffer
  * \param size size of the buffer_t's data
  * \return true if init is successful, false - otherwise
  */
-bool buf_init(buffer_t* buf_ptr, size_t size);
+bool buf_init(BufferT* buf_ptr, const size_t size);
 
 /**
  * \brief Destroy the buffer_t and free allocated memory
  * \param buf_ptr Pointer to buffer_t
  */
-void buf_destroy(buffer_t* buf_ptr);
+void buf_destroy(BufferT* buf_ptr);
 
 /**
  * \brief Insert a new element in the buffer_t
  * \param buf_ptr Pointer to buffer_t
  * \param data Data to put
+ * \param sec Timeout in seconds
  * \return true if data has been put, false - otherwise
  */
-bool buf_put(buffer_t* buf_ptr, int data);
+bool buf_put(BufferT* buf_ptr, const int data, const int sec);
 
 /**
  * \brief Remove an element from the buffer_t
@@ -80,6 +81,6 @@ bool buf_put(buffer_t* buf_ptr, int data);
  * \param sec Count of second to wait
  * \return true if consumer has got the data, false - otherwise
  */
-bool buf_get(buffer_t* buf_ptr, int* data_ptr, int sec);
+bool buf_get(BufferT* buf_ptr, int* data_ptr, const int sec);
 
 #endif // CIRCULAR_BUFFER_H

@@ -9,6 +9,7 @@
 
 #define NP 2                  // Number of producers
 #define NC 3                  // Number of consumers
+#define TIME_OUT_SEC 2        // Timeout in seconds
 
 // The thread functions.
 int producer(void*);
@@ -17,11 +18,10 @@ int consumer(void*);
 struct arg
 {
    int id;
-   buffer_t* buf_ptr;
+   BufferT* buf_ptr;
 }; // Arguments for the thread functions.
 
-/*_Noreturn*/
-void error_exit(const char* msg)
+_Noreturn void error_exit(const char* msg)
 {
    fprintf(stderr, "%s\n", msg);
    exit(0xff);
@@ -30,7 +30,7 @@ void error_exit(const char* msg)
 int main()
 {
    printf("Producer-Consumer Demo\n\n");
-   buffer_t buf; // Create a buffer for
+   BufferT buf; // Create a buffer for
    buf_init(&buf, 5); // five products.
 
    thrd_t prod[NP], cons[NC]; // The threads and
@@ -78,13 +78,13 @@ int producer(void* arg) // The producers' thread function.
 {
    struct arg* arg_ptr = (struct arg*)arg;
    const int id = arg_ptr->id;
-   buffer_t* buf_ptr = arg_ptr->buf_ptr;
+   BufferT* buf_ptr = arg_ptr->buf_ptr;
 
    int count = 0;
    for (int i = 0; i < 10; ++i)
    {
       const int data = 10 * id + i;
-      if (buf_put(buf_ptr, data))
+      if (buf_put(buf_ptr, data, TIME_OUT_SEC))
       {
          printf("Producer %d produced %d\n", id, data), ++count;
       }
@@ -102,11 +102,11 @@ int consumer(void* arg) // The consumers' thread function.
 {
    struct arg* arg_ptr = (struct arg*)arg;
    const int id = arg_ptr->id;
-   buffer_t* buf_ptr = arg_ptr->buf_ptr;
+   BufferT* buf_ptr = arg_ptr->buf_ptr;
 
    int count = 0;
    int data = 0;
-   while (buf_get(buf_ptr, &data, 2))
+   while (buf_get(buf_ptr, &data, TIME_OUT_SEC))
    {
       ++count;
       printf("Consumer %d consumed %d\n", id, data);

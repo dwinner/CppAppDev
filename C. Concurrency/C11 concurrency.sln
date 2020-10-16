@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Race_Condition_Fixed_By_Mut
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Producer_Consumer_Ex", "Producer_Consumer_Ex\Producer_Consumer_Ex.vcxproj", "{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thread-local_ex", "thread-local_ex\thread-local_ex.vcxproj", "{9DD7D6AE-C91A-48FA-A70A-08B242E9F88E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TSS_Sample", "TSS_Sample\TSS_Sample.vcxproj", "{4705126F-5DD4-4CF6-B08C-674C7CF4DE1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +43,14 @@ Global
 		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Debug|Win32.Build.0 = Debug|Win32
 		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Release|Win32.ActiveCfg = Release|Win32
 		{F889BBB6-6B16-4A7A-A159-2E434F5A4EF9}.Release|Win32.Build.0 = Release|Win32
+		{9DD7D6AE-C91A-48FA-A70A-08B242E9F88E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9DD7D6AE-C91A-48FA-A70A-08B242E9F88E}.Debug|Win32.Build.0 = Debug|Win32
+		{9DD7D6AE-C91A-48FA-A70A-08B242E9F88E}.Release|Win32.ActiveCfg = Release|Win32
+		{9DD7D6AE-C91A-48FA-A70A-08B242E9F88E}.Release|Win32.Build.0 = Release|Win32
+		{4705126F-5DD4-4CF6-B08C-674C7CF4DE1A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4705126F-5DD4-4CF6-B08C-674C7CF4DE1A}.Debug|Win32.Build.0 = Debug|Win32
+		{4705126F-5DD4-4CF6-B08C-674C7CF4DE1A}.Release|Win32.ActiveCfg = Release|Win32
+		{4705126F-5DD4-4CF6-B08C-674C7CF4DE1A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
