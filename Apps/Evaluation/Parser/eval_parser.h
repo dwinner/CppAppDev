@@ -1,27 +1,35 @@
 #ifndef EVAL_PARSER_H
 #define EVAL_PARSER_H
 
-/* TODO: Introduce enum for type of tokens  */
-#define DELIMETER 1
-#define VARIABLE  2
-#define NUMBER    3
+/**
+ * \brief Type of tokens
+ */
+enum token_types
+{
+   none = 0,
+   delimeter = 1,
+   variable,
+   number
+};
+
+typedef enum token_types TokenTypes;
+
 #define PROGRAM_BUFFER  80
 #define VARIABLE_NUMBER 26
 
 /**
  * Points to the expression to be analyzed
  */
-extern char* program; /* TOREFACTOR: Encapsulate global/extern declarations */
+extern char* program;
 
 /**
  * 26 user variables, A-Z
  */
-extern double vars[]; /* TOREFACTOR: Encapsulate global/extern declarations */
+extern double vars[];
 
-char token[PROGRAM_BUFFER]; /* TOREFACTOR: Encapsulate global/extern declarations */
+char token[PROGRAM_BUFFER];
 
-/* TOREFACTOR: Encapsulate global/extern declarations */
-char token_type;
+TokenTypes token_type;
 
 /**
  * \brief Parser entry point
@@ -39,31 +47,31 @@ void process_assignment(double* answer);
  * \brief Add or subtract two terms
  * \param answer Recursively return expression value
  */
-void eval_exp2(double* answer);
+void process_add_or_subtract(double* answer);
 
 /**
  * \brief Multiply or divide two factors
  * \param answer Recursively return expression value
  */
-void eval_exp3(double* answer);
+void process_mult_or_divide(double* answer);
 
 /**
  * \brief Process an exponent
  * \param answer Recursively return expression value
  */
-void eval_exp4(double* answer);
+void process_exponent(double* answer);
 
 /**
  * \brief Evaluate an unary + or -
  * \param answer Recursively return expression value
  */
-void eval_exp5(double* answer);
+void evaluate_plus_or_minus(double* answer);
 
 /**
  * \brief Process a parenthesized expression
  * \param answer Recursively return expression value
  */
-void eval_exp6(double* answer);
+void process_parenthesized_expr(double* answer);
 
 /**
  * \brief Get the value of a number or a variable
@@ -92,7 +100,7 @@ void set_error(int errorIndex);
  * \param symbol Variable symbol
  * \return Variable value
  */
-double find_var(char* symbol);
+double find_var(const char* symbol);
 
 /**
  * \brief Finds out if the symbol is delimeter or not

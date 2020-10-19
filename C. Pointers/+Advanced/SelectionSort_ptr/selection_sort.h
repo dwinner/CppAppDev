@@ -1,0 +1,6 @@
+#ifndef SELECTIONSORT_PTR_SELECTION_SORT_H
+#define SELECTIONSORT_PTR_SELECTION_SORT_H
+
+void selection_sortf(float a[], int n);
+
+#endif //SELECTIONSORT_PTR_SELECTION_SORT_H
