@@ -215,3 +215,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 *.opendb
+
+# Visual paradigm backup-files
+*.bak_*
