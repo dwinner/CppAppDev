@@ -5,6 +5,22 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winSock2_Sample", "winSock2_Sample\winSock2_Sample.vcxproj", "{9855C49B-88EA-498F-B6A3-32AA6F909A82}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "socketConnection_lib", "socketConnection_lib\socketConnection_lib.vcxproj", "{40D3090C-A329-420C-913E-1BC0D31F1D90}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simpleServer_impl", "simpleServer_impl\simpleServer_impl.vcxproj", "{DCF11877-D1B4-4D28-BB50-45466BCD918F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40D3090C-A329-420C-913E-1BC0D31F1D90} = {40D3090C-A329-420C-913E-1BC0D31F1D90}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simpleClient_impl", "simpleClient_impl\simpleClient_impl.vcxproj", "{2418A4B3-E32D-48C8-BC5B-C1F8BC67D524}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40D3090C-A329-420C-913E-1BC0D31F1D90} = {40D3090C-A329-420C-913E-1BC0D31F1D90}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winSock_Server_sample", "winSock_Server_sample\winSock_Server_sample.vcxproj", "{F2C6663B-8829-44F5-AE64-DFAC9554CAA9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winSock_Client_sample", "winSock_Client_sample\winSock_Client_sample.vcxproj", "{F5139F40-DC9C-4FC0-809D-3D2A8CF6A842}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +31,26 @@ Global
 		{9855C49B-88EA-498F-B6A3-32AA6F909A82}.Debug|Win32.Build.0 = Debug|Win32
 		{9855C49B-88EA-498F-B6A3-32AA6F909A82}.Release|Win32.ActiveCfg = Release|Win32
 		{9855C49B-88EA-498F-B6A3-32AA6F909A82}.Release|Win32.Build.0 = Release|Win32
+		{40D3090C-A329-420C-913E-1BC0D31F1D90}.Debug|Win32.ActiveCfg = Debug|Win32
+		{40D3090C-A329-420C-913E-1BC0D31F1D90}.Debug|Win32.Build.0 = Debug|Win32
+		{40D3090C-A329-420C-913E-1BC0D31F1D90}.Release|Win32.ActiveCfg = Release|Win32
+		{40D3090C-A329-420C-913E-1BC0D31F1D90}.Release|Win32.Build.0 = Release|Win32
+		{DCF11877-D1B4-4D28-BB50-45466BCD918F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DCF11877-D1B4-4D28-BB50-45466BCD918F}.Debug|Win32.Build.0 = Debug|Win32
+		{DCF11877-D1B4-4D28-BB50-45466BCD918F}.Release|Win32.ActiveCfg = Release|Win32
+		{DCF11877-D1B4-4D28-BB50-45466BCD918F}.Release|Win32.Build.0 = Release|Win32
+		{2418A4B3-E32D-48C8-BC5B-C1F8BC67D524}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2418A4B3-E32D-48C8-BC5B-C1F8BC67D524}.Debug|Win32.Build.0 = Debug|Win32
+		{2418A4B3-E32D-48C8-BC5B-C1F8BC67D524}.Release|Win32.ActiveCfg = Release|Win32
+		{2418A4B3-E32D-48C8-BC5B-C1F8BC67D524}.Release|Win32.Build.0 = Release|Win32
+		{F2C6663B-8829-44F5-AE64-DFAC9554CAA9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F2C6663B-8829-44F5-AE64-DFAC9554CAA9}.Debug|Win32.Build.0 = Debug|Win32
+		{F2C6663B-8829-44F5-AE64-DFAC9554CAA9}.Release|Win32.ActiveCfg = Release|Win32
+		{F2C6663B-8829-44F5-AE64-DFAC9554CAA9}.Release|Win32.Build.0 = Release|Win32
+		{F5139F40-DC9C-4FC0-809D-3D2A8CF6A842}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F5139F40-DC9C-4FC0-809D-3D2A8CF6A842}.Debug|Win32.Build.0 = Debug|Win32
+		{F5139F40-DC9C-4FC0-809D-3D2A8CF6A842}.Release|Win32.ActiveCfg = Release|Win32
+		{F5139F40-DC9C-4FC0-809D-3D2A8CF6A842}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
