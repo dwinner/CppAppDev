@@ -11,7 +11,7 @@ using namespace std;
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 
-#define USING_WINSOCK 1
+#define UsingWinsock 1
 
 using ssize_t = SSIZE_T;
 

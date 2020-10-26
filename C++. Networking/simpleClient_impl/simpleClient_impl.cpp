@@ -17,7 +17,7 @@ using namespace std;
 
 #include <WinSock2.h>
 
-#define USING_WINSOCK 1
+#define UsingWinsock 1
 
 using ssize_t = SSIZE_T;
 
@@ -36,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
    WinsockWrapper myWinsockWrapper;
 
    string port("3000");
-   string address{ "192.168.222.57" };
+   string address{ "" };
    Socket myConnectingSocket(address, port);
    myConnectingSocket.Connect();
 
