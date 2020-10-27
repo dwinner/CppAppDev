@@ -49,8 +49,8 @@ int _tmain(int argc, _TCHAR* argv[])
    {
       stringstream output{"QUESTION"};
       mySocket.Send(move(output));
-
       stringstream input{mySocket.Receive()};
+
       if (input.rdbuf()->in_avail() > 0)
       {
          string question;
