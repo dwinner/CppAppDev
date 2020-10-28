@@ -1,6 +1,6 @@
-/************************************************************************/
-/* IC emulation server for Manifest plugin                              */
-/************************************************************************/
+/**
+ * IC emulation server for Manifest plugin
+ */
 
 #include "pch.h"
 #undef UNICODE
@@ -21,6 +21,10 @@
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
 
+const int DefaultUdpPort = 42515;
+const int DefaultTctPort = 29801;
+const std::string DefaultBroadcastIPv6Address = "::1/128";
+
 int main()
 {
     WSADATA wsaData;
@@ -30,7 +34,7 @@ int main()
     SOCKET ClientSocket = INVALID_SOCKET;
 
     struct addrinfo* result = nullptr;
-    struct addrinfo hints;
+    struct addrinfo hints = {};
 
     int iSendResult;
     char recvbuf[DEFAULT_BUFLEN];
@@ -45,7 +49,7 @@ int main()
     }
 
     ZeroMemory(&hints, sizeof(hints));
-    hints.ai_family = AF_INET;
+    hints.ai_family = AF_INET6;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
     hints.ai_flags = AI_PASSIVE;
@@ -63,7 +67,7 @@ int main()
     ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (ListenSocket == INVALID_SOCKET)
     {
-        printf("socket failed with error: %ld\n", WSAGetLastError());
+        printf("socket failed with error: %d\n", WSAGetLastError());
         freeaddrinfo(result);
         WSACleanup();
         return 1;
@@ -92,7 +96,7 @@ int main()
     }
 
     // Accept a client socket
-    ClientSocket = accept(ListenSocket, nullptr, NULL);
+    ClientSocket = accept(ListenSocket, nullptr, nullptr);
     if (ClientSocket == INVALID_SOCKET)
     {
         printf("accept failed with error: %d\n", WSAGetLastError());
@@ -108,6 +112,7 @@ int main()
     do
     {
         iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
+
         if (iResult > 0)
         {
             printf("Bytes received: %d\n", iResult);
@@ -121,10 +126,13 @@ int main()
                 WSACleanup();
                 return 1;
             }
+
             printf("Bytes sent: %d\n", iSendResult);
         }
         else if (iResult == 0)
+        {
             printf("Connection closing...\n");
+        }
         else
         {
             printf("recv failed with error: %d\n", WSAGetLastError());
@@ -132,7 +140,8 @@ int main()
             WSACleanup();
             return 1;
         }
-    } while (iResult > 0);
+    }
+    while (iResult > 0);
 
     // shutdown the connection since we're done
     iResult = shutdown(ClientSocket, SD_SEND);
