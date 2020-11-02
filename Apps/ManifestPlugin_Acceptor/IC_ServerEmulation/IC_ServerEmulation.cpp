@@ -4,7 +4,6 @@
 
 #include "pch.h"
 #undef UNICODE
-
 #define WIN32_LEAN_AND_MEAN
 
 #include <cstdlib>
@@ -18,144 +17,135 @@
 #pragma comment (lib, "Ws2_32.lib")
 // #pragma comment (lib, "Mswsock.lib")
 
-#define DEFAULT_BUFLEN 512
-#define DEFAULT_PORT "27015"
-
-const int DefaultUdpPort = 42515;
-const int DefaultTctPort = 29801;
 const std::string DefaultBroadcastIPv6Address = "::1/128";
+
+bool initWinSock()
+{
+   WSADATA wsaData;
+   const bool retVal = WSAStartup(MAKEWORD(2, 2), &wsaData) != 0
+                          ? false
+                          : true;
+
+   return retVal;
+}
+
+bool destroyWinSock()
+{
+   const int returnValue = WSACleanup();
+   return returnValue != 0 ? false : true;
+}
+
+SOCKET createSocket()
+{
+   SOCKET socketFd = socket(AF_INET6, SOCK_STREAM, 0);
+   return socketFd != INVALID_SOCKET ? socketFd : INVALID_SOCKET;
+}
+
+sockaddr_in6 configureServerAddress(const uint16_t tcpSrvPort = 29801)
+{
+   sockaddr_in6 stSrvAddress = {};
+
+   ZeroMemory(&stSrvAddress, sizeof(stSrvAddress));
+   stSrvAddress.sin6_family = AF_INET6;
+   stSrvAddress.sin6_port = htons(tcpSrvPort);
+   stSrvAddress.sin6_addr = in6addr_any;
+
+   return stSrvAddress;
+}
+
+bool configureSocketOptions(SOCKET socketDesc, int32_t tcpHopLimit = 255)
+{
+   bool succeed;
+
+   ipv6_mreq group = {};
+   group.ipv6mr_interface = 0;
+   int setOptRes = setsockopt(socketDesc, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<char*>(&group), sizeof(group));
+   succeed = setOptRes < 0 ? false : true;
+   if (succeed)
+   {
+      setOptRes = setsockopt(socketDesc, IPPROTO_IPV6, IPV6_UNICAST_HOPS, reinterpret_cast<char*>(&tcpHopLimit),
+                             sizeof tcpHopLimit);
+      succeed = setOptRes < 0 ? false : true;
+   }
+
+   return succeed;
+}
+
+bool bindSocket(SOCKET socketFd, sockaddr_in6 sockAddr)
+{
+   int bindResult = bind(socketFd, reinterpret_cast<struct sockaddr*>(&sockAddr), sizeof(struct sockaddr_in6));
+   return bindResult < 0 ? false : true;
+}
+
+int quit(const std::string& errorMsg)
+{
+   std::cout << errorMsg.c_str();
+   destroyWinSock();
+   return EXIT_FAILURE;
+}
+
+bool listenSocket(SOCKET socketFd, uint32_t tcpSocketBacklogSize = 10U)
+{
+   int listenResult = listen(socketFd, tcpSocketBacklogSize);
+   return listenResult < 0 ? false : true;
+}
 
 int main()
 {
-    WSADATA wsaData;
-    int iResult;
+   // Initialize Winsock
+   bool successStat = initWinSock();
+   if (!successStat)
+   {
+      return quit("WSAStartup failed with error");
+   }
 
-    SOCKET ListenSocket = INVALID_SOCKET;
-    SOCKET ClientSocket = INVALID_SOCKET;
+   // Create socket and server address
+   SOCKET socketDesc = createSocket();
+   if (socketDesc == INVALID_SOCKET)
+   {
+      return quit("Failed to create socket");
+   }
 
-    struct addrinfo* result = nullptr;
-    struct addrinfo hints = {};
+   // Construct server address
+   sockaddr_in6 srvAddr = configureServerAddress();
 
-    int iSendResult;
-    char recvbuf[DEFAULT_BUFLEN];
-    int recvbuflen = DEFAULT_BUFLEN;
+   // Configure socket options
+   successStat = configureSocketOptions(socketDesc);
+   if (!successStat)
+   {
+      return quit("Error while setting socket options");
+   }
 
-    // Initialize Winsock
-    iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (iResult != 0)
-    {
-        printf("WSAStartup failed with error: %d\n", iResult);
-        return 1;
-    }
+   // Bind the socket
+   successStat = bindSocket(socketDesc, srvAddr);
+   if (!successStat)
+   {
+      return quit("Binding socket failure");
+   }
 
-    ZeroMemory(&hints, sizeof(hints));
-    hints.ai_family = AF_INET6;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-    hints.ai_flags = AI_PASSIVE;
+   // Listen the socket
+   successStat = listenSocket(socketDesc);
+   if (!successStat)
+   {
+      return quit("Error listening the socket");
+   }   
 
-    // Resolve the server address and port
-    iResult = getaddrinfo(nullptr, DEFAULT_PORT, &hints, &result);
-    if (iResult != 0)
-    {
-        printf("getaddrinfo failed with error: %d\n", iResult);
-        WSACleanup();
-        return 1;
-    }
+   fd_set xReadFds;
+   FD_ZERO(&xReadFds);
+   FD_SET(socketDesc, &xReadFds);
+   // timeval stTimeout = {0, 100000U};
+   int selectResult = select(static_cast<int>(socketDesc) + 1, &xReadFds, nullptr, nullptr, nullptr);
+   if (selectResult > 0)
+   {
+      // Try accept
+      int acceptResult = accept(socketDesc, nullptr, nullptr);
+      if (acceptResult > 0)
+      {
+         // TODO: Apply communication
+      }
+   }
 
-    // Create a SOCKET for connecting to server
-    ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
-    if (ListenSocket == INVALID_SOCKET)
-    {
-        printf("socket failed with error: %d\n", WSAGetLastError());
-        freeaddrinfo(result);
-        WSACleanup();
-        return 1;
-    }
+   destroyWinSock();
 
-    // Setup the TCP listening socket
-    iResult = bind(ListenSocket, result->ai_addr, static_cast<int>(result->ai_addrlen));
-    if (iResult == SOCKET_ERROR)
-    {
-        printf("bind failed with error: %d\n", WSAGetLastError());
-        freeaddrinfo(result);
-        closesocket(ListenSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    freeaddrinfo(result);
-
-    iResult = listen(ListenSocket, SOMAXCONN);
-    if (iResult == SOCKET_ERROR)
-    {
-        printf("listen failed with error: %d\n", WSAGetLastError());
-        closesocket(ListenSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    // Accept a client socket
-    ClientSocket = accept(ListenSocket, nullptr, nullptr);
-    if (ClientSocket == INVALID_SOCKET)
-    {
-        printf("accept failed with error: %d\n", WSAGetLastError());
-        closesocket(ListenSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    // No longer need server socket
-    closesocket(ListenSocket);
-
-    // Receive until the peer shuts down the connection
-    do
-    {
-        iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
-
-        if (iResult > 0)
-        {
-            printf("Bytes received: %d\n", iResult);
-
-            // Echo the buffer back to the sender
-            iSendResult = send(ClientSocket, recvbuf, iResult, 0);
-            if (iSendResult == SOCKET_ERROR)
-            {
-                printf("send failed with error: %d\n", WSAGetLastError());
-                closesocket(ClientSocket);
-                WSACleanup();
-                return 1;
-            }
-
-            printf("Bytes sent: %d\n", iSendResult);
-        }
-        else if (iResult == 0)
-        {
-            printf("Connection closing...\n");
-        }
-        else
-        {
-            printf("recv failed with error: %d\n", WSAGetLastError());
-            closesocket(ClientSocket);
-            WSACleanup();
-            return 1;
-        }
-    }
-    while (iResult > 0);
-
-    // shutdown the connection since we're done
-    iResult = shutdown(ClientSocket, SD_SEND);
-    if (iResult == SOCKET_ERROR)
-    {
-        printf("shutdown failed with error: %d\n", WSAGetLastError());
-        closesocket(ClientSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    // cleanup
-    closesocket(ClientSocket);
-    WSACleanup();
-
-    return 0;
+   return EXIT_SUCCESS;
 }
