@@ -1,0 +1,46 @@
+/***************************************************************************
+*=====================      Copyright by Continental AG      ===============
+****************************************************************************
+* Title        : mman.sdh
+*
+* Description  : Configuration for manifest manager
+*
+* Environment  : Common
+*
+* Responsible  : Kirill Bogomolov
+*
+* Template name: none
+*
+* CASE-Tool    : none
+*
+* $Revision: $
+*
+* Revision List: (Will be filled by MKS)
+* Archive: $Log: mman.sdh  $
+****************************************************************************/
+
+//-------------------------------------------------
+// EXEA namespace
+//-------------------------------------------------
+EXEA DEFINE EXCEPTION NAMESPACE EXEA_MMAN;
+
+//-------------------------------------------------
+// EXEA exceptions (Error IDs)
+//-------------------------------------------------
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenErrNullPointer                           IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenInvalidSocketFileDescriptor              IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketBindFailure                        IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketListenFailure                      IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketShutdownFailure                    IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketOptionReuseAddrFailure             IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketOptionIPv6UnicastHopLimitFailure   IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketOptionIPv6MulticastIFFailure       IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketOptionIPv6MulticastLoopFailure     IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenSocketOptionIPv6MulticastHopsFailure     IN NAMESPACE EXEA_MMAN;
+EXEA DEFINE MALFUNC EXCEPTION MMAN_nenErrUnknown							   IN NAMESPACE EXEA_MMAN;
+
+//-------------------------------------------------
+// CRHDL activities
+//-------------------------------------------------
+CSHDL DEFINE ACTIVITY MMAN_vInit    IS OF TYPE INIT    AND DONE AT INIT    OF RES_ActiveHardware  SEQUENCE 100 RUNTIME IS 999;
+CSHDL DEFINE ACTIVITY MMAN_vDeinit  IS OF TYPE DEINIT  AND DONE AT DEINIT  OF RES_ActiveHardware  SEQUENCE 101 RUNTIME IS 999;

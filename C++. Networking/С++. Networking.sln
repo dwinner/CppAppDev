@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1267
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "winSock2_Sample", "winSock2_Sample\winSock2_Sample.vcxproj", "{9855C49B-88EA-498F-B6A3-32AA6F909A82}"
 EndProject
@@ -41,7 +41,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "One way exchange", "One way
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Multicasting", "Multicasting", "{974EE727-787B-492D-B3CF-0289A293D56C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UDP Multicast sender", "multicasting\UDP Multicast sender\UDP Multicast sender.vcxproj", "{9868F2BF-A299-49DC-8E11-DDB33A4618FD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UDP multicast sender", "multicasting\UDP multicast sender\UDP multicast sender.vcxproj", "{CE397D86-5309-4E59-A51F-3B53574A8DA0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCP server connector", "multicasting\TCP server connector\TCP server connector.vcxproj", "{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Multicast receiver", "multicasting\Multicast receiver\Multicast receiver.vcxproj", "{6865C187-AAFA-46EE-B8A3-ED402C68C375}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,14 +103,24 @@ Global
 		{1D5AF89A-BB47-4F0A-BE99-CFAF8F6B1862}.Release|Win32.ActiveCfg = Release|Win32
 		{1D5AF89A-BB47-4F0A-BE99-CFAF8F6B1862}.Release|Win32.Build.0 = Release|Win32
 		{1D5AF89A-BB47-4F0A-BE99-CFAF8F6B1862}.Release|x64.ActiveCfg = Release|Win32
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Debug|Win32.Build.0 = Debug|Win32
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Debug|x64.ActiveCfg = Debug|x64
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Debug|x64.Build.0 = Debug|x64
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Release|Win32.ActiveCfg = Release|Win32
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Release|Win32.Build.0 = Release|Win32
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Release|x64.ActiveCfg = Release|x64
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD}.Release|x64.Build.0 = Release|x64
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Debug|Win32.Build.0 = Debug|Win32
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Debug|x64.ActiveCfg = Debug|Win32
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Release|Win32.ActiveCfg = Release|Win32
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Release|Win32.Build.0 = Release|Win32
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Release|x64.ActiveCfg = Release|Win32
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Debug|Win32.Build.0 = Debug|Win32
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Debug|x64.ActiveCfg = Debug|Win32
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Release|Win32.ActiveCfg = Release|Win32
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Release|Win32.Build.0 = Release|Win32
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Release|x64.ActiveCfg = Release|Win32
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Debug|Win32.Build.0 = Debug|Win32
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Debug|x64.ActiveCfg = Debug|Win32
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Release|Win32.ActiveCfg = Release|Win32
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Release|Win32.Build.0 = Release|Win32
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,7 +134,9 @@ Global
 		{F5139F40-DC9C-4FC0-809D-3D2A8CF6A842} = {2C6A4E5F-1942-4CCF-A840-B64FAF893D7C}
 		{06AFC06E-4B20-478A-88ED-C2A996C8E29A} = {A0C59BB9-A8DF-42B7-9428-20CC2E11C14A}
 		{1D5AF89A-BB47-4F0A-BE99-CFAF8F6B1862} = {A0C59BB9-A8DF-42B7-9428-20CC2E11C14A}
-		{9868F2BF-A299-49DC-8E11-DDB33A4618FD} = {974EE727-787B-492D-B3CF-0289A293D56C}
+		{CE397D86-5309-4E59-A51F-3B53574A8DA0} = {974EE727-787B-492D-B3CF-0289A293D56C}
+		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED} = {974EE727-787B-492D-B3CF-0289A293D56C}
+		{6865C187-AAFA-46EE-B8A3-ED402C68C375} = {974EE727-787B-492D-B3CF-0289A293D56C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39F585BC-7815-4891-8025-EC6CA5807813}

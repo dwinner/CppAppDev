@@ -1,6 +1,11 @@
-#include <iostream>
+// UDP multicast sender.cpp : Defines the entry point for the console application.
+//
 
-int main()
+#include "stdafx.h"
+
+
+int _tmain(int argc, _TCHAR* argv[])
 {
-   std::cout << "Hello World!\n";
+	return 0;
 }
+

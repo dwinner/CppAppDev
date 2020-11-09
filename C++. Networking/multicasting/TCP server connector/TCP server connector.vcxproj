@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CE397D86-5309-4E59-A51F-3B53574A8DA0}</ProjectGuid>
+    <ProjectGuid>{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>UDPmulticastsender</RootNamespace>
+    <RootNamespace>TCPserverconnector</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="UDP multicast sender.cpp" />
+    <ClCompile Include="TCP server connector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

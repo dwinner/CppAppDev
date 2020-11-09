@@ -29,7 +29,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UDP multicast sender.cpp">
+    <ClCompile Include="TCP server connector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
