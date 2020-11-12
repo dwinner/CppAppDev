@@ -1,6 +1,3 @@
-// UDP multicast sender.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 
 #ifdef _WIN32
@@ -19,7 +16,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <unistd.h> // for sleep()
+#include <time.h>
 
 #endif
 
@@ -28,18 +25,15 @@
 #include <stdlib.h>
 #include <string>
 
+#define MSGBUFSIZE   256
+
 const int DefaultPort = 1900;
 const std::string DefaultHost = "239.192.100.1";
 
 int _tmain()
-{
+{   
    const char* group = DefaultHost.c_str();  // e.g. 239.255.255.250 for SSDP
-   int port = DefaultPort;                   // 0 if error, which is an invalid port
-
-   // !!! If test requires, make these configurable via args
-   //
-   const int delay_secs = 1;
-   const char* message = "Hello, multicast!";
+   const int port = DefaultPort;             // 0 if error, which is an invalid port
 
 #ifdef _WIN32
    //
@@ -62,31 +56,59 @@ int _tmain()
       return 1;
    }
 
+   // allow multiple sockets to use the same PORT number
+   //
+   u_int yes = 1;
+   int setSockResult = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char*)&yes, sizeof(yes));
+   if (setSockResult < 0)
+   {
+      perror("Reusing ADDR failed");
+      return 1;
+   }
+
    // set up destination address
    //
    struct sockaddr_in addr;
    memset(&addr, 0, sizeof(addr));
    addr.sin_family = AF_INET;
-   addr.sin_addr.s_addr = inet_addr(group);
+   addr.sin_addr.s_addr = htonl(INADDR_ANY); // differs from sender
    addr.sin_port = htons(port);
 
-   // now just sendto() our destination!
+   // bind to receive address
+   //
+   if (bind(fd, (struct sockaddr*)&addr, sizeof(addr)) < 0)
+   {
+      perror("bind");
+      return 1;
+   }
+
+   // use setsockopt() to request that the kernel join a multicast group
+   //
+   struct ip_mreq mreq;
+   mreq.imr_multiaddr.s_addr = inet_addr(group);
+   mreq.imr_interface.s_addr = htonl(INADDR_ANY);
+   setSockResult = setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq));
+   if (setSockResult < 0)
+   {
+      perror("setsockopt");
+      return 1;
+   }
+
+   // now just enter a read-print loop
    //
    while (true)
    {
-      char ch = 0;
-      int nbytes = sendto(fd, message, strlen(message), 0, (struct sockaddr*)&addr, sizeof(addr));
+      char msgbuf[MSGBUFSIZE];
+      int addrlen = sizeof(addr);
+      int nbytes = recvfrom(fd, msgbuf, MSGBUFSIZE, 0, (struct sockaddr*)&addr, &addrlen);
       if (nbytes < 0)
       {
-         perror("sendto");
+         perror("recvfrom");
          return 1;
       }
 
-#ifdef _WIN32
-      Sleep(delay_secs * 1000); // Windows Sleep is milliseconds
-#else
-      sleep(delay_secs); // Unix sleep is seconds
-#endif
+      msgbuf[nbytes] = '\0';
+      puts(msgbuf);
    }
 
 #ifdef _WIN32
