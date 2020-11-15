@@ -1,0 +1,62 @@
+#    Filename : mman.cmk
+# Description : Definition of all source- and header files of one package.
+#               To add this package to a project, include this file in the corresponding CMakeLists.txt file.
+#      Author : Kirill Bogomolov
+#     Release : 
+#   Copyright : (c) 2007-2020 Continental Automotive GmbH
+#    Revision : 
+# ================================================================================================
+
+set(this_package      mman)                          # package prefix
+set(this_package_file ${CMAKE_CURRENT_LIST_FILE})    # package cmk file
+set(this_package_dir  ${CMAKE_CURRENT_LIST_DIR}/..)  # package root directory
+# this_target_dir     (set in CMakeLists.txt)        # (sub-)project root directory
+# this_root_dir       (set in CMakeLists.txt)        # masterproject root directory
+
+
+################################################################################
+# package pre definitions
+include(${this_root_dir}/tool/cmake/adapt/package_pre.cmake)
+
+################################################################################
+# List here all used files of the package:
+
+# only static files
+setVSProject(basesys)
+staticFileList(
+    #adapt
+	${this_package_dir}/adapt/mman_shared.h
+)
+
+# only static files
+setVSProject(legacy)
+staticFileList(
+    #adapt
+    ${this_package_dir}/adapt/mman.cmk
+    ${this_package_dir}/adapt/mman.sdh
+	${this_package_dir}/adapt/mman1ca.cpp
+	${this_package_dir}/adapt/mman1ca.h
+	${this_package_dir}/adapt/mman1ce.h
+	${this_package_dir}/adapt/mman1ci.h
+	${this_package_dir}/adapt/mman_shared.h
+	${this_package_dir}/adapt/mman__hooks.hpp
+	${this_package_dir}/adapt/mman__hooks.cpp
+	${this_package_dir}/adapt/mman__capabilitydb.hpp
+	${this_package_dir}/adapt/mman__capabilitydb.cpp
+	${this_package_dir}/adapt/mman__manifeststorage.hpp
+	${this_package_dir}/adapt/mman__manifeststorage.cpp
+	${this_package_dir}/adapt/mman__ethernet.hpp
+	${this_package_dir}/adapt/mman__ethernet.cpp
+	${this_package_dir}/adapt/mman_task.hpp
+	${this_package_dir}/adapt/mman_task.cpp
+)
+
+# TODO: Replace with explicit file list when stable
+file(GLOB mman_files
+    ${this_package_dir}/core/*.[ch]pp
+)
+staticFileList(${mman_files})
+
+################################################################################
+# package post definitions
+include(${this_root_dir}/tool/cmake/adapt/package_post.cmake)
