@@ -25,7 +25,7 @@ using ssize_t = SSIZE_T;
 #include <fcntl.h>
 #endif
 
-const int delay_secs = 1;
+const int DelaySecs = 1;
 const int DefaultPort = 1900;
 const std::string DefaultHost = "ff02::1:5";
 #define MSGBUFSIZE   1400
@@ -40,7 +40,7 @@ int _tmain()
 
 #ifdef _WIN32
    WSADATA wsaData;
-   if (WSAStartup(0x0101, &wsaData))
+   if (WSAStartup(MAKEWORD(2, 2), &wsaData))
    {
       perror("WSAStartup");
       return 1;
@@ -105,7 +105,7 @@ int _tmain()
       printf("Sent: %s\n", buf);
 
 #ifdef _WIN32
-      Sleep(delay_secs * 1000); // Windows Sleep is milliseconds
+      Sleep(DelaySecs * 1000); // Windows Sleep is milliseconds
 #else
       sleep(delay_secs); // Unix sleep is seconds
 #endif

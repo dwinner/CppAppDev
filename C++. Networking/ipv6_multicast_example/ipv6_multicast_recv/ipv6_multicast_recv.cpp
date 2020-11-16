@@ -41,7 +41,7 @@ int _tmain()
 
 #ifdef _WIN32
    WSADATA wsaData;
-   if (WSAStartup(0x0101, &wsaData))
+   if (WSAStartup(MAKEWORD(2, 2), &wsaData))
    {
       perror("WSAStartup");
       return 1;
