@@ -43,9 +43,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Multicasting", "Multicastin
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UDP multicast sender", "multicasting\UDP multicast sender\UDP multicast sender.vcxproj", "{CE397D86-5309-4E59-A51F-3B53574A8DA0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCP server connector", "multicasting\TCP server connector\TCP server connector.vcxproj", "{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Multicast receiver", "multicasting\Multicast receiver\Multicast receiver.vcxproj", "{6865C187-AAFA-46EE-B8A3-ED402C68C375}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ipv6_multicast_example", "ipv6_multicast_example", "{208AC689-0D00-4978-A289-5F0E31948DE6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipv6_multicast_send", "ipv6_multicast_example\ipv6_multicast_send\ipv6_multicast_send.vcxproj", "{E590C538-4CC7-4634-AD93-1CA00723AE37}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipv6_multicast_recv", "ipv6_multicast_example\ipv6_multicast_recv\ipv6_multicast_recv.vcxproj", "{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,18 +113,24 @@ Global
 		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Release|Win32.ActiveCfg = Release|Win32
 		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Release|Win32.Build.0 = Release|Win32
 		{CE397D86-5309-4E59-A51F-3B53574A8DA0}.Release|x64.ActiveCfg = Release|Win32
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Debug|Win32.Build.0 = Debug|Win32
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Debug|x64.ActiveCfg = Debug|Win32
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Release|Win32.ActiveCfg = Release|Win32
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Release|Win32.Build.0 = Release|Win32
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}.Release|x64.ActiveCfg = Release|Win32
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Debug|Win32.ActiveCfg = Debug|Win32
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Debug|Win32.Build.0 = Debug|Win32
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Debug|x64.ActiveCfg = Debug|Win32
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Release|Win32.ActiveCfg = Release|Win32
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Release|Win32.Build.0 = Release|Win32
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375}.Release|x64.ActiveCfg = Release|Win32
+		{E590C538-4CC7-4634-AD93-1CA00723AE37}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E590C538-4CC7-4634-AD93-1CA00723AE37}.Debug|Win32.Build.0 = Debug|Win32
+		{E590C538-4CC7-4634-AD93-1CA00723AE37}.Debug|x64.ActiveCfg = Debug|Win32
+		{E590C538-4CC7-4634-AD93-1CA00723AE37}.Release|Win32.ActiveCfg = Release|Win32
+		{E590C538-4CC7-4634-AD93-1CA00723AE37}.Release|Win32.Build.0 = Release|Win32
+		{E590C538-4CC7-4634-AD93-1CA00723AE37}.Release|x64.ActiveCfg = Release|Win32
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}.Debug|Win32.Build.0 = Debug|Win32
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}.Debug|x64.ActiveCfg = Debug|Win32
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}.Release|Win32.ActiveCfg = Release|Win32
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}.Release|Win32.Build.0 = Release|Win32
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,8 +145,9 @@ Global
 		{06AFC06E-4B20-478A-88ED-C2A996C8E29A} = {A0C59BB9-A8DF-42B7-9428-20CC2E11C14A}
 		{1D5AF89A-BB47-4F0A-BE99-CFAF8F6B1862} = {A0C59BB9-A8DF-42B7-9428-20CC2E11C14A}
 		{CE397D86-5309-4E59-A51F-3B53574A8DA0} = {974EE727-787B-492D-B3CF-0289A293D56C}
-		{6AC9DA8D-3234-4082-83B0-C01FBE3763ED} = {974EE727-787B-492D-B3CF-0289A293D56C}
 		{6865C187-AAFA-46EE-B8A3-ED402C68C375} = {974EE727-787B-492D-B3CF-0289A293D56C}
+		{E590C538-4CC7-4634-AD93-1CA00723AE37} = {208AC689-0D00-4978-A289-5F0E31948DE6}
+		{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C} = {208AC689-0D00-4978-A289-5F0E31948DE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39F585BC-7815-4891-8025-EC6CA5807813}

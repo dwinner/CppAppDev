@@ -1,27 +1,27 @@
 ========================================================================
-    CONSOLE APPLICATION : TCP server connector Project Overview
+    CONSOLE APPLICATION : ipv6_multicast_send Project Overview
 ========================================================================
 
-AppWizard has created this TCP server connector application for you.
+AppWizard has created this ipv6_multicast_send application for you.
 
 This file contains a summary of what you will find in each of the files that
-make up your TCP server connector application.
+make up your ipv6_multicast_send application.
 
 
-TCP server connector.vcxproj
+ipv6_multicast_send.vcxproj
     This is the main project file for VC++ projects generated using an Application Wizard.
     It contains information about the version of Visual C++ that generated the file, and
     information about the platforms, configurations, and project features selected with the
     Application Wizard.
 
-TCP server connector.vcxproj.filters
+ipv6_multicast_send.vcxproj.filters
     This is the filters file for VC++ projects generated using an Application Wizard. 
     It contains information about the association between the files in your project 
     and the filters. This association is used in the IDE to show grouping of files with
     similar extensions under a specific node (for e.g. ".cpp" files are associated with the
     "Source Files" filter).
 
-TCP server connector.cpp
+ipv6_multicast_send.cpp
     This is the main application source file.
 
 /////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@ Other standard files:
 
 StdAfx.h, StdAfx.cpp
     These files are used to build a precompiled header (PCH) file
-    named TCP server connector.pch and a precompiled types file named StdAfx.obj.
+    named ipv6_multicast_send.pch and a precompiled types file named StdAfx.obj.
 
 /////////////////////////////////////////////////////////////////////////////
 Other notes:

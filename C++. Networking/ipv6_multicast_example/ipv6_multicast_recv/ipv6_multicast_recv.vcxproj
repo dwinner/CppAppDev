@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6AC9DA8D-3234-4082-83B0-C01FBE3763ED}</ProjectGuid>
+    <ProjectGuid>{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TCPserverconnector</RootNamespace>
+    <RootNamespace>ipv6_multicast_recv</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -83,8 +83,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ipv6_multicast_recv.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="TCP server connector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
