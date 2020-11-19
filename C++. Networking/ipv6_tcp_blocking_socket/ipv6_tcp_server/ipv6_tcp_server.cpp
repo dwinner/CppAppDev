@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
 
 #ifdef _WIN32
 #include <Winsock2.h>
@@ -29,8 +32,7 @@ int _tmain(int argc, _TCHAR* argv[])
    struct sockaddr_in6 server_addr, client_addr;
    socklen_t client_addr_len;
    char str_addr[INET6_ADDRSTRLEN];
-   int ret, flag;
-   char ch = 1;
+   int ret, flag;   
 
 #ifdef _WIN32
    WSADATA wsaData;
@@ -95,9 +97,7 @@ int _tmain(int argc, _TCHAR* argv[])
       }
 
       inet_ntop(AF_INET6, &(client_addr.sin6_addr), str_addr, sizeof(str_addr));
-      printf("New connection from: %s:%d ...\n",
-             str_addr,
-             ntohs(client_addr.sin6_port));
+      printf("New connection from: %s:%d ...\n", str_addr, ntohs(client_addr.sin6_port));
 
       /* Wait for data from client */
       char buf[MSGBUFSIZE];
@@ -108,15 +108,15 @@ int _tmain(int argc, _TCHAR* argv[])
          perror("recvfrom()");
          closesocket(client_sock_fd);
          continue;
-      }
-
-      buf[msgLen] = '\0';
+      }      
 
       /* Do very useful thing with received data :-) */
-      ch++;
+      std::cout << "Client request " << buf; 
+      std::string answer = buf;
+      answer += " - Answer from server";
 
       /* Send response to client */
-      msgLen = sendto(client_sock_fd, buf, msgLen, 0, (const struct sockaddr*)&client_addr, addrlen);
+      msgLen = sendto(client_sock_fd, answer.c_str(), answer.length(), 0, (const struct sockaddr*)&client_addr, addrlen);
       if (msgLen == -1)
       {
          perror("write()");

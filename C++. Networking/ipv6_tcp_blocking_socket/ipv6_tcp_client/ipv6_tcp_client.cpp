@@ -63,18 +63,17 @@ int _tmain()
    }
 
    /* Send data to server */
-   char buf[MSGBUFSIZE];
+   const char * clientRequest = "CLIENT";
    int addrlen = sizeof(server_addr);
-   int len = sendto(sock_fd, buf, MSGBUFSIZE, 0, (const struct sockaddr*)&server_addr, addrlen);
+   int len = sendto(sock_fd, clientRequest, MSGBUFSIZE, 0, (const struct sockaddr*)&server_addr, addrlen);
    if (len == -1)
    {
       perror("write");
       closesocket(sock_fd);
       return EXIT_FAILURE;
-   }
+   }   
 
-   buf[len] = '\0';
-
+   char buf[MSGBUFSIZE];
    /* Wait for data from server */
    ret = recvfrom(sock_fd, buf, MSGBUFSIZE, 0, (struct sockaddr*)&server_addr, &addrlen);
    if (ret == -1)
@@ -84,7 +83,9 @@ int _tmain()
       return EXIT_FAILURE;
    }
 
-   printf("Received %c from server\n", ch);
+   buf[ret] = '\0';
+
+   printf("Received %s from server\n", buf);
 
    /* DO TCP teardown */
    ret = closesocket(sock_fd);
