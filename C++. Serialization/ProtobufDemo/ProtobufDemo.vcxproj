@@ -151,10 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addressbook.pb.cc" />
     <ClCompile Include="ProtobufDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="addressbook.proto" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="addressbook.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
