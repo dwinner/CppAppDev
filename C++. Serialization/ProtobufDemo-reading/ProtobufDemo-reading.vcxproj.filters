@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ProtobufDemo.cpp">
+    <ClCompile Include="ProtobufDemo-reading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="addressbook.pb.cc">
@@ -23,12 +23,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="addressbook.proto" />
-    <None Include="addr_book.dat" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="addressbook.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="addr_book.dat" />
   </ItemGroup>
 </Project>
