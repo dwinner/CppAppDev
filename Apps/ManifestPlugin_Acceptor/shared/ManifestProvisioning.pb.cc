@@ -36,7 +36,6 @@ static void InitDefaultsscc_info_MM_ClientRequest_V1_ManifestProvisioning_2eprot
     new (ptr) ::manifest_manager_msg::MM_ClientRequest_V1();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::manifest_manager_msg::MM_ClientRequest_V1::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MM_ClientRequest_V1_ManifestProvisioning_2eproto =
@@ -50,7 +49,6 @@ static void InitDefaultsscc_info_MM_CollectionVersionAnnounce_ManifestProvisioni
     new (ptr) ::manifest_manager_msg::MM_CollectionVersionAnnounce();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::manifest_manager_msg::MM_CollectionVersionAnnounce::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MM_CollectionVersionAnnounce_ManifestProvisioning_2eproto =
@@ -64,7 +62,6 @@ static void InitDefaultsscc_info_MM_ManifestCollection_V1_ManifestProvisioning_2
     new (ptr) ::manifest_manager_msg::MM_ManifestCollection_V1();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::manifest_manager_msg::MM_ManifestCollection_V1::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MM_ManifestCollection_V1_ManifestProvisioning_2eproto =
@@ -143,8 +140,6 @@ namespace manifest_manager_msg {
 
 // ===================================================================
 
-void MM_CollectionVersionAnnounce::InitAsDefaultInstance() {
-}
 class MM_CollectionVersionAnnounce::_Internal {
  public:
   using HasBits = decltype(std::declval<MM_CollectionVersionAnnounce>()._has_bits_);
@@ -171,7 +166,7 @@ MM_CollectionVersionAnnounce::MM_CollectionVersionAnnounce(const MM_CollectionVe
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   collectionversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_collectionversion()) {
-    collectionversion_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_collectionversion(),
+    collectionversion_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_collectionversion(), 
       GetArena());
   }
   version_ = from.version_;
@@ -228,7 +223,6 @@ void MM_CollectionVersionAnnounce::Clear() {
 const char* MM_CollectionVersionAnnounce::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -426,8 +420,6 @@ void MM_CollectionVersionAnnounce::InternalSwap(MM_CollectionVersionAnnounce* ot
 
 // ===================================================================
 
-void MM_ClientRequest_V1::InitAsDefaultInstance() {
-}
 class MM_ClientRequest_V1::_Internal {
  public:
   using HasBits = decltype(std::declval<MM_ClientRequest_V1>()._has_bits_);
@@ -451,7 +443,7 @@ MM_ClientRequest_V1::MM_ClientRequest_V1(const MM_ClientRequest_V1& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   collectionversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_collectionversion()) {
-    collectionversion_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_collectionversion(),
+    collectionversion_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_collectionversion(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:manifest_manager_msg.MM_ClientRequest_V1)
@@ -505,7 +497,6 @@ void MM_ClientRequest_V1::Clear() {
 const char* MM_ClientRequest_V1::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -653,8 +644,6 @@ void MM_ClientRequest_V1::InternalSwap(MM_ClientRequest_V1* other) {
 
 // ===================================================================
 
-void MM_ManifestCollection_V1::InitAsDefaultInstance() {
-}
 class MM_ManifestCollection_V1::_Internal {
  public:
   using HasBits = decltype(std::declval<MM_ManifestCollection_V1>()._has_bits_);
@@ -680,7 +669,7 @@ MM_ManifestCollection_V1::MM_ManifestCollection_V1(const MM_ManifestCollection_V
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   collectionversion_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_collectionversion()) {
-    collectionversion_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_collectionversion(),
+    collectionversion_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_collectionversion(), 
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:manifest_manager_msg.MM_ManifestCollection_V1)
@@ -735,7 +724,6 @@ void MM_ManifestCollection_V1::Clear() {
 const char* MM_ManifestCollection_V1::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
