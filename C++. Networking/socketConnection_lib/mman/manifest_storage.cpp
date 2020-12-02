@@ -1,4 +1,4 @@
-#include "manifest_storage.h"
+#include "manifest_storage.hpp"
 
 namespace mman
 {
@@ -32,7 +32,7 @@ namespace mman
 	 * Is generated outside.
 	 * Must be updated in case of an external request to change manifest collection inside IC
 	 */
-	const unsigned char ManifestResponseMsg[MANIFEST_RESPONSET_MSG_LENGTH] =
+	const /*unsigned*/ char ManifestResponseMsg[MANIFEST_RESPONSET_MSG_LENGTH] =
 	{
 		0x0a, 0x18, 0x71, 0x70, 0x50, 0x6e, 0x77, 0x73, 0x44, 0x42, 0x36, 0x64,
 		0x2b, 0x32, 0x44, 0x45, 0x6a, 0x32, 0x52, 0x63, 0x33, 0x78, 0x6b, 0x77,

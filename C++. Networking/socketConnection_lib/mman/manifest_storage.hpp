@@ -43,6 +43,6 @@ namespace mman
 {
 	extern const unsigned char LocalManifestDigest[LOCAL_MANIFEST_DIGEST_LENGHT];
 	extern const /*unsigned*/ char ManifestBroadcastMsg[MANIFEST_BROADCAST_MSG_LENGTH];
-	extern const unsigned char ManifestResponseMsg[MANIFEST_RESPONSET_MSG_LENGTH];
+	extern const /*unsigned*/ char ManifestResponseMsg[MANIFEST_RESPONSET_MSG_LENGTH];
 	extern const unsigned char ManifestEmptyResponseMsg[EMPTY_RESPONSET_MSG_LENGTH];
 }

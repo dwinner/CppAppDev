@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <string>
+#include "mman/manifest_storage.hpp"
 
 #ifdef _WIN32
 #include <Winsock2.h>
@@ -110,13 +111,26 @@ int _tmain(int argc, _TCHAR* argv[])
          continue;
       }      
 
-      /* Do very useful thing with received data :-) */
+      // Truncate the buffer
+		if (msgLen < MSGBUFSIZE)
+		{
+			int i = 0;
+			while (i < msgLen && msgLen < MSGBUFSIZE)
+			{
+				i++;
+			}
+
+			while (i < MSGBUFSIZE)
+			{
+				buf[i++] = '\0';
+			}
+		}
+
       std::cout << "Client request " << buf; 
-      std::string answer = buf;
-      answer += " - Answer from server";
+		std::string answer = mman::ManifestResponseMsg;
 
       /* Send response to client */
-      msgLen = sendto(client_sock_fd, answer.c_str(), answer.length(), 0, (const struct sockaddr*)&client_addr, addrlen);
+		msgLen = sendto(client_sock_fd, answer.c_str(), answer.length(), 0, (const struct sockaddr*)&client_addr, addrlen);
       if (msgLen == -1)
       {
          perror("write()");
@@ -124,7 +138,7 @@ int _tmain(int argc, _TCHAR* argv[])
          continue;
       }
 
-      /* Do TCP teardown */
+      /* Do TCP tear down */
       ret = closesocket(client_sock_fd);
       if (ret == -1)
       {

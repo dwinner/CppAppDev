@@ -8,7 +8,7 @@
 #include <cstring>
 #include <string>
 
-#include "mman/manifest_storage.h"
+#include "mman/manifest_storage.hpp"
 
 #ifdef _WIN32
 

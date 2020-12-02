@@ -74,10 +74,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="mman\manifest_storage.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="WinsockWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="mman\manifest_storage.hpp" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="WinsockWrapper.h" />
   </ItemGroup>
