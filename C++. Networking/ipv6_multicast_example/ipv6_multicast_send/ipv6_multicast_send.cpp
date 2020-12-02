@@ -1,21 +1,27 @@
 /**
- * IPv6 multicast example - sender
+ * IPv6 multi cast example - sender
  */
 
 #include "stdafx.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <string>
 
+#include "mman/manifest_storage.h"
+
 #ifdef _WIN32
+
 #include <Winsock2.h>
 #include <Ws2tcpip.h>
 #include <Windows.h>
+
 #define WIN32_LEAN_AND_MEAN
 #pragma comment (lib, "Ws2_32.lib")
 using ssize_t = SSIZE_T;
+
 #else
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -23,6 +29,7 @@ using ssize_t = SSIZE_T;
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 #endif
 
 const int DelaySecs = 1;
@@ -34,9 +41,9 @@ int _tmain()
 {
    struct sockaddr_in6 saddr;
    struct ipv6_mreq mreq;
-   const char* buf = "Hi from multicast via IPv6";
+	const char* buf = mman::ManifestBroadcastMsg;
    ssize_t len = 1;
-   int sd, fd, on = 1, hops = 255, ifidx = 0;
+   int sd, on = 1, hops = 255, ifidx = 0;
 
 #ifdef _WIN32
    WSADATA wsaData;
@@ -55,25 +62,25 @@ int _tmain()
       return 1;
    }
 
-   if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, (const char*)&on, sizeof(on)))
+   if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&on), sizeof(on)))
    {
       perror("setsockopt");
       return 1;
    }
 
-   if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_IF, (const char*)&ifidx, sizeof(ifidx)))
+   if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifidx), sizeof(ifidx)))
    {
       perror("setsockopt");
       return 1;
    }
 
-   if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, (const char*)&hops, sizeof(hops)))
+   if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, reinterpret_cast<const char*>(&hops), sizeof(hops)))
    {
       perror("setsockopt");
       return 1;
    }
 
-   if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, (const char*)&on, sizeof(on)))
+   if (setsockopt(sd, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&on), sizeof(on)))
    {
       perror("setsockopt");
       return 1;
@@ -87,7 +94,7 @@ int _tmain()
    memcpy(&mreq.ipv6mr_multiaddr, &saddr.sin6_addr, sizeof(mreq.ipv6mr_multiaddr));
    mreq.ipv6mr_interface = ifidx;
 
-   if (setsockopt(sd, IPPROTO_IPV6, IPV6_JOIN_GROUP, (char*)&mreq, sizeof(mreq)))
+   if (setsockopt(sd, IPPROTO_IPV6, IPV6_JOIN_GROUP, reinterpret_cast<char*>(&mreq), sizeof(mreq)))
    {
       perror("setsockopt");
       return 1;
@@ -95,14 +102,14 @@ int _tmain()
 
    while (true)
    {
-      len = sendto(sd, buf, strlen(buf), 0, (const struct sockaddr*)&saddr, sizeof(saddr));
+      len = sendto(sd, buf, MANIFEST_BROADCAST_MSG_LENGTH, 0, reinterpret_cast<const struct sockaddr*>(&saddr), sizeof(saddr));
       if (len < 0)
       {
          perror("sendto");
          return 1;
       }
 
-      printf("Sent: %s\n", buf);
+      printf("Sent: %d bytes\n", len);
 
 #ifdef _WIN32
       Sleep(DelaySecs * 1000); // Windows Sleep is milliseconds
