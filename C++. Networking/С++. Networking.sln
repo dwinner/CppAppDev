@@ -48,6 +48,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ipv6_multicast_example", "ipv6_multicast_example", "{208AC689-0D00-4978-A289-5F0E31948DE6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipv6_multicast_send", "ipv6_multicast_example\ipv6_multicast_send\ipv6_multicast_send.vcxproj", "{E590C538-4CC7-4634-AD93-1CA00723AE37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40D3090C-A329-420C-913E-1BC0D31F1D90} = {40D3090C-A329-420C-913E-1BC0D31F1D90}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipv6_multicast_recv", "ipv6_multicast_example\ipv6_multicast_recv\ipv6_multicast_recv.vcxproj", "{4404F7BD-C7E1-464A-A9EB-AFA68EC4ED7C}"
 EndProject
@@ -56,6 +59,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipv6_tcp_client", "ipv6_tcp_blocking_socket\ipv6_tcp_client\ipv6_tcp_client.vcxproj", "{1FE98A44-569E-49D0-9AEE-EB7BE0431E51}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ipv6_tcp_server", "ipv6_tcp_blocking_socket\ipv6_tcp_server\ipv6_tcp_server.vcxproj", "{0214095D-119C-47B2-841E-6912CB422228}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40D3090C-A329-420C-913E-1BC0D31F1D90} = {40D3090C-A329-420C-913E-1BC0D31F1D90}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
