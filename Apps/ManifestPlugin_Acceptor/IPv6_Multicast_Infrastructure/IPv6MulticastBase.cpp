@@ -1,16 +1,16 @@
 #include "pch.h"
-#include "IPv6MulticastBase.h"
+#include "Ipv6MulticastBase.h"
 
-namespace multicast
-{   
-   bool IPv6MulticastBase::Exchange(const char* buffer, const int bufferLen, const int delaySec, const bool endless)
+namespace ipv6_multicast
+{
+   bool Ipv6MulticastBase::Exchange()
    {
       WinsockWrapper winsock;
 
       const auto socketDesc = CreateSocket();
       ConfigureSocket(socketDesc);
       const auto sockAddr = ConfigureSocketAddress(_port, _host, socketDesc);
-      const auto result = InternalExchange(buffer, bufferLen, delaySec, endless, socketDesc, sockAddr);
+      const auto result = InternalExchange(socketDesc, sockAddr);
       closesocket(socketDesc);
 
       return result;

@@ -158,6 +158,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="IPv6MulticastBase.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TcpBlockingServer.h" />
     <ClInclude Include="UdpMulticastSender.h" />
     <ClInclude Include="WinsockWrapper.h" />
   </ItemGroup>
@@ -169,6 +170,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TcpBlockingServer.cpp" />
     <ClCompile Include="UdpMulticastSender.cpp" />
     <ClCompile Include="WinsockWrapper.cpp" />
   </ItemGroup>

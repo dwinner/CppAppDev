@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "UdpMulticastSender.h"
 
-namespace multicast
+namespace ipv6_multicast
 {
    int UdpMulticastSender::CreateSocket()
    {
@@ -83,15 +83,19 @@ namespace multicast
       return saddr;
    }
 
-   bool UdpMulticastSender::InternalExchange(const char* buffer, const int bufferLen, const int delaySec,
-                                             const bool endless,
-                                             const int socketDesc, const sockaddr_in6& sockAddr)
+   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr)
    {
-      ssize_t sentLen = 1;
+      const int delaySec = 1;
+
+      using namespace mman;
+      const char* buffer = ManifestMulticastMsg;
+      const int bufferLen = ManifestMulticastMsgLength;
+
       while (true)
       {
-         sentLen = sendto(socketDesc, buffer, bufferLen, 0, reinterpret_cast<const struct sockaddr*>(&sockAddr),
-                          sizeof sockAddr);
+         const ssize_t sentLen = sendto(socketDesc, buffer, bufferLen, 0,
+                                        reinterpret_cast<const struct sockaddr*>(&sockAddr),
+                                        sizeof sockAddr);
          if (sentLen < 0)
          {
 #ifdef _DEBUG
@@ -107,13 +111,8 @@ namespace multicast
 #ifdef _WIN32
          Sleep(delaySec * 1000); // Windows Sleep in milliseconds
 #else
-         sleep(delay_secs); // Unix sleep is seconds
+         sleep(delaySec); // Unix sleep is seconds
 #endif
-
-         if (!endless)
-         {
-            return true;
-         }
       }
    }
 }
