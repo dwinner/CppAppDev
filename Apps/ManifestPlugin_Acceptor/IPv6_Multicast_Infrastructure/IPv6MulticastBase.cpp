@@ -14,5 +14,5 @@ namespace ipv6_multicast
       closesocket(socketDesc);
 
       return result;
-   }
+   }   
 }

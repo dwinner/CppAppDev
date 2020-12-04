@@ -113,28 +113,17 @@ namespace ipv6_multicast
             continue;
          }
 
-         // Truncate the buffer
-         if (msgLen < messageBufferSize)
-         {
-            int i = 0;
-            while (i < msgLen && msgLen < messageBufferSize)
-            {
-               i++;
-            }
-
-            while (i < messageBufferSize)
-            {
-               buf[i++] = '\0';
-            }
-         }
-
-         // TODO: make business logic for protocol
+         string clientDigest = TruncateResponse(buf, messageBufferSize, msgLen);
 
 #ifdef _DEBUG
-         cout << "Client request " << buf;
+         cout << "Client request " << clientDigest;
 #endif
 
-         string answer = mman::ManifestResponseMsg;
+         string serverDigest = mman::LocalManifestDigest;
+         string answer;
+         answer = clientDigest == serverDigest
+                     ? mman::ManifestResponseMsg
+                     : mman::ManifestEmptyResponseMsg;
 
          // Send response to client
          msgLen = sendto(clientSockDesc, answer.c_str(), answer.length(), 0,
@@ -162,5 +151,26 @@ namespace ipv6_multicast
          std::cout << "Connection closed" << std::endl;
 #endif
       }
+   }
+
+   string TcpBlockingServer::TruncateResponse(char* buffer, const int bufferLen, const int messageLen)
+   {
+      if (messageLen < bufferLen)
+      {
+         int i = 0;
+         while (i < messageLen && messageLen < bufferLen)
+         {
+            i++;
+         }
+
+         while (i < bufferLen)
+         {
+            buffer[i++] = '\0';
+         }
+      }
+
+      string responseMsg = buffer;
+
+      return responseMsg;
    }
 }

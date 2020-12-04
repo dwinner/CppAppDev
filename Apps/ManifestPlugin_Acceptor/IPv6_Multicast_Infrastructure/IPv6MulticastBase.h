@@ -36,6 +36,6 @@ namespace ipv6_multicast
 
    private:
       int _port;
-      string _host;
+      string _host;      
    };
 }

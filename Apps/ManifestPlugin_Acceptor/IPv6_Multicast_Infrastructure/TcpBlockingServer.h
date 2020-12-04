@@ -29,5 +29,8 @@ namespace ipv6_multicast
       sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) override;
 
       bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) override;
+
+   private:
+      static string TruncateResponse(char* buffer, int bufferLen, int messageLen);
    };
 }
