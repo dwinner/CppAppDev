@@ -1,19 +1,22 @@
 #include <iostream>
 
 #include "stdafx.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <string>
 #include "mman/manifest_storage.hpp"
 
 #ifdef _WIN32
+
 #include <Winsock2.h>
 #include <Ws2tcpip.h>
 #include <Windows.h>
 #define WIN32_LEAN_AND_MEAN
 #pragma comment (lib, "Ws2_32.lib")
+
 #else
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -21,139 +24,215 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 #endif
 
-#define CLIENT_QUEUE_LEN   10
 #define SERVER_PORT        1991
-#define MSGBUFSIZE         1400
 
-int _tmain(int argc, _TCHAR* argv[])
+void clean_wsa();
+
+void init_wsa();
+
+int create_socket();
+
+void configure_socket(int socketDesc);
+
+sockaddr_in6 configure_socket_address(int port, int socketDesc);
+
+void exchange_data(int socketDesc, sockaddr_in6 sockAddr);
+
+int _tmain()
 {
-	int listen_sock_fd = -1, client_sock_fd = -1;
-	struct sockaddr_in6 server_addr, client_addr;
-	socklen_t client_addr_len;
-	char str_addr[INET6_ADDRSTRLEN];
-	int ret, flag;
+   init_wsa();
 
+   const int listenSockDesc = create_socket();
+   configure_socket(listenSockDesc);
+   const struct sockaddr_in6 sockAddr = configure_socket_address(SERVER_PORT, listenSockDesc);
+   exchange_data(listenSockDesc, sockAddr);
+   closesocket(listenSockDesc);
+   clean_wsa();
+
+   return EXIT_SUCCESS;
+}
+
+void clean_wsa()
+{
 #ifdef _WIN32
-	WSADATA wsaData;
-	if (WSAStartup(MAKEWORD(2, 2), &wsaData))
-	{
-		perror("WSAStartup");
-		return 1;
-	}
+   WSACleanup();
+#endif
+}
+
+void init_wsa()
+{
+#ifdef _WIN32
+   WSADATA wsaData;
+   if (WSAStartup(MAKEWORD(2, 2), &wsaData))
+   {
+#ifdef _DEBUG
+      perror("WSAStartup");
 #endif
 
-	/* Create socket for listening (client requests) */
-	listen_sock_fd = socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP);
-	if (listen_sock_fd == -1)
-	{
-		perror("socket()");
-		return EXIT_FAILURE;
-	}
+      exit(EXIT_FAILURE);
+   }
+#endif
+}
 
-	/* Set socket to reuse address */
-	flag = 1;
-	ret = setsockopt(listen_sock_fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&flag, sizeof(flag));
-	if (ret == -1)
-	{
-		perror("setsockopt()");
-		return EXIT_FAILURE;
-	}
+int create_socket()
+{
+   // Create socket for listening (client requests)
+   const int listenSockDesc = socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP);
+   if (listenSockDesc == -1)
+   {
+#ifdef _DEBUG
+      perror("socket() creation failed");
+#endif
+      exit(EXIT_FAILURE);
+   }
 
-	memset(&server_addr, 0, sizeof(server_addr));
-	server_addr.sin6_family = AF_INET6;
-	server_addr.sin6_addr = in6addr_any;
-	server_addr.sin6_port = htons(SERVER_PORT);
+   return listenSockDesc;
+}
 
-	/* Bind address and socket together */
-	ret = bind(listen_sock_fd, reinterpret_cast<struct sockaddr*>(&server_addr), sizeof(server_addr));
-	if (ret == -1)
-	{
-		perror("bind()");
-		closesocket(listen_sock_fd);
-		return EXIT_FAILURE;
-	}
+void configure_socket(const int socketDesc)
+{
+   // Set socket to reuse address
+   int flag = 1;
+   const int ret = setsockopt(socketDesc, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&flag), sizeof flag);
+   if (ret == -1)
+   {
+#ifdef _DEBUG
+      perror("setsockopt() failure");
+#endif
+      exit(EXIT_FAILURE);
+   }
+}
 
-	/* Create listening queue (client requests) */
-	ret = listen(listen_sock_fd, CLIENT_QUEUE_LEN);
-	if (ret == -1)
-	{
-		perror("listen()");
-		closesocket(listen_sock_fd);
-		return EXIT_FAILURE;
-	}
+sockaddr_in6 configure_socket_address(int port, int socketDesc)
+{
+   // Init server address for IPv6
+   struct sockaddr_in6 serverAddr{};
+   memset(&serverAddr, 0, sizeof(serverAddr));
+   serverAddr.sin6_family = AF_INET6;
+   serverAddr.sin6_addr = in6addr_any;
+   serverAddr.sin6_port = htons(port);
 
-	client_addr_len = sizeof(client_addr);
-
-	while (true)
-	{
-		/* Do TCP handshake with client */
-		client_sock_fd = accept(listen_sock_fd, reinterpret_cast<struct sockaddr*>(&client_addr), &client_addr_len);
-		if (client_sock_fd == -1)
-		{
-			perror("accept()");
-			closesocket(listen_sock_fd);
-			return EXIT_FAILURE;
-		}
-
-		inet_ntop(AF_INET6, &(client_addr.sin6_addr), str_addr, sizeof(str_addr));
-		printf("New connection from: %s:%d ...\n", str_addr, ntohs(client_addr.sin6_port));
-
-		/* Wait for data from client */
-		char buf[MSGBUFSIZE];
-		int addrlen = sizeof(client_addr);
-		int msgLen = recvfrom(client_sock_fd, buf, MSGBUFSIZE, 0, reinterpret_cast<struct sockaddr*>(&client_addr),
-		                      &addrlen);
-		if (msgLen == -1)
-		{
-			perror("recvfrom()");
-			closesocket(client_sock_fd);
-			continue;
-		}
-
-		// Truncate the buffer
-		if (msgLen < MSGBUFSIZE)
-		{
-			int i = 0;
-			while (i < msgLen && msgLen < MSGBUFSIZE)
-			{
-				i++;
-			}
-
-			while (i < MSGBUFSIZE)
-			{
-				buf[i++] = '\0';
-			}
-		}
-
-		std::cout << "Client request " << buf;
-		std::string answer = mman::ManifestResponseMsg;
-
-		/* Send response to client */
-		msgLen = sendto(client_sock_fd, answer.c_str(), answer.length(), 0,
-		                reinterpret_cast<const struct sockaddr*>(&client_addr), addrlen);
-		if (msgLen == -1)
-		{
-			perror("write()");
-			closesocket(client_sock_fd);
-			continue;
-		}
-
-		/* Do TCP tear down */
-		ret = closesocket(client_sock_fd);
-		if (ret == -1)
-		{
-			perror("close()");
-			client_sock_fd = -1;
-		}
-
-		printf("Connection closed\n");
-	}
-
-#ifdef _WIN32
-	WSACleanup();
+   // Bind address and socket together
+   int success = bind(socketDesc, reinterpret_cast<struct sockaddr*>(&serverAddr), sizeof serverAddr);
+   if (success == -1)
+   {
+#ifdef _DEBUG
+      perror("bind() failed");
 #endif
 
-	return EXIT_SUCCESS;
+      closesocket(socketDesc);
+      exit(EXIT_FAILURE);
+   }
+
+   const int defaultBacklogCount = 10;
+   success = listen(socketDesc, defaultBacklogCount);
+   if (success == -1)
+   {
+#ifdef _DEBUG
+      perror("listen() failed");
+#endif
+
+      closesocket(socketDesc);
+      exit(EXIT_FAILURE);
+   }
+
+   return serverAddr;
+}
+
+void exchange_data(const int socketDesc, sockaddr_in6 sockAddr)
+{
+   struct sockaddr_in6 clientAddr{};
+   socklen_t clientAddrLen = sizeof clientAddr;
+   char strAddr[INET6_ADDRSTRLEN];
+   const int messageBufferSize = 1400;
+
+   using namespace std;
+
+   while (true)
+   {
+      // Do TCP handshake with client
+      const int clientSockDesc = accept(socketDesc, reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
+      if (clientSockDesc == -1)
+      {
+#ifdef _DEBUG
+         perror("accept() failed");
+#endif
+
+         closesocket(socketDesc);
+         exit(EXIT_FAILURE);
+      }
+
+      inet_ntop(AF_INET6, &clientAddr.sin6_addr, strAddr, sizeof strAddr);
+
+#ifdef _DEBUG
+      cout << "New connection from: " << strAddr << ":" << ntohs(clientAddr.sin6_port) << " ..." << endl;
+#endif
+
+      // Wait for data from client
+      char buf[messageBufferSize];
+      int addrlen = sizeof clientAddr;
+      int msgLen = recvfrom(
+         clientSockDesc, buf, messageBufferSize, 0, reinterpret_cast<struct sockaddr*>(&clientAddr), &addrlen);
+      if (msgLen == -1)
+      {
+#ifdef _DEBUG
+         perror("recvfrom()");
+#endif
+
+         closesocket(clientSockDesc);
+         continue;
+      }
+
+      // Truncate the buffer
+      if (msgLen < messageBufferSize)
+      {
+         int i = 0;
+         while (i < msgLen && msgLen < messageBufferSize)
+         {
+            i++;
+         }
+
+         while (i < messageBufferSize)
+         {
+            buf[i++] = '\0';
+         }
+      }
+
+      // TODO: make business logic for protocol
+
+#ifdef _DEBUG
+      cout << "Client request " << buf;
+#endif
+
+      string answer = mman::ManifestResponseMsg;
+
+      // Send response to client
+      msgLen = sendto(clientSockDesc, answer.c_str(), answer.length(), 0,
+                      reinterpret_cast<const struct sockaddr*>(&clientAddr), addrlen);
+      if (msgLen == -1)
+      {
+#ifdef _DEBUG
+         perror("write() failed");
+#endif
+
+         closesocket(clientSockDesc);
+         continue;
+      }
+
+      // Do TCP tear down
+      const int succeed = closesocket(clientSockDesc);
+      if (succeed == -1)
+      {
+#ifdef _DEBUG
+         perror("close() failed");
+#endif
+      }
+
+#ifdef _DEBUG
+      std::cout << "Connection closed" << std::endl;      
+#endif
+   }
 }
