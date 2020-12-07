@@ -18,7 +18,7 @@ int String::HowMany()
 String::String(const char * s)     // construct String from C string
 {
     len = std::strlen(s);          // set size
-    str = new char[len + 1];       // allot storage
+    str = new char[len + 1];       // alloc storage
     std::strcpy(str, s);           // initialize pointer
     num_strings++;                 // set object count
 }
@@ -35,7 +35,7 @@ String::String(const String & st)
 {
     num_strings++;             // handle static member update
     len = st.len;              // same length
-    str = new char [len + 1];  // allot space
+    str = new char [len + 1];  // alloc space
     std::strcpy(str, st.str);  // copy string to new location
 }
 
