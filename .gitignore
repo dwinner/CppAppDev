@@ -218,3 +218,6 @@ ModelManifest.xml
 
 # Visual paradigm backup-files
 *.bak_*
+
+# Ignore lib files to reduce GIT LFS
+*.lib
