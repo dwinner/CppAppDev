@@ -22,13 +22,13 @@ namespace ipv6_multicast
       }
 
    protected:
-      int CreateSocket() override;
+      int CreateSocket() const override;
 
-      void ConfigureSocket(int socketDesc) override;
+      void ConfigureSocket(int socketDesc) const override;
 
-      sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) override;
+      sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) const override;
 
-      bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) override;
+      bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) const override;
 
    private:
       static string TruncateResponse(char* buffer, int bufferLen, int messageLen);

@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{7D3724EE-EE15-42AC-80B4-965A7A57F581}</ProjectGuid>
+    <ProjectGuid>{E04E8AF4-37B8-4D7A-BD60-9753C836B502}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TcpBlockingServerLauncher</RootNamespace>
+    <RootNamespace>MultiplyIPv6MulticastLauncher</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -154,7 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="TcpBlockingServerLauncher.cpp" />
+    <ClCompile Include="Multiply_IPv6_Multicast_Launcher.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TcpBlockingServerLauncher.cpp">
+    <ClCompile Include="Multiply_IPv6_Multicast_Launcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

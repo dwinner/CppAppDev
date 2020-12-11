@@ -3,61 +3,52 @@
 
 namespace ipv6_multicast
 {
-   int UdpMulticastSender::CreateSocket()
+   int UdpMulticastSender::CreateSocket() const
    {
       using namespace std;
 
       const int socketDesc = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
       if (socketDesc < 0)
-      {
-#ifdef _DEBUG
-         perror("socket creation failure");
-#endif
+      {         
+         trace("socket creation failure");
          exit(EXIT_FAILURE);
       }
 
       return socketDesc;
    }
 
-   void UdpMulticastSender::ConfigureSocket(const int socketDesc)
+   void UdpMulticastSender::ConfigureSocket(const int socketDesc) const
    {
       int on = 1;
       if (setsockopt(socketDesc, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&on), sizeof on))
       {
-#ifdef _DEBUG
-         perror("setsockopt");
-#endif
+         trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
 
       int ifidx = 0;
       if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifidx), sizeof(ifidx)))
       {
-#ifdef _DEBUG
-         perror("setsockopt");
-#endif
+         trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
 
       int hops = 255;
       if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, reinterpret_cast<const char*>(&hops), sizeof(hops)))
       {
-#ifdef _DEBUG
-         perror("setsockopt");
-#endif
+         trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
 
       if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&on), sizeof(on)))
       {
-#ifdef _DEBUG
-         perror("setsockopt");
-#endif
+         trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
    }
 
-   sockaddr_in6 UdpMulticastSender::ConfigureSocketAddress(const int port, const string& host, const int socketDesc)
+   sockaddr_in6 UdpMulticastSender::ConfigureSocketAddress(const int port, const string& host,
+                                                           const int socketDesc) const
    {
       struct sockaddr_in6 saddr{};
 
@@ -73,17 +64,14 @@ namespace ipv6_multicast
 
       if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_JOIN_GROUP, reinterpret_cast<char*>(&mreq), sizeof mreq))
       {
-#ifdef _DEBUG
-         perror("setsockopt");
-#endif
-
+         trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
 
       return saddr;
    }
 
-   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr)
+   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr) const
    {
       const int delaySec = 1;
 
@@ -94,25 +82,15 @@ namespace ipv6_multicast
       while (true)
       {
          const ssize_t sentLen = sendto(socketDesc, buffer, bufferLen, 0,
-                                        reinterpret_cast<const struct sockaddr*>(&sockAddr),
-                                        sizeof sockAddr);
+                                        reinterpret_cast<const struct sockaddr*>(&sockAddr), sizeof sockAddr);
          if (sentLen < 0)
          {
-#ifdef _DEBUG
-            perror("sendto");
-#endif
+            //Trace("sendto failure");
             return false;
          }
-
-#ifdef _DEBUG
-         cout << "Sent: " << sentLen << endl;
-#endif
-
-#ifdef _WIN32
-         Sleep(delaySec * 1000); // Windows Sleep in milliseconds
-#else
-         sleep(delaySec); // Unix sleep is seconds
-#endif
+         
+         trace("Sent: " + std::to_string(sentLen));
+         sleep(delaySec);
       }
    }
 }

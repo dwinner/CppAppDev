@@ -3,7 +3,7 @@
 
 namespace ipv6_multicast
 {
-   int TcpBlockingServer::CreateSocket()
+   int TcpBlockingServer::CreateSocket() const
    {
       // Create socket for listening (client requests)
       const int listenSockDesc = socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP);
@@ -18,7 +18,7 @@ namespace ipv6_multicast
       return listenSockDesc;
    }
 
-   void TcpBlockingServer::ConfigureSocket(int socketDesc)
+   void TcpBlockingServer::ConfigureSocket(int socketDesc) const
    {
       // Set socket to reuse address
       int flag = 1;
@@ -33,7 +33,7 @@ namespace ipv6_multicast
       }
    }
 
-   sockaddr_in6 TcpBlockingServer::ConfigureSocketAddress(int port, const string& host, int socketDesc)
+   sockaddr_in6 TcpBlockingServer::ConfigureSocketAddress(int port, const string& host, int socketDesc) const
    {
       // Init server address for IPv6
       struct sockaddr_in6 serverAddr{};
@@ -69,7 +69,7 @@ namespace ipv6_multicast
       return serverAddr;
    }
 
-   bool TcpBlockingServer::InternalExchange(int socketDesc, const sockaddr_in6& sockAddr)
+   bool TcpBlockingServer::InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) const
    {
       struct sockaddr_in6 clientAddr{};
       socklen_t clientAddrLen = sizeof clientAddr;
