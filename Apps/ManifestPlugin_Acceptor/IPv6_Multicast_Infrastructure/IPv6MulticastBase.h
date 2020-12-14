@@ -45,7 +45,7 @@ namespace ipv6_multicast
       {
       }
 
-      bool Exchange() const;
+      bool Exchange(const bool stop = false) const;
 
    protected:
       virtual int CreateSocket() const = 0;
@@ -54,7 +54,7 @@ namespace ipv6_multicast
 
       virtual sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) const = 0;
 
-      virtual bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) const = 0;
+      virtual bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const = 0;
 
    private:
       int port_;

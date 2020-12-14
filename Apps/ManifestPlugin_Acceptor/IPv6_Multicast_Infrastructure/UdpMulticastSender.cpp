@@ -71,7 +71,7 @@ namespace ipv6_multicast
       return saddr;
    }
 
-   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr) const
+   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const
    {
       const int delaySec = 1;
 
@@ -85,7 +85,7 @@ namespace ipv6_multicast
                                         reinterpret_cast<const struct sockaddr*>(&sockAddr), sizeof sockAddr);
          if (sentLen < 0)
          {
-            //Trace("sendto failure");
+            trace("sendto failure");
             return false;
          }
          

@@ -69,7 +69,7 @@ namespace ipv6_multicast
       return serverAddr;
    }
 
-   bool TcpBlockingServer::InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) const
+   bool TcpBlockingServer::InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const
    {
       struct sockaddr_in6 clientAddr{};
       socklen_t clientAddrLen = sizeof clientAddr;
