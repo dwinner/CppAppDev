@@ -22,6 +22,7 @@ int main()
 
    mmanUdpServerThread.join();
    mmanTcpBlockingThread.join();
+   quitThr.join();
 
    return 0;
 }

@@ -70,13 +70,42 @@ namespace ipv6_multicast
 
       while (!stop)
       {
+         // Setting server timeout
+         fd_set readFds;
+         FD_ZERO(&readFds);
+         FD_SET(socketDesc, &readFds);
+
+         struct timeval timeOut;
+         timeOut.tv_sec = 1; // 1 sec timeout
+         timeOut.tv_usec = 0;
+
+         const int selectStatus = select(socketDesc + 1, &readFds, nullptr, nullptr, &timeOut);
+         if (selectStatus == -1)
+         {
+            trace("selection error");
+            closesocket(socketDesc);
+            return false;
+         }
+
+         if (selectStatus > 0)
+         {
+            // Ok - we have the data
+            trace("New connection is about to be accepted");
+         }
+         else
+         {
+            // 0 - timeout detected with no data
+            trace("There is no data so far");
+            continue;
+         }
+
          // Do TCP handshake with client
          const int clientSockDesc = accept(socketDesc, reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
          if (clientSockDesc == -1)
          {
             trace("accept() failed");
             closesocket(socketDesc);
-            return false;
+            continue;
          }
 
          inet_ntop(AF_INET6, &clientAddr.sin6_addr, strAddr, sizeof strAddr);
