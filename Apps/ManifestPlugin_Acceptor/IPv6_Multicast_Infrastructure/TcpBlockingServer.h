@@ -16,7 +16,7 @@ namespace ipv6_multicast
       {
       }
 
-      TcpBlockingServer(int port, const string& host)
+      TcpBlockingServer(const int port, const string& host)
          : Ipv6MulticastBase(port, host)
       {
       }
@@ -28,7 +28,7 @@ namespace ipv6_multicast
 
       sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) const override;
 
-      bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const override;
+      bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const override;
 
    private:
       static string TruncateResponse(char* buffer, int bufferLen, int messageLen);

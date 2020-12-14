@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "IPv6MulticastBase.h"
 
+#include <atomic>
+
 namespace ipv6_multicast
 {
-   bool Ipv6MulticastBase::Exchange(const bool stop) const
+   bool Ipv6MulticastBase::Exchange(std::atomic_bool& stop) const
    {
       WinsockWrapper winsock;
 

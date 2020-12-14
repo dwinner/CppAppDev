@@ -1,5 +1,6 @@
 #pragma once
 
+#include <atomic>
 #include <string>
 #include <utility>
 #include "WinsockWrapper.h"
@@ -14,15 +15,6 @@ namespace ipv6_multicast
    {
 #ifdef _DEBUG
       std::cout << aMessage << std::endl;
-#endif
-   }
-
-   inline void sleep(const int delayInSec)
-   {
-#ifdef _WIN32
-      Sleep(delayInSec * 1000); // Windows Sleep in milliseconds
-#else
-      sleep(delaySec); // Unix sleep is seconds
 #endif
    }
 
@@ -44,8 +36,8 @@ namespace ipv6_multicast
            host_(std::move(host))
       {
       }
-
-      bool Exchange(const bool stop = false) const;
+      
+      bool Exchange(std::atomic_bool& stop) const;
 
    protected:
       virtual int CreateSocket() const = 0;
@@ -54,7 +46,7 @@ namespace ipv6_multicast
 
       virtual sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) const = 0;
 
-      virtual bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const = 0;
+      virtual bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const = 0;
 
    private:
       int port_;

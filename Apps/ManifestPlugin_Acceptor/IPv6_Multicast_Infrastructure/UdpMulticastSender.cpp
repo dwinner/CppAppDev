@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "UdpMulticastSender.h"
+#include <thread>
 
 namespace ipv6_multicast
 {
@@ -9,7 +10,7 @@ namespace ipv6_multicast
 
       const int socketDesc = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
       if (socketDesc < 0)
-      {         
+      {
          trace("socket creation failure");
          exit(EXIT_FAILURE);
       }
@@ -27,20 +28,20 @@ namespace ipv6_multicast
       }
 
       int ifidx = 0;
-      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifidx), sizeof(ifidx)))
+      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifidx), sizeof ifidx))
       {
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
 
       int hops = 255;
-      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, reinterpret_cast<const char*>(&hops), sizeof(hops)))
+      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, reinterpret_cast<const char*>(&hops), sizeof hops))
       {
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
 
-      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&on), sizeof(on)))
+      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&on), sizeof on))
       {
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
@@ -71,7 +72,7 @@ namespace ipv6_multicast
       return saddr;
    }
 
-   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const
+   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const
    {
       const int delaySec = 1;
 
@@ -79,7 +80,7 @@ namespace ipv6_multicast
       const char* buffer = ManifestMulticastMsg;
       const int bufferLen = ManifestMulticastMsgLength;
 
-      while (true)
+      while (!stop)
       {
          const ssize_t sentLen = sendto(socketDesc, buffer, bufferLen, 0,
                                         reinterpret_cast<const struct sockaddr*>(&sockAddr), sizeof sockAddr);
@@ -88,9 +89,11 @@ namespace ipv6_multicast
             trace("sendto failure");
             return false;
          }
-         
+
          trace("Sent: " + std::to_string(sentLen));
-         sleep(delaySec);
+         std::this_thread::sleep_for(std::chrono::seconds(delaySec));         
       }
+
+      return true;
    }
 }

@@ -9,9 +9,7 @@ namespace ipv6_multicast
       const int listenSockDesc = socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP);
       if (listenSockDesc == -1)
       {
-#ifdef _DEBUG
-         perror("socket() creation failed");
-#endif
+         trace("socket() creation failed");
          exit(EXIT_FAILURE);
       }
 
@@ -26,9 +24,7 @@ namespace ipv6_multicast
                                  sizeof flag);
       if (ret == -1)
       {
-#ifdef _DEBUG
-         perror("setsockopt() failure");
-#endif
+         trace("setsockopt() failure");
          exit(EXIT_FAILURE);
       }
    }
@@ -37,7 +33,7 @@ namespace ipv6_multicast
    {
       // Init server address for IPv6
       struct sockaddr_in6 serverAddr{};
-      memset(&serverAddr, 0, sizeof(serverAddr));
+      memset(&serverAddr, 0, sizeof serverAddr);
       serverAddr.sin6_family = AF_INET6;
       serverAddr.sin6_addr = in6addr_any;
       serverAddr.sin6_port = htons(port);
@@ -46,10 +42,7 @@ namespace ipv6_multicast
       int success = bind(socketDesc, reinterpret_cast<struct sockaddr*>(&serverAddr), sizeof serverAddr);
       if (success == -1)
       {
-#ifdef _DEBUG
-         perror("bind() failed");
-#endif
-
+         trace("bind() failed");
          closesocket(socketDesc);
          exit(EXIT_FAILURE);
       }
@@ -58,10 +51,7 @@ namespace ipv6_multicast
       success = listen(socketDesc, defaultBacklogCount);
       if (success == -1)
       {
-#ifdef _DEBUG
-         perror("listen() failed");
-#endif
-
+         trace("listen() failed");
          closesocket(socketDesc);
          exit(EXIT_FAILURE);
       }
@@ -69,34 +59,30 @@ namespace ipv6_multicast
       return serverAddr;
    }
 
-   bool TcpBlockingServer::InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, const bool stop) const
+   bool TcpBlockingServer::InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const
    {
       struct sockaddr_in6 clientAddr{};
       socklen_t clientAddrLen = sizeof clientAddr;
       char strAddr[INET6_ADDRSTRLEN];
       const int messageBufferSize = 1400;
 
-      using namespace std;
+      trace(std::to_string(sockAddr.sin6_family) + " unused");
 
-      while (true)
+      while (!stop)
       {
          // Do TCP handshake with client
          const int clientSockDesc = accept(socketDesc, reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
          if (clientSockDesc == -1)
          {
-#ifdef _DEBUG
-            perror("accept() failed");
-#endif
-
+            trace("accept() failed");
             closesocket(socketDesc);
-            exit(EXIT_FAILURE);
+            return false;
          }
 
          inet_ntop(AF_INET6, &clientAddr.sin6_addr, strAddr, sizeof strAddr);
-
-#ifdef _DEBUG
-         cout << "New connection from: " << strAddr << ":" << ntohs(clientAddr.sin6_port) << " ..." << endl;
-#endif
+         const unsigned short fmtAddr = ntohs(clientAddr.sin6_port);
+         string toAddrStr = strAddr;
+         trace("New connection from: " + toAddrStr + ":" + std::to_string(fmtAddr) + " ...");
 
          // Wait for data from client
          char buf[messageBufferSize];
@@ -105,20 +91,13 @@ namespace ipv6_multicast
             clientSockDesc, buf, messageBufferSize, 0, reinterpret_cast<struct sockaddr*>(&clientAddr), &addrlen);
          if (msgLen == -1)
          {
-#ifdef _DEBUG
-            perror("recvfrom()");
-#endif
-
+            trace("recvfrom() failed");
             closesocket(clientSockDesc);
             continue;
          }
 
          string clientDigest = TruncateResponse(buf, messageBufferSize, msgLen);
-
-#ifdef _DEBUG
-         cout << "Client request " << clientDigest;
-#endif
-
+         trace("Client request " + clientDigest);
          string serverDigest = mman::LocalManifestDigest;
          string answer;
          answer = clientDigest == serverDigest
@@ -130,10 +109,7 @@ namespace ipv6_multicast
                          reinterpret_cast<const struct sockaddr*>(&clientAddr), addrlen);
          if (msgLen == -1)
          {
-#ifdef _DEBUG
-            perror("write() failed");
-#endif
-
+            trace("write() failed");
             closesocket(clientSockDesc);
             continue;
          }
@@ -142,15 +118,13 @@ namespace ipv6_multicast
          const int succeed = closesocket(clientSockDesc);
          if (succeed == -1)
          {
-#ifdef _DEBUG
-            perror("close() failed");
-#endif
+            trace("close() failed");
          }
 
-#ifdef _DEBUG
-         std::cout << "Connection closed" << std::endl;
-#endif
+         trace("Connection closed");
       }
+
+      return true;
    }
 
    string TcpBlockingServer::TruncateResponse(char* buffer, const int bufferLen, const int messageLen)
