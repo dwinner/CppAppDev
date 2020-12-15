@@ -65,41 +65,40 @@ namespace ipv6_multicast
       socklen_t clientAddrLen = sizeof clientAddr;
       char strAddr[INET6_ADDRSTRLEN];
       const int messageBufferSize = 1400;
-
+      const long accTimeoutSec = 1;
       trace(std::to_string(sockAddr.sin6_family) + " unused");
 
       while (!stop)
       {
-         // Setting server timeout
-         fd_set readFds;
-         FD_ZERO(&readFds);
-         FD_SET(socketDesc, &readFds);
-
-         struct timeval timeOut;
-         timeOut.tv_sec = 1; // 1 sec timeout
-         timeOut.tv_usec = 0;
-
-         const int selectStatus = select(socketDesc + 1, &readFds, nullptr, nullptr, &timeOut);
-         if (selectStatus == -1)
+         const select_status selectStat = GetMultiplexingStatus(socketDesc, accTimeoutSec, 0);
+         switch (selectStat)
          {
+         case select_status::select_error:
             trace("selection error");
             closesocket(socketDesc);
             return false;
-         }
 
-         if (selectStatus > 0)
-         {
-            // Ok - we have the data
-            trace("New connection is about to be accepted");
-         }
-         else
-         {
+         case select_status::not_in_set:
+            trace("server socket not in read-ready set");
+            closesocket(socketDesc);
+            return false;
+
+         case select_status::timeout:
             // 0 - timeout detected with no data
             trace("There is no data so far");
             continue;
+
+         case select_status::has_accepted_client:
+            // Ok - we have the data
+            trace("New connection is about to be accepted");
+            break;
+
+         default:
+            trace("unknown selection status");
+            return false;
          }
 
-         // Do TCP handshake with client
+         // Ok, now we know there is at least one client is going to read the data - do TCP handshake
          const int clientSockDesc = accept(socketDesc, reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
          if (clientSockDesc == -1)
          {
@@ -113,7 +112,7 @@ namespace ipv6_multicast
          string toAddrStr = strAddr;
          trace("New connection from: " + toAddrStr + ":" + std::to_string(fmtAddr) + " ...");
 
-         // Wait for data from client
+         // Wait for data from client (NOTE: Also there should be timeout via select)
          char buf[messageBufferSize];
          int addrlen = sizeof clientAddr;
          int msgLen = recvfrom(
@@ -133,7 +132,7 @@ namespace ipv6_multicast
                      ? mman::ManifestResponseMsg
                      : mman::ManifestEmptyResponseMsg;
 
-         // Send response to client
+         // Send response to client (NOTE: Also there should be timeout via select)
          msgLen = sendto(clientSockDesc, answer.c_str(), answer.length(), 0,
                          reinterpret_cast<const struct sockaddr*>(&clientAddr), addrlen);
          if (msgLen == -1)
@@ -156,7 +155,7 @@ namespace ipv6_multicast
       return true;
    }
 
-   string TcpBlockingServer::TruncateResponse(char* buffer, const int bufferLen, const int messageLen)
+   inline string TcpBlockingServer::TruncateResponse(char* buffer, const int bufferLen, const int messageLen)
    {
       if (messageLen < bufferLen)
       {
@@ -175,5 +174,31 @@ namespace ipv6_multicast
       string responseMsg = buffer;
 
       return responseMsg;
+   }
+
+   inline select_status TcpBlockingServer::GetMultiplexingStatus(int socketDesc, long seconds, long microseconds)
+   {
+      // Set for accept-ready sockets
+      fd_set serverReadFds;
+      FD_ZERO(&serverReadFds);
+      FD_SET(socketDesc, &serverReadFds);
+
+      // Setting server timeout
+      struct timeval acceptTimeOut{};
+      acceptTimeOut.tv_sec = seconds;
+      acceptTimeOut.tv_usec = microseconds;
+
+      // Find out the selection status
+      const int srvSelectStat = select(socketDesc + 1, &serverReadFds, nullptr, nullptr, &acceptTimeOut);
+      select_status selectStat =
+         srvSelectStat != -1
+            ? srvSelectStat > 0
+                 ? selectStat = FD_ISSET(socketDesc, &serverReadFds)
+                                   ? select_status::has_accepted_client
+                                   : select_status::not_in_set
+                 : selectStat = select_status::timeout
+            : selectStat = select_status::select_error;
+
+      return selectStat;
    }
 }
