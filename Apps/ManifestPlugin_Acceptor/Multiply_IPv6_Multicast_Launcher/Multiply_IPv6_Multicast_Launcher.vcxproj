@@ -154,7 +154,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MManBackendLauncher.cpp" />
     <ClCompile Include="Multiply_IPv6_Multicast_Launcher.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MManBackendLauncher.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
