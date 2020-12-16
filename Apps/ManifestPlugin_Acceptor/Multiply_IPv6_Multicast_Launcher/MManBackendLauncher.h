@@ -15,19 +15,23 @@ namespace ipv6_multicast
            tcpPort_(tcpPort),
            forceStop_(false)
       {
+         udpMulticastThrPtr_ = nullptr;
+         tcpServerThrPtr_ = nullptr;         
       }
 
-      void Start();
+      void Start();      
 
       void Stop();
+
+      ~MManBackendLauncher();
 
    private:
       std::string ipv6Host_;
       int udpPort_;
       int tcpPort_;
       std::atomic_bool forceStop_;
-      std::thread tcpServerThr_;
-      std::thread udpMulticastThr_;
+      std::thread* udpMulticastThrPtr_;
+      std::thread* tcpServerThrPtr_;      
 
       void LaunchTcpServer();
 

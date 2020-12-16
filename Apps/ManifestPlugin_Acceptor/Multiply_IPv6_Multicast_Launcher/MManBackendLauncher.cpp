@@ -8,18 +8,18 @@ namespace ipv6_multicast
 
    void MManBackendLauncher::Start()
    {
-      udpMulticastThr_ = thread(&MManBackendLauncher::LaunchTcpServer, this);
+      udpMulticastThrPtr_ = new thread(&MManBackendLauncher::LaunchTcpServer, this);
       this_thread::sleep_for(1s);
-      tcpServerThr_ = thread(&MManBackendLauncher::LaunchUdpMulticast, this);
+      tcpServerThrPtr_ = new thread(&MManBackendLauncher::LaunchUdpMulticast, this);
       this_thread::sleep_for(1s);
    }
 
    void MManBackendLauncher::Stop()
    {
-      std::thread quitThr{&MManBackendLauncher::QuitRequest, this};
+      thread quitThr{&MManBackendLauncher::QuitRequest, this};
       quitThr.join();
-      udpMulticastThr_.join();
-      tcpServerThr_.join();
+      udpMulticastThrPtr_->join();
+      tcpServerThrPtr_->join();
    }
 
    void MManBackendLauncher::LaunchTcpServer()
@@ -37,5 +37,13 @@ namespace ipv6_multicast
    void MManBackendLauncher::QuitRequest()
    {
       forceStop_ = true;
+   }
+
+   MManBackendLauncher::~MManBackendLauncher()
+   {
+      delete udpMulticastThrPtr_;
+      delete tcpServerThrPtr_;
+      udpMulticastThrPtr_ = nullptr;
+      tcpServerThrPtr_ = nullptr;
    }
 }
