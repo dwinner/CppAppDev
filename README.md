@@ -9,3 +9,4 @@ C/C++ examples for real based projects
 - [Особенности работы с Multicast](https://habr.com/ru/post/141021/);
 - [The Windows socket 2](https://www.winsocketdotnetworkprogramming.com/winsock2programming/winsock2advancedmulticast9chap.html);
 - [C++ Reference](https://en.cppreference.com/w/);
+- [Dependency injection via Boost](https://habr.com/ru/company/infopulse/blog/248879/);
