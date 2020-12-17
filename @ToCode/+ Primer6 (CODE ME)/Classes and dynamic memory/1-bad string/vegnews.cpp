@@ -1,5 +1,5 @@
 // vegnews.cpp -- using new and delete with classes
-// compile with strngbad.cpp
+// compile with stringbad.cpp
 #include <iostream>
 using std::cout;
 #include "strngbad.h"

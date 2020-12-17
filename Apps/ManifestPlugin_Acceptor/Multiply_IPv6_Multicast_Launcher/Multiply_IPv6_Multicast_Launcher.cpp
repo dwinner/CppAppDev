@@ -10,10 +10,10 @@ int main()
    const int tcpPort = 1991;
 
    auto* backendLauncherPtr = new MManBackendLauncher(ipv6Host, udpPort, tcpPort);
-   backendLauncherPtr->Start();
+   backendLauncherPtr->Start();   
 
    std::cout << "Press enter to quit";
-   std::cin.get();
+   std::cin.get();   
 
    backendLauncherPtr->Stop();
    delete backendLauncherPtr;
