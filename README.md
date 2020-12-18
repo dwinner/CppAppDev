@@ -11,3 +11,4 @@ C/C++ examples for real based projects
 - [C++ Reference](https://en.cppreference.com/w/);
 - [Dependency injection via Boost](https://habr.com/ru/company/infopulse/blog/248879/);
 - CMake: [Shortest tutorial](https://riptutorial.com/Download/cmake.pdf), [Mastering CMake](https://lrita.github.io/images/posts/cplusplus/mastering-cmake.pdf);
+- [CMake in Visual Studio](https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/build/cmake-projects-in-visual-studio.md)
