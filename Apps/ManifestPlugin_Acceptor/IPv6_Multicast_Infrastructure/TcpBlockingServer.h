@@ -3,6 +3,14 @@
 
 namespace ipv6_multicast
 {
+   enum class select_status
+   {
+      select_error,
+      not_in_set,
+      timeout,
+      has_accepted_client
+   };
+
    class TcpBlockingServer final : public Ipv6MulticastBase
    {
    public:
@@ -16,21 +24,23 @@ namespace ipv6_multicast
       {
       }
 
-      TcpBlockingServer(int port, const string& host)
+      TcpBlockingServer(const int port, const string& host)
          : Ipv6MulticastBase(port, host)
       {
       }
 
    protected:
-      int CreateSocket() override;
+      int CreateSocket() const override;
 
-      void ConfigureSocket(int socketDesc) override;
+      void ConfigureSocket(int socketDesc) const override;
 
-      sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) override;
+      sockaddr_in6 ConfigureSocketAddress(int port, const string& host, int socketDesc) const override;
 
-      bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr) override;
+      bool InternalExchange(int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const override;
 
    private:
+      static select_status GetMultiplexingStatus(int socketDesc, long seconds, long microseconds);
+
       static string TruncateResponse(char* buffer, int bufferLen, int messageLen);
    };
 }
