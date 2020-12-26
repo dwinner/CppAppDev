@@ -76,7 +76,8 @@ void tweakSolution(Member_type *restrict member)
    do
    {
       y = GET_RAND(MAX_LENGTH);
-   } while (x == y);
+   }
+   while (x == y);
 
    temp = member->solution[x];
    member->solution[x] = member->solution[y];
