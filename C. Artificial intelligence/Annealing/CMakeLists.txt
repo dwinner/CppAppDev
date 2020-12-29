@@ -5,7 +5,4 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories(.)
 
-add_executable(Annealing
-        common.h
-        emsapop.c
-        emsapop.h)
+add_executable(Annealing common.h emsapop.c emsapop.h)

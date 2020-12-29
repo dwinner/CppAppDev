@@ -68,7 +68,7 @@ void initializePopulation()
    }
 }
 
-void tweakSolution(Member_type *restrict member)
+void tweakSolution(Member_type */*restrict*/ member)
 {
    int temp, x, y;
 

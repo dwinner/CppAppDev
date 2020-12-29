@@ -22,7 +22,7 @@ void initializePopulation(void);
  * \brief Randomly perturb an encoded solution
  * \param member Member
  */
-void tweakSolution(Member_type *restrict member);
+void tweakSolution(Member_type */*restrict*/ member);
 
 /**
  * \brief Emit a solution in chessboard form
