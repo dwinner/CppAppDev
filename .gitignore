@@ -215,3 +215,9 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 *.opendb
+
+# Visual paradigm backup-files
+*.bak_*
+
+# Ignore lib files to reduce GIT LFS
+*.lib
