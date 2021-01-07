@@ -5,22 +5,29 @@
 #include <vector>
 #include <algorithm>
 #include <unordered_set>
+
 using namespace std;
-struct S {double a; double b;};
+struct S
+{
+   double a;
+   double b;
+};
+
 int main()
 {
-	S a = {1.1,2.2};
-	S b = {2.1,4.2};
-	S c = {3.1,5.2};
+   S a = {1.1, 2.2};
+   S b = {2.1, 4.2};
+   S c = {3.1, 5.2};
 
-	unordered_set<S*> us;
-	us.insert(&a);
-	us.insert(&b);
-	us.insert(&c);
-	for_each(us.begin(),us.end(),[](S* i) {cout << (*i).a << ", ";});
-	cout << "\nNext\n";
+   unordered_set<S *> us;
+   us.insert(&a);
+   us.insert(&b);
+   us.insert(&c);
+   for_each(us.cbegin(), us.cend(), [](S *i)
+   { cout << (*i).a << ", "; });
+   cout << "\nNext\n";
 
-	
+
 /*	if(pt != vi.end())
 		cout  << *pt << endl;
 	else
@@ -34,7 +41,4 @@ int main()
 	cout << vi.bucket("cow") << endl;
 	cout << vi.bucket("starkA") << endl;
 	cout << vi.bucket("stark") << endl;*/
-
-	cin.get();
-		
 }
