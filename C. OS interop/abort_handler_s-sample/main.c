@@ -2,9 +2,10 @@
 // -------------------------------------------------------------
 
 #define __STDC_WANT_LIB_EXT1__  1
+
 #include <stdlib.h>  // void abort_handler_s( const char * restrict msg,
-                     //                       void * restrict ptr, 
-                     //                       errno_t error);
+//                       void * restrict ptr,
+//                       errno_t error);
 #include <string.h>
 #include <stdio.h>
 
@@ -18,5 +19,6 @@ int main(void)
 #else
    puts("Bounds-checking functions are not available.");
 #endif
+
    return 0;
 }
