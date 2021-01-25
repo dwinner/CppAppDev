@@ -15,7 +15,7 @@ int main()
 {
    struct Data myData = {0x123, 77.7};   // Инициализация структуры
 
-   unsigned char *cp = (unsigned char *) &myData;  // Указаьель на первый байт структуры
+   unsigned char *cp = (unsigned char *) &myData;  // Указатель на первый байт структуры
 
    printf("%p: ", cp);  // Вывод начального адреса
 
