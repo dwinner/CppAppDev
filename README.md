@@ -7,6 +7,7 @@ C/C++ examples for real based projects
 - [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_72/rzab6/xacceptboth.htm);
 - [IP Multicast details](https://habr.com/ru/post/141021/);
 - [The Windows socket 2](https://www.winsocketdotnetworkprogramming.com/winsock2programming/winsock2advancedmulticast9chap.html);
+- [GStreamer](https://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/manual.pdf);
 
 **See also for C++ programming language**
 - [C++ Reference](https://en.cppreference.com/w/);
