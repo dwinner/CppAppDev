@@ -30,10 +30,10 @@ void sig_child_handler(int s);
 
 /**
  * @brief Get sockaddr, IPv4 or IPv6:
- * @param sa socket struct pointer entity
+ * @param socket_addr socket struct pointer entity
  * @return IPv4 or IPv6 socket internet address
  */
-void* get_in_addr(struct sockaddr* sa);
+void* get_in_addr(struct sockaddr* socket_addr);
 
 int main()
 {
@@ -156,12 +156,12 @@ void sig_child_handler(int s)
    errno = saved_errno;
 }
 
-void* get_in_addr(struct sockaddr* sa)
+void* get_in_addr(struct sockaddr* socket_addr)
 {
-   if (sa->sa_family == AF_INET)
+   if (socket_addr->sa_family == AF_INET)
    {
-      struct in_addr* sin_addr = &((struct sockaddr_in*)sa)->sin_addr;
+      struct in_addr* sin_addr = &((struct sockaddr_in*)socket_addr)->sin_addr;
       return sin_addr;
    }
-   return &((struct sockaddr_in6*)sa)->sin6_addr;
+   return &((struct sockaddr_in6*)socket_addr)->sin6_addr;
 }
