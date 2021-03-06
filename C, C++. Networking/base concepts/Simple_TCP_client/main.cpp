@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 
       if (connect(sock_fd, p->ai_addr, p->ai_addrlen) == -1)
       {
-         perror("clinet: connect");
+         perror("client: connect");
          close(sock_fd);
          continue;
       }
