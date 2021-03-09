@@ -8,6 +8,7 @@ C/C++ examples for real based projects
 - [IP Multicast details](https://habr.com/ru/post/141021/);
 - [The Windows socket 2](https://www.winsocketdotnetworkprogramming.com/winsock2programming/winsock2advancedmulticast9chap.html);
 - [GStreamer](https://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/manual.pdf);
+- [Serialization via TPL](http://troydhanson.github.io/tpl/index.html);
 
 **See also for C++ programming language**
 - [C++ Reference](https://en.cppreference.com/w/);
