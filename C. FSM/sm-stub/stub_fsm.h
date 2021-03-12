@@ -1,0 +1,4 @@
+#ifndef SM_STUB_STUB_FSM_H
+#define SM_STUB_STUB_FSM_H
+
+#endif //SM_STUB_STUB_FSM_H
