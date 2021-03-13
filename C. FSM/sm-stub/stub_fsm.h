@@ -2,58 +2,66 @@
 #define SM_STUB_STUB_FSM_H
 
 /**
- * Entry state action
- * @return Return code
+ * @brief Return value (from state)
  */
-int entry_state(void);
-
-/**
- * Foo state action
- * @return Return code
- */
-int foo_state(void);
-
-/**
- * Bar state action
- * @return Return code
- */
-int bar_state(void);
-
-/**
- * Exit state action
- * @return Return code
- */
-int exit_state(void);
+typedef enum state_return_code
+{
+   ok,
+   fail,
+   repeat
+} state_return_code_t;
 
 /**
  * @brief State code
  */
-enum state_codes
+typedef enum state
 {
    entry,
    foo,
    bar,
    end
-};
-
-/**
- * @brief Return value
- */
-enum ret_codes
-{
-   ok,
-   fail,
-   repeat
-};
+} state_t;// TODO: there must be also invalid state
 
 /**
  * @brief Transition
  */
-struct transition
+typedef struct
 {
-   enum state_codes src_state;
-   enum ret_codes ret_code;
-   enum state_codes dst_state;
-};
+   state_t src_state;
+   state_return_code_t ret_code;
+   state_t dst_state;
+} transition_t;
+
+/**
+ * Entry state action
+ * @return Return code
+ */
+state_return_code_t entry_state(void);
+
+/**
+ * Foo state action
+ * @return Return code
+ */
+state_return_code_t foo_state(void);
+
+/**
+ * Bar state action
+ * @return Return code
+ */
+state_return_code_t bar_state(void);
+
+/**
+ * Exit state action
+ * @return Return code
+ */
+state_return_code_t exit_state(void);
+
+/**
+ * @brief Find the destination state
+ * @param source_state Source state
+ * @param return_code State status
+ * @return Destination state or invalid state
+ */
+state_t lookup_transitions(state_t source_state, state_return_code_t return_code);
 
 #endif //SM_STUB_STUB_FSM_H

@@ -2,48 +2,52 @@
 
 /**
  * @brief Array and enum below must be in sync!
- * @return status code
  */
-int (*state[])(void) =
-    {
-        entry_state,
-        foo_state,
-        bar_state,
-        exit_state
-    };
+state_return_code_t (*p_state_func[])(void) =
+{
+   entry_state,
+   foo_state,
+   bar_state,
+   exit_state
+};
 
 /**
  * @brief Transition table
  * @note transitions from end state aren't needed
  */
-struct transition state_transitions[] =
-    {
-        {entry, ok,     foo},
-        {entry, fail,   end},
-        {foo,   ok,     bar},
-        {foo,   fail,   end},
-        {foo,   repeat, foo},
-        {bar,   ok,     end},
-        {bar,   fail,   end},
-        {bar,   repeat, foo}
-    };
-
-int entry_state(void)
+transition_t state_transitions[] =
 {
-   return 0;
+   {entry, ok, foo},
+   {entry, fail, end},
+   {foo, ok, bar},
+   {foo, fail, end},
+   {foo, repeat, foo},
+   {bar, ok, end},
+   {bar, fail, end},
+   {bar, repeat, foo}
+};
+
+state_return_code_t entry_state(void)
+{
+   return ok;
 }
 
-int foo_state(void)
+state_return_code_t foo_state(void)
 {
-   return 0;
+   return ok;
 }
 
-int bar_state(void)
+state_return_code_t bar_state(void)
 {
-   return 0;
+   return ok;
 }
 
-int exit_state(void)
+state_return_code_t exit_state(void)
 {
-   return 0;
+   return ok;
+}
+
+state_t lookup_transitions(state_t source_state, state_return_code_t return_code)
+{
+   return bar;
 }

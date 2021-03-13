@@ -6,35 +6,28 @@
 #include <stdlib.h>
 #include "stub_fsm.h"
 
-#define EXIT_STATE end
-#define ENTRY_STATE entry
+#define EXIT_STATE   end
+#define ENTRY_STATE  entry
 
-extern int (*state[])(void);
-
-enum state_codes lookup_transitions(enum state_codes codes, enum ret_codes codes1);
+// TODO: Avoid external decl there
+extern state_return_code_t (*p_state_func[])(void);
 
 int main()
 {
-   enum state_codes cur_state = ENTRY_STATE;
-   enum ret_codes rc;
-   int (*state_fun)(void);
+   state_t cur_state = ENTRY_STATE;
 
    for (;;)
    {
-      state_fun = state[cur_state];
-      rc = state_fun();
-      if (EXIT_STATE == cur_state)
+      // TODO: introduce typedef for function pointer
+      state_return_code_t (*state_fun)(void) = p_state_func[cur_state];
+      const state_return_code_t return_code = state_fun();
+      if (cur_state == EXIT_STATE)
       {
          break;
       }
 
-      cur_state = lookup_transitions(cur_state, rc);
+      cur_state = lookup_transitions(cur_state, return_code);
    }
 
    return EXIT_SUCCESS;
-}
-
-enum state_codes lookup_transitions(enum state_codes codes, enum ret_codes codes1)
-{
-   return bar;
 }
