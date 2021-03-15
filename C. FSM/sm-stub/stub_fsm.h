@@ -1,16 +1,17 @@
 #ifndef SM_STUB_STUB_FSM_H
 #define SM_STUB_STUB_FSM_H
 
-#define TRANSITION_COUNT 8
+#define TRANSITION_COUNT 11
 
 /**
  * @brief Return value (from state)
  */
 typedef enum state_return_code
 {
-   ok,
-   fail,
-   repeat
+   ok_code,
+   fail_code,
+   repeat_code,
+   invalid_code
 } StateReturnCodeT;
 
 /**
@@ -18,11 +19,11 @@ typedef enum state_return_code
  */
 typedef enum state
 {
-   entry,
-   foo,
-   bar,
-   end,
-   invalid
+   entry_state,
+   foo_state,
+   bar_state,
+   end_state,
+   invalid_state
 } StateT;
 
 /**
@@ -38,44 +39,46 @@ typedef struct
 /**
  * @brief State function pointer
  */
-typedef StateReturnCodeT(*StateFuncT)(void);
+typedef StateReturnCodeT (*StateFuncT)(void);
 
 /**
  * @brief Entry state action
  * @return Return code
  */
-StateReturnCodeT entry_state(void);
+StateReturnCodeT entry_state_action(void);
 
 /**
  * @brief Foo state action
  * @return Return code
  */
-StateReturnCodeT foo_state(void);
+StateReturnCodeT foo_state_action(void);
 
 /**
  * @brief Bar state action
  * @return Return code
  */
-StateReturnCodeT bar_state(void);
+StateReturnCodeT bar_state_action(void);
 
 /**
  * @brief Exit state action
  * @return Return code
  */
-StateReturnCodeT exit_state(void);
+StateReturnCodeT exit_state_action(void);
 
 /**
  * @brief Invalid state action
  * @return Return code
  */
-StateReturnCodeT invalid_state(void);
+StateReturnCodeT invalid_state_action(void);
 
 /**
  * @brief Find the destination state
  * @param source_state Source state
  * @param return_code State status
- * @return Destination state or invalid state
+ * @return Destination state or invalid_state state
  */
 StateT lookup_transitions(StateT source_state, StateReturnCodeT return_code);
+
+extern StateFuncT state_functions[];
 
 #endif //SM_STUB_STUB_FSM_H

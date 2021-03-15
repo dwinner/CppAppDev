@@ -1,61 +1,70 @@
 #include "stub_fsm.h"
+#include "sm-utils.h"
 
 /**
  * @brief Array and enum below must be in sync!
  */
 StateFuncT state_functions[] =
 {
-   entry_state,
-   foo_state,
-   bar_state,
-   exit_state,
-   invalid_state
+    entry_state_action,
+    foo_state_action,
+    bar_state_action,
+    exit_state_action,
+    invalid_state_action
 };
 
 /**
  * @brief Transition table
- * @details transitions from end state aren't needed
+ * @details transitions from end_state state aren't needed
  */
 TransitionT state_transitions[TRANSITION_COUNT] =
 {
-   {entry, ok, foo},
-   {entry, fail, end},
-   {foo, ok, bar},
-   {foo, fail, end},
-   {foo, repeat, foo},
-   {bar, ok, end},
-   {bar, fail, end},
-   {bar, repeat, foo}
+   {entry_state, ok_code,      foo_state},
+   {entry_state, fail_code,    end_state},
+   {entry_state, invalid_code, entry_state},
+   {foo_state,   ok_code,      bar_state},
+   {foo_state,   fail_code,    end_state},
+   {foo_state,   repeat_code,  foo_state},
+   {foo_state,   invalid_code, foo_state},
+   {bar_state,   ok_code,      end_state},
+   {bar_state,   fail_code,    end_state},
+   {bar_state,   repeat_code,  foo_state},
+   {bar_state,   invalid_code, bar_state}
 };
 
-StateReturnCodeT entry_state(void)
+StateReturnCodeT entry_state_action(void)
 {
-   return ok;
+   const StateReturnCodeT return_code = (StateReturnCodeT)rand_lim((int)invalid_code);
+   return return_code;
 }
 
-StateReturnCodeT foo_state(void)
+StateReturnCodeT foo_state_action(void)
 {
-   return ok;
+   const StateReturnCodeT return_code = (StateReturnCodeT)rand_lim((int)invalid_code);
+   return return_code;
 }
 
-StateReturnCodeT bar_state(void)
+StateReturnCodeT bar_state_action(void)
 {
-   return ok;
+   const StateReturnCodeT return_code = (StateReturnCodeT)rand_lim((int)invalid_code);
+   return return_code;
 }
 
-StateReturnCodeT exit_state(void)
+StateReturnCodeT exit_state_action(void)
 {
-   return ok;
+   const StateReturnCodeT return_code = (StateReturnCodeT)rand_lim((int)invalid_code);
+   return return_code;
 }
 
-StateReturnCodeT invalid_state()
+StateReturnCodeT invalid_state_action()
 {
-   return fail;
+   const StateReturnCodeT return_code = (StateReturnCodeT)rand_lim((int)invalid_code);
+   return return_code;
 }
 
 StateT lookup_transitions(const StateT source_state, const StateReturnCodeT return_code)
 {
-   StateT dst_state = invalid;
+   StateT dst_state = invalid_state;
 
    for (int i = 0; i < TRANSITION_COUNT; ++i)
    {
