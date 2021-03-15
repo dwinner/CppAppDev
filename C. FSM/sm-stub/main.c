@@ -10,7 +10,7 @@
 #define ENTRY_STATE  entry
 
 // TODO: Avoid external decl there
-extern StateReturnCodeT (*p_state_func[])(void);
+extern StateFuncT state_functions[];
 
 int main()
 {
@@ -19,8 +19,8 @@ int main()
    for (;;)
    {
       // TODO: introduce typedef for function pointer
-      StateReturnCodeT (*state_fun)(void) = p_state_func[cur_state];
-      const StateReturnCodeT return_code = state_fun();
+      const StateFuncT state_func = state_functions[cur_state];
+      const StateReturnCodeT return_code = state_func();
 
 #ifdef _DEBUG
       printf("Current state %d return %d\n",

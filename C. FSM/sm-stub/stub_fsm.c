@@ -3,7 +3,7 @@
 /**
  * @brief Array and enum below must be in sync!
  */
-StateReturnCodeT (*p_state_func[])(void) =
+StateFuncT state_functions[] =
 {
    entry_state,
    foo_state,

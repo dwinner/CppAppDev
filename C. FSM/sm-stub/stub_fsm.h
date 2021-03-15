@@ -36,6 +36,11 @@ typedef struct
 } TransitionT;
 
 /**
+ * @brief State function pointer
+ */
+typedef StateReturnCodeT(*StateFuncT)(void);
+
+/**
  * @brief Entry state action
  * @return Return code
  */
