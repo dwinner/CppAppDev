@@ -3,19 +3,20 @@
 /**
  * @brief Array and enum below must be in sync!
  */
-state_return_code_t (*p_state_func[])(void) =
+StateReturnCodeT (*p_state_func[])(void) =
 {
    entry_state,
    foo_state,
    bar_state,
-   exit_state
+   exit_state,
+   invalid_state
 };
 
 /**
  * @brief Transition table
- * @note transitions from end state aren't needed
+ * @details transitions from end state aren't needed
  */
-transition_t state_transitions[] =
+TransitionT state_transitions[TRANSITION_COUNT] =
 {
    {entry, ok, foo},
    {entry, fail, end},
@@ -27,27 +28,45 @@ transition_t state_transitions[] =
    {bar, repeat, foo}
 };
 
-state_return_code_t entry_state(void)
+StateReturnCodeT entry_state(void)
 {
    return ok;
 }
 
-state_return_code_t foo_state(void)
+StateReturnCodeT foo_state(void)
 {
    return ok;
 }
 
-state_return_code_t bar_state(void)
+StateReturnCodeT bar_state(void)
 {
    return ok;
 }
 
-state_return_code_t exit_state(void)
+StateReturnCodeT exit_state(void)
 {
    return ok;
 }
 
-state_t lookup_transitions(state_t source_state, state_return_code_t return_code)
+StateReturnCodeT invalid_state()
 {
-   return bar;
+   return fail;
+}
+
+StateT lookup_transitions(const StateT source_state, const StateReturnCodeT return_code)
+{
+   StateT dst_state = invalid;
+
+   for (int i = 0; i < TRANSITION_COUNT; ++i)
+   {
+      const StateT src_state = state_transitions[i].src_state;
+      const StateReturnCodeT ret_code = state_transitions[i].ret_code;
+      if (source_state == src_state && return_code == ret_code)
+      {
+         dst_state = state_transitions[i].dst_state;
+         break;
+      }
+   }
+
+   return dst_state;
 }
