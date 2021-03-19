@@ -1,2 +1,0 @@
-Test file for malloc_ex.c
-Lines are added to a linked list.
