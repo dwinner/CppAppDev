@@ -1,1 +1,0 @@
-Microsoft Visual C++ 2013 does not support noexcept yet.
