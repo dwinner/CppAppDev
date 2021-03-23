@@ -1,4 +1,0 @@
-This is
-an example
-of a plain
-text file.

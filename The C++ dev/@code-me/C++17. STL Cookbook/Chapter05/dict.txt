@@ -1,3 +1,0 @@
-car       auto
-cellphone handy
-house     haus
