@@ -1,0 +1,217 @@
+/***************************************************************************
+*=====================      Copyright by Continental AG      ===============
+****************************************************************************
+* Title        : WIM1.SDH
+*
+* Description  : Configuration for WIM
+*
+* Environment  : Common
+*
+* Responsible  : A.Wagner, Schleissheimer GmbH
+*
+* Template name: none
+*
+* CASE-Tool    : none
+*
+* Revision List: (Will be filled by PVCS)
+* Archive: $Log: WIM1.sdh  $
+* $Revision: 1.0 $
+* Initial revision for VS11 (Based on 213IC-EL E009.4rel)
+****************************************************************************/
+
+//-------------------------------------------------
+// CRHDL Activities
+//-------------------------------------------------
+// Initialisation of WIM
+CRHDL DEFINE INTERNAL ACTIVITY WIM_vInitActive     IS OF TYPE INIT      AND DONE AT INIT	OF SRES_Active		SEQUENCE 36		RUNTIME IS 0;
+// Initialisation of CAN Data
+CRHDL DEFINE INTERNAL ACTIVITY WIM_vInitTxCanData  IS OF TYPE INIT      AND DONE AT INIT	OF SRES_Active		SEQUENCE 184	RUNTIME IS 0;
+// DeInitialisation of WIM
+CRHDL DEFINE INTERNAL ACTIVITY WIM_vDeinitActive   IS OF TYPE DEINIT	AND DONE AT DEINIT	OF SRES_Active		SEQUENCE 26		RUNTIME IS 0;
+CRHDL DEFINE INTERNAL ACTIVITY WIM_vDeinitActive   IS OF TYPE INIT		AND DONE AT INIT	OF SRES_Boardtest	SEQUENCE 26		RUNTIME IS 0;
+CTHDL DEFINE ACTIVITY WIM_vKl15ROn	IN	CONTAINER Kl15rOn	SEQUENCE 6 RUNTIME IS 2000;
+CTHDL DEFINE ACTIVITY WIM_vKl15ROff	IN	CONTAINER Kl15rOff	SEQUENCE 6 RUNTIME IS 2000;
+CTHDL DEFINE ACTIVITY WIM_vKl15Off	IN	CONTAINER Kl15gOff	SEQUENCE 6 RUNTIME IS 2000;
+CTHDL DEFINE ACTIVITY WIM_vKl15On	IN	CONTAINER Kl15gOn	SEQUENCE 6 RUNTIME IS 2000;
+
+//-------------------------------------------------
+// CRHDL Request Definitions
+//-------------------------------------------------
+CRHDL	DEFINE	REQUEST	FOR	SRES_Sound	BY	WIM	HOLDS_SYSTEM_AWAKE;
+//-------------------------------------------------
+// CAM Activities
+//-------------------------------------------------
+CAM DEFINE ACTIVITY WIM_v10Active IS OF TYPE CYCLIC EXECUTED IN Every10ms          
+NEEDS RESOURCE STATES :
+   {
+      INIT OF SRES_Active;
+   }SEQUENCE 80 RUNTIME IS 0;
+
+CAM DEFINE ACTIVITY WIM_v20Active IS OF TYPE CYCLIC EXECUTED IN Every20ms          
+NEEDS RESOURCE STATES :
+   {
+      INIT OF SRES_Active;
+   }SEQUENCE 80 RUNTIME IS 0;
+
+CAM DEFINE ACTIVITY WIM_v250Active IS OF TYPE CYCLIC EXECUTED IN Every250ms          
+NEEDS RESOURCE STATES :
+   {
+      INIT OF SRES_Active;
+   }SEQUENCE 80 RUNTIME IS 0;
+   
+CAM DEFINE ACTIVITY WIM_vSfgBaseTick IS OF TYPE CYCLIC EXECUTED IN Every25ms
+NEEDS RESOURCE STATES :
+   {
+      INIT OF SRES_Active;
+   }SEQUENCE 80 RUNTIME IS 0;
+//-------------------------------------------------
+// EVHD Definitions
+//-------------------------------------------------
+EVHD DEFINE EVENT WIM_nStartCheckFctCycle;
+//-------------------------------------------------
+// EVHD Usages
+//-------------------------------------------------
+// Sound State ON change Event
+EVHD USE EVENT ChangeNotificSMSRES_Sound     WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralEvents EXECUTED	IN BasicApp_Prio2;
+EVHD USE EVENT ChangeNotificSMSRES_Audio_HW  WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralEvents EXECUTED	IN BasicApp_Prio2;
+EVHD USE EVENT WIM_nStartCheckFctCycle       WITH PRIORITY 20  BY FUNCTION WIM_vDoGeneralEvents EXECUTED	IN BasicApp_Prio2;
+
+//-------------------------------------------------
+// DPOOL Data Definitions
+//-------------------------------------------------
+DPOOL DEFINE STRUCT  WIM_tstKeyEvent
+  ELEMENT  uint16               u16WarningID,
+  ELEMENT  uint8                u8Key;
+
+DPOOL DEFINE STRUCT  WIM_tstHmiFeedback
+  ELEMENT  uint16               u16WarningIDNew,
+  ELEMENT  uint16               u16WarningIDOld;
+  
+DPOOL DEFINE STRUCT  WIM_tstPhoneCallKey
+  ELEMENT  bool                 boConfirm,
+  ELEMENT  bool                 boReject,
+  ELEMENT  bool                 boECall,
+  ELEMENT  bool                 boBack;
+
+// Is set by DPOOL_enSetPoolData(DPOOL_n..., &u32Data...).
+DPOOL DEFINE DATA WIM_u32IcomDataAc        TYPE uint32				DEFAULTVALUE "{0}" QUEUED;
+DPOOL DEFINE DATA WIM_u32IcomDataGc        TYPE uint32				DEFAULTVALUE "{0}" QUEUED;
+DPOOL DEFINE DATA WIM_stKeyEvent           TYPE WIM_tstKeyEvent		DEFAULTVALUE "{0,0}";
+DPOOL DEFINE DATA WIM_stPhoneCallKey       TYPE WIM_tstPhoneCallKey	DEFAULTVALUE "{False,False,False,False}";
+DPOOL DEFINE DATA WIM_stHmiFeedback        TYPE WIM_tstHmiFeedback	DEFAULTVALUE "{0xFFFF,0xFFFF}" ;
+DPOOL DEFINE DATA WIM_stHmiFeedbackSlack   TYPE WIM_tstHmiFeedback	DEFAULTVALUE "{0xFFFF,0xFFFF}" ;
+DPOOL DEFINE DATA WIM_u32AcoustWarning     TYPE uint32				DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u16CanceledWarning   TYPE uint16				DEFAULTVALUE "0xFFFF";
+DPOOL DEFINE DATA WIM_u16CanceledSlack     TYPE uint16				DEFAULTVALUE "0xFFFF";
+DPOOL DEFINE DATA WIM_u16SuppressedWarning TYPE uint16				DEFAULTVALUE "0xFFFF";
+
+// Information for HIL, sound output by WIM, corresponds with WIM_tenAcousticType.
+DPOOL DEFINE DATA WIM_u16SoundOutput    TYPE uint16 DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u16SoundOutputReq TYPE uint16 DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u8SoundVolume     TYPE uint8  DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u8SoundLoudness   TYPE uint8  DEFAULTVALUE "0";
+
+// ModelData DoorState, provides the state of each door for display. (API-F)
+DPOOL DEFINE DATA WIM_u8ModelDataDoorState TYPE uint8 DEFAULTVALUE "0";
+
+// ModelData for Electrical step board
+DPOOL DEFINE DATA WIM_u8ElStepBoard TYPE uint8 DEFAULTVALUE "0";
+
+// DPOOL Data used for MenuFaultMemory
+DPOOL DEFINE DATA WIM_u32FaultMemBorder    TYPE uint32 DEFAULTVALUE "0x0000FFFF";
+DPOOL DEFINE DATA WIM_u32FaultMemState     TYPE uint32 DEFAULTVALUE "0x0000FFFF";
+DPOOL DEFINE DATA WIM_u8FaultMemEvPrevNext TYPE uint8  DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u8FaultMemEvReset    TYPE uint8  DEFAULTVALUE "0";
+
+// DPOOL Data used for blinking graphic elements
+DPOOL DEFINE DATA WIM_au8WarnControl					TYPE uint8	DEFAULTVALUE "0x01";
+// DPOOL Data used for blinking dashes slacks
+DPOOL DEFINE DATA WIM_au8SlackControl					TYPE uint8	DEFAULTVALUE "0x01";
+// Wake-IC Warnings 1 to 32
+DPOOL DEFINE WAKEUP_RAM DATA WIM_u32WakeIcWarningsLow	TYPE uint32	DEFAULTVALUE "0";
+// Wake-IC Warnings 32 to 64
+DPOOL DEFINE WAKEUP_RAM DATA WIM_u32WakeIcWarningsHigh	TYPE uint32	DEFAULTVALUE "0";
+// DPOOL Data used for ICOM status
+DPOOL DEFINE DATA ICTP_enConStatus						TYPE uint32	DEFAULTVALUE "0";
+// DPOOL Data used for hybrid warning
+DPOOL DEFINE DATA HYHLPOW_stModelDataAC					TYPE uint32	DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u32ActvWrn						TYPE uint32 DEFAULTVALUE "0";
+DPOOL DEFINE DATA WIM_u32ActvWrnHilId 					TYPE uint32 DEFAULTVALUE "0";
+// DPOOL Data used to indicate weither display is on
+DPOOL DEFINE DATA WIM_boDisplayOn						TYPE bool   DEFAULTVALUE "False";
+//-------------------------------------------------
+// DPOOL Data Usages
+//-------------------------------------------------
+// Package internal Icom communication Ac<-->GC
+DPOOL USE DATA WIM_u32IcomDataAc          QUEUE AC_to_GC SIZE 80 NOTIFICATION ALWAYS WITH PRIORITY 100 BY FUNCTION WIM_vDoDpoolEvents EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_u32IcomDataGc          QUEUE GC_to_AC SIZE 80 NOTIFICATION ALWAYS WITH PRIORITY 100 BY FUNCTION WIM_vDoDpoolEvents EXECUTED IN BasicApp_Prio2;
+
+// Feedback from HMI - API
+DPOOL USE DATA WIM_stHmiFeedback        	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_stHmiFeedbackSlack   	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_stKeyEvent           	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_u16CanceledWarning   	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_u16CanceledSlack     	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_u16SuppressedWarning 	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIMMDL_u32SlackHilId     	NOTIFICATION ONCHANGE WITH PRIORITY 100 BY FUNCTION WIM_vDoDpoolEvents  EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA ICBWMDL_u32DynAreaHilId  	NOTIFICATION ONCHANGE WITH PRIORITY 100 BY FUNCTION WIM_vDoDpoolEvents  EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_stPhoneCallKey       	NOTIFICATION ALWAYS   WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents    EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_boDisplayOn				NOTIFICATION ONCHANGE WITH PRIORITY 100 BY FUNCTION WIM_vDoHmiEvents 	EXECUTED IN BasicApp_Prio2;
+// Display State change Event
+DPOOL USE DATA ICTP_enConStatus				NOTIFICATION ONCHANGE WITH PRIORITY 10	BY FUNCTION WIM_vDoDpoolEvents	EXECUTED IN BasicApp_Prio2;
+// State of CAN signal for Convertible Top warning
+DPOOL USE DATA CSP_u8StateConvertibleTop	NOTIFICATION ONCHANGE WITH PRIORITY 100 BY FUNCTION WIM_vDoDpoolEvents  EXECUTED IN BasicApp_Prio2;
+// State of CAN Signal for Hybrid warning
+DPOOL USE DATA HYHLPOW_stModelDataAC		NOTIFICATION ONCHANGE WITH PRIORITY 100 BY FUNCTION WIM_vDoDpoolEvents  EXECUTED IN BasicApp_Prio2;
+
+// Feedback from HMI - API - MenuFaultMemory
+DPOOL USE DATA WIM_u8FaultMemEvPrevNext		NOTIFICATION ALWAYS WITH PRIORITY 110 BY FUNCTION WIM_vDoHmiEvents EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_u8FaultMemEvReset		NOTIFICATION ALWAYS WITH PRIORITY 120 BY FUNCTION WIM_vDoHmiEvents EXECUTED IN BasicApp_Prio2;
+DPOOL USE DATA WIM_u32FaultMemBorder		NOTIFICATION NONE;
+DPOOL USE DATA WIM_u32FaultMemState			NOTIFICATION NONE;
+DPOOL USE DATA WIM_u32WakeIcWarningsLow		NOTIFICATION NONE;
+DPOOL USE DATA WIM_u32WakeIcWarningsHigh	NOTIFICATION NONE;
+
+// DPOOL Data used for blinking graphic elements
+DPOOL USE DATA WIM_au8WarnControl		NOTIFICATION NONE;
+// DPOOL Data used for blinking graphic elements
+DPOOL USE DATA WIM_au8SlackControl		NOTIFICATION NONE;
+DPOOL USE DATA WIM_u32ActvWrn			NOTIFICATION NONE;
+DPOOL USE DATA WIM_u32ActvWrnHilId		NOTIFICATION NONE;
+DPOOL USE DATA WIM_u16SoundOutput		NOTIFICATION NONE;
+DPOOL USE DATA WIM_u16SoundOutputReq	NOTIFICATION NONE;
+
+//-------------------------------------------------
+// TIMER Definitions 
+//-------------------------------------------------
+TIMER DEFINE TIMER WIM_HilBreakTimer					COUNTED IN Every10ms;
+TIMER DEFINE TIMER WIM_TimerAcuTDElapsed				COUNTED IN Every10ms;
+// Timer for suppression warning VAN tracking status at first ignition cycle
+TIMER DEFINE TIMER WIM_TimerVanTrackingStatusSuppress	COUNTED IN Every10ms;
+TIMER DEFINE TIMER WIM_TimerFreqCollWarn 				COUNTED IN Every10ms;
+TIMER DEFINE TIMER WIM_TimerFreqContWarn				COUNTED IN Every10ms;
+//-------------------------------------------------
+// TIMER Usages 
+//-------------------------------------------------
+TIMER USE TIMER WIM_HilBreakTimer					WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralTimerEvents EXECUTED IN BasicApp_Prio2;
+TIMER USE TIMER WIM_TimerAcuTDElapsed				WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralTimerEvents EXECUTED IN BasicApp_Prio2;
+// Timer for suppression warning VAN tracking status at first ignition cycle
+TIMER USE TIMER WIM_TimerVanTrackingStatusSuppress	WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralTimerEvents EXECUTED IN BasicApp_Prio2;
+TIMER USE TIMER WIM_TimerFreqCollWarn				WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralTimerEvents EXECUTED IN BasicApp_Prio2;
+TIMER USE TIMER WIM_TimerFreqContWarn				WITH PRIORITY 100 BY FUNCTION WIM_vDoGeneralTimerEvents EXECUTED IN BasicApp_Prio2;
+//-------------------------------------------------
+// EXEA namespaces (Module IDs)
+//-------------------------------------------------
+EXEA DEFINE EXCEPTION NAMESPACE   WIM_Package;
+
+//-------------------------------------------------
+// EXEA exceptions (Error IDs)
+//-------------------------------------------------
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nExcNoObject		IN NAMESPACE  WIM_Package;
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nErrConfig			IN NAMESPACE  WIM_Package;
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nErrState			IN NAMESPACE  WIM_Package;
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nErrDspReq			IN NAMESPACE  WIM_Package;
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nWrongParameter	IN NAMESPACE  WIM_Package;
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nErrIcom			IN NAMESPACE  WIM_Package;
+EXEA DEFINE  MALFUNC  EXCEPTION  WIM_nSynchHmi			IN NAMESPACE  WIM_Package;
+

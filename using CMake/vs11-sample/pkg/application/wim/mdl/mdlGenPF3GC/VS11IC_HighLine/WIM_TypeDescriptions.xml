@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*****************************
+Copyright by Continental AG      
+
+Title        : WIM_TypeDescriptions.xml
+
+Description  : Contains type description for WIM
+
+Environment  : Artemmis JCP 2011 PF3
+
+Responsible  : D.Gottwalles, Schleissheimer GmbH
+
+Guidelines   : SMK 4.6
+
+Revision List: 
+Rev. 1.1  2012-03-23  Dirk Gottwalles  DC MR 24661: BR222 E7.2: PrioHandler: Changes after code review
+Rev. 1.0  2012-03-07  Dirk Gottwalles  DC MR 24327: W222, E007/GC, WIM: Implement changes from Review ORM3245, ORM3314
+*****************************
+-->
+<Types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="..\..\20_XSD\HMI\GenericTypeDefinition.xsd">
+  <ControllerType Type="WIMStrategy"
+                  Namespace="WIM"
+                  DeclarationFile="WIM_Strategy.hpp">
+    <Constructor StringOfParameters="(id)" />
+  </ControllerType>
+  <ControllerType Type="SLACKStrategy"
+                  Namespace="WIM"
+                  DeclarationFile="WIM_SlackStrategy.hpp">
+    <Constructor StringOfParameters="(id)" />
+  </ControllerType>
+  <ControllerType Type="WIMFaultMemStrategy"
+                  Namespace="WIM"
+                  DeclarationFile="WIM_FaultMemStrategy.hpp">
+    <Constructor StringOfParameters="(id)" />
+  </ControllerType>
+  <WidgetType Type="WIMController"
+              Namespace="WIM"
+              DeclarationFile="WIM_Controller.hpp"
+              DerivedFrom="SceneController">
+    <Properties>
+      <Property Type="bool"
+                Name="MasterController"
+                Init="False"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetMasterController"
+                Getter="boGetMasterController" />
+      <Property Type="uint16"
+                Name="WimPrioHandlerPriority"
+                Init="0"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetWimPrioHandlerPriority"
+                Getter="u16GetWimPrioHandlerPriority" />
+      <Property Type="uint16"
+                Name="MenuIdSuppr"
+                Init="0xFFFF"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetMenuIdSuppr" />
+      <Property Type="uint16"
+                Name="WarningIdSuppr"
+                Init="0xFFFF"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetWarningIdSuppr" />
+      <Property Type="uint32"
+                Name="WarnHilId"
+                Init="0"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetWarnHilId"
+                Getter="u32GetWarnHilId"/>
+    </Properties>
+  </WidgetType>
+  <WidgetType Type="SLACKController"
+              Namespace="WIM"
+              DeclarationFile="WIM_SlackController.hpp"
+              DerivedFrom="SceneController">
+  </WidgetType>
+  <WidgetType Type="WIMFaultMemController"
+              Namespace="WIM"
+              DeclarationFile="WIM_FaultMemController.hpp"
+              DerivedFrom="SceneController">
+    <Properties>
+      <Property Type="uint16"
+                Name="CurrentWarnID_FaultMem"
+                Init="0xFFFF"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetCurrentWarnID_FaultMem"
+                Getter="u16GetCurrentWarnID_FaultMem" />
+      <Property Type="uint16"
+                Name="FirstWarnID_FaultMem"
+                Init="0xFFFF"
+                Exclude="false"
+                RAM="true"
+                Setter="vSetFirstWarnID_FaultMem"
+                Getter="u16GetFirstWarnID_FaultMem" />
+    </Properties>
+  </WidgetType>
+</Types>
