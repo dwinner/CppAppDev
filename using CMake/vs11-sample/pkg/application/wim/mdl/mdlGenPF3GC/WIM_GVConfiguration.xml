@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+*****************************
+Copyright by Continental AG      
+
+Title        : WIM_GVConfiguration.xml
+
+Description  : Contains global variables defined by WIM
+
+Environment  : ARTEMMIS/JCP2011 PF3
+
+Responsible  : D. Gottwalles, Schleissheimer GmbH
+
+Guidelines   : SMK 3.6
+
+Revision List: 
+        rev. 1.1        | DC MR 27253: BR205 - Use Global Storage for HMI internal variables
+        rev. 1.0        | DC MR 25802: Use Global Storage for HMI internal variables
+
+*****************************
+-->
+<SystemConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="..\..\20_XSD\HMI\SystemConfiguration.xsd">
+  <GlobalStorage>
+    <GlobalVariable Name="WIM_GVenDispWarning"
+                    InitValue="0"
+                    ForceGeneration="true" />
+  </GlobalStorage>
+</SystemConfiguration>

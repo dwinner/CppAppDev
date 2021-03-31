@@ -1,0 +1,19 @@
+GAS LISTING /cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s 			page 1
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 wall_macro.c
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:5      .rdata:0000000000000000 .LC0
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:7      .rdata:0000000000000008 .LC1
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:9      .rdata:000000000000001f .LC2
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:11     .rdata:0000000000000032 .LC3
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:13     .rdata:0000000000000049 .LC4
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:15     .rdata:0000000000000062 .LC5
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:17     .rdata:000000000000007d .LC6
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:19     .rdata:0000000000000087 .LC7
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:21     .rdata:00000000000000a0 .LC8
+/cygdrive/c/Users/Den/AppData/Local/Temp/cciNi74D.s:27     .text:0000000000000000 main
+
+UNDEFINED SYMBOLS
+__main
+printf
