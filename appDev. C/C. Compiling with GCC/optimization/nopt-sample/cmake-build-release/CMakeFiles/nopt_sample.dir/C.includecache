@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+G:/cpp/Asm,C,C++.AppDev/appDev. C/C. Compiling with GCC/optimization/nopt-sample/eval_parser.c
+stdlib.h
+-
+ctype.h
+-
+stdio.h
+-
+string.h
+-
+eval_parser.h
+G:/cpp/Asm,C,C++.AppDev/appDev. C/C. Compiling with GCC/optimization/nopt-sample/eval_parser.h
+
+G:/cpp/Asm,C,C++.AppDev/appDev. C/C. Compiling with GCC/optimization/nopt-sample/eval_parser.h
+
+G:/cpp/Asm,C,C++.AppDev/appDev. C/C. Compiling with GCC/optimization/nopt-sample/main.c
+stdlib.h
+-
+stdio.h
+-
+eval_parser.h
+G:/cpp/Asm,C,C++.AppDev/appDev. C/C. Compiling with GCC/optimization/nopt-sample/eval_parser.h
+
