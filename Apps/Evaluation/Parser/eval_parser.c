@@ -27,12 +27,12 @@ void process_assignment(double* answer)
 {
    int slot;
    TokenTypes ttokType = none;
-   char temp_token[PROGRAM_BUFFER];
+   char tempToken[PROGRAM_BUFFER];
 
    if (token_type == variable)
    {
       /* save old token */
-      strcpy_s(temp_token, PROGRAM_BUFFER, token);
+      strcpy_s(tempToken, PROGRAM_BUFFER, token);
       ttokType = token_type;
 
       /* compute the index of the variable */
@@ -45,7 +45,7 @@ void process_assignment(double* answer)
          put_back(); /* return current token */
 
          /* restore old token - not assignment */
-         strcpy_s(token, PROGRAM_BUFFER, temp_token);
+         strcpy_s(token, PROGRAM_BUFFER, tempToken);
          token_type = ttokType;
       }
       else
