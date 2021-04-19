@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Multiply_IPv6_Multicast_Lau
 		{8514C0AB-FFA0-4559-9D71-A1E1F507A025} = {8514C0AB-FFA0-4559-9D71-A1E1F507A025}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Manefest_Reader", "Manefest_Reader\Manefest_Reader.vcxproj", "{BA047810-0F89-4020-85E8-49DF7630D06F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +36,14 @@ Global
 		{E04E8AF4-37B8-4D7A-BD60-9753C836B502}.Release|x64.Build.0 = Release|x64
 		{E04E8AF4-37B8-4D7A-BD60-9753C836B502}.Release|x86.ActiveCfg = Release|Win32
 		{E04E8AF4-37B8-4D7A-BD60-9753C836B502}.Release|x86.Build.0 = Release|Win32
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Debug|x64.ActiveCfg = Debug|x64
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Debug|x64.Build.0 = Debug|x64
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Debug|x86.Build.0 = Debug|Win32
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Release|x64.ActiveCfg = Release|x64
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Release|x64.Build.0 = Release|x64
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Release|x86.ActiveCfg = Release|Win32
+		{BA047810-0F89-4020-85E8-49DF7630D06F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
