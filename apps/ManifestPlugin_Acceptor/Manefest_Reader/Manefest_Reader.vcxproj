@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CBase64.cpp" />
     <ClCompile Include="Manefest_Reader.cpp" />
     <ClCompile Include="ManifestProvisioning.pb.cc" />
     <ClCompile Include="pch.cpp">
@@ -163,6 +164,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CBase64.h" />
+    <ClInclude Include="Guard.h" />
     <ClInclude Include="ManifestProvisioning.pb.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
