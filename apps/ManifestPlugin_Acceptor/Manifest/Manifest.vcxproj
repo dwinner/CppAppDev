@@ -159,6 +159,7 @@
     <ClInclude Include="Guard.h" />
     <ClInclude Include="Manifest.h" />
     <ClInclude Include="ManifestProvisioning.pb.h" />
+    <ClInclude Include="networking.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="CBase64.cpp" />
     <ClCompile Include="Manifest.cpp" />
     <ClCompile Include="ManifestProvisioning.pb.cc" />
+    <ClCompile Include="networking.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

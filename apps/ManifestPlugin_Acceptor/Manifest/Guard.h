@@ -1,14 +1,15 @@
 ﻿#pragma once
 
 #include <functional>
+#include <utility>
 
 namespace manifest_reader
 {
    class Guard
    {
    public:
-      Guard(const std::function<void()>& func)
-         : func_(func)
+      explicit Guard(std::function<void()> func)
+         : func_(std::move(func))
            , isActive_(true)
       {
       }

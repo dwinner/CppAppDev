@@ -39,6 +39,9 @@
     <ClInclude Include="ManifestProvisioning.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="networking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Manifest.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ManifestProvisioning.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="networking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
