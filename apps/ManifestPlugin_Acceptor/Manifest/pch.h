@@ -7,7 +7,8 @@
 #ifndef PCH_H
 #define PCH_H
 
-#define WIN32_LEAN_AND_MEAN
+// add headers that you want to pre-compile here
+#include "framework.h"
 
 #ifdef _WIN32
 

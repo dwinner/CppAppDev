@@ -19,9 +19,9 @@
 #pragma once
 
 #include <afx.h>
- //#include <stdlib.h>
- //#include <math.h>
- //#include <memory.h>
+//#include <stdlib.h>
+//#include <math.h>
+//#include <memory.h>
 
 #define  DEC_BUFFER_SIZE   64
 #define  ENC_BUFFER_SIZE   64

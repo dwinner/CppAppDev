@@ -3,51 +3,88 @@
  */
 
 #include "pch.h"
-
-#include <afxstr.h>
+#include "framework.h"
+#include "Manifest.h"
 #include <iostream>
 #include <vector>
-
 #include "CBase64.h"
 #include "Guard.h"
 #include "ManifestProvisioning.pb.h"
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
 static void ThrowError(int ret, const char* sErr);
 static void ThrowError(const char* sErr);
-std::vector<std::string/*CString*/> ReadManifest(const char* sAddr, u_short udpPort, u_short tcpPort);
+std::vector<CString> ReadManifest(const char* sAddr, u_short udpPort, u_short tcpPort);
+
+// The one and only application object
+
+CWinApp theApp;
+
+//using namespace std;
 
 int main()
 {
-   const std::string ipv6Host = "ff02::1:5";
-   const int udpPort = 1900;
-   const int tcpPort = 1991;
+   int nRetCode = 0;
 
-   std::vector<std::string> manifestVector = ReadManifest(ipv6Host.c_str(), udpPort, tcpPort);
-   CString sCompleteManifest;
+   HMODULE hModule = ::GetModuleHandle(nullptr);
 
-   for (auto& sManifest : manifestVector)
+   if (hModule != nullptr)
    {
-      CBase64 base64;
-      auto decodeSize = base64.CalculateRecquiredDecodeOutputBufferSize(sManifest);
-
-      CString sManifestDecoded;
-      auto pBuffer = sManifestDecoded.GetBuffer(decodeSize + 1);
-
-      base64.DecodeBuffer(sManifest, pBuffer);
-
-      sManifestDecoded.ReleaseBuffer();
-      if (!sCompleteManifest.IsEmpty())
+      // initialize MFC and print and error on failure
+      if (!AfxWinInit(hModule, nullptr, ::GetCommandLine(), 0))
       {
-         sCompleteManifest += "\n";
+         // TODO: code your application's behavior here.
+         wprintf(L"Fatal Error: MFC initialization failed\n");
+         nRetCode = 1;
       }
+      else
+      {
+         // TODO: code your application's behavior here.
+         const std::string ipv6Host = "ff02::1:5";
+         const int udpPort = 1900;
+         const int tcpPort = 1991;
 
-      sCompleteManifest += sManifestDecoded;
+         std::vector<CString> manifestVector = ReadManifest(ipv6Host.c_str(), udpPort, tcpPort);
+         CString sCompleteManifest;
+
+         for (auto& sManifest : manifestVector)
+         {
+            CBase64 base64;
+            auto decodeSize = base64.CalculateRecquiredDecodeOutputBufferSize(sManifest);
+
+            CString sManifestDecoded;
+            auto pBuffer = sManifestDecoded.GetBuffer(decodeSize + 1);
+
+            base64.DecodeBuffer(sManifest, pBuffer);
+
+            sManifestDecoded.ReleaseBuffer();
+            if (!sCompleteManifest.IsEmpty())
+            {
+               sCompleteManifest += "\n";
+            }
+
+            sCompleteManifest += sManifestDecoded;
+         }
+
+         std::cout << sCompleteManifest << std::endl;
+
+         nRetCode = 0;
+      }
+   }
+   else
+   {
+      // TODO: change error code to suit your needs
+      wprintf(L"Fatal Error: GetModuleHandle failed\n");
+      nRetCode = 1;
    }
 
-   return 0;
+   return nRetCode;
 }
 
-std::vector<std::string/*CString*/> ReadManifest(const char* sAddr, u_short udpPort, u_short tcpPort)
+std::vector<CString> ReadManifest(const char* sAddr, u_short udpPort, u_short tcpPort)
 {
    std::vector<BYTE> manifest;
    WSADATA wsaData;
@@ -59,22 +96,12 @@ std::vector<std::string/*CString*/> ReadManifest(const char* sAddr, u_short udpP
    int fd = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
    ThrowError(fd, "Init udp socket");
 
-   manifest_reader::Guard socketGuard([&] { if (fd > 0) closesocket(fd); });
-
-   // allow multiple sockets to use the same PORT number
-   /*
-   u_int yes = 1;
-   ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char*)&yes, sizeof(yes));
-   if (ret < 0)
-   {
-       OnError("Reusing ADDR failed (%d)\n", ret);
-       return false;
-   }*/
+   manifest_reader::Guard socketGuard([&] { if (fd > 0) closesocket(fd); });   
 
    // set up destination address    
    sockaddr_in6 addr = { AF_INET6, htons(udpPort) };
 
-   // bind to receive address
+   // bind to receive address   
    ThrowError(bind(fd, (sockaddr*)&addr, sizeof(addr)), "Calling bind failed");
 
    // Join membership
@@ -152,10 +179,12 @@ std::vector<std::string/*CString*/> ReadManifest(const char* sAddr, u_short udpP
       ThrowError("Invalid manifest received");
    }
 
-   std::vector<std::string/*CString*/> manifestVector;
+   std::vector<CString> manifestVector;
    for (int nManifest = 0; nManifest < manifestCollection.manifests_size(); ++nManifest)
    {
-      manifestVector.push_back(manifestCollection.manifests(nManifest).c_str());
+      const char* val = manifestCollection.manifests(nManifest).c_str();
+      CString cStr(val);
+      manifestVector.push_back(cStr);
    }
 
    if (manifestVector.empty())
@@ -170,12 +199,13 @@ static void ThrowError(int ret, const char* sErr)
 {
    if (ret < 0)
    {
-      printf("Error: %s ret=%d err=%d", sErr, ret, WSAGetLastError());      
+      printf("Error: %s ret=%d err=%d", sErr, ret, WSAGetLastError());
       ThrowError(sErr);
    }
 }
 
 static void ThrowError(const char* sErr)
-{   
+{
    throw std::runtime_error(sErr);
 }
+
