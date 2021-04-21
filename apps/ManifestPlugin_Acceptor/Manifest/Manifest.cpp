@@ -37,7 +37,18 @@ int main()
       }
       else
       {
-         auto manifestVector = manifest_client::read_manifest(Ipv6Host.c_str(), UdpPort, TcpPort);
+         std::vector<CString> manifestVector;
+
+         try
+         {
+            manifestVector = manifest_client::read_manifest(Ipv6Host.c_str(), UdpPort, TcpPort);
+         }
+         catch (std::runtime_error &ex)
+         {
+            std::cerr << ex.what();
+            return EXIT_FAILURE;
+         }
+
          CString completeManifest;
 
          for (auto& manifest : manifestVector)

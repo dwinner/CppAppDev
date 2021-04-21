@@ -11,7 +11,7 @@ namespace manifest_client
       WSADATA wsaData;
       WSAStartup(MAKEWORD(2, 2), &wsaData);
 
-      int ret = 0;
+      int returnValue = 0;
 
       // create what looks like an ordinary UDP socket
       int fd = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
@@ -40,9 +40,9 @@ namespace manifest_client
       FD_ZERO(&rset);
       FD_SET(fd, &rset);
       timeval timeout = { 5, 0 };
-      ret = select(0, &rset, nullptr, nullptr, &timeout);
-      throw_error(ret, "Calling select failed");
-      if (ret == 0)
+      returnValue = select(0, &rset, nullptr, nullptr, &timeout);
+      throw_error(returnValue, "Calling select failed");
+      if (returnValue == 0)
       {
          throw_error("No UDP frame received");
       }
