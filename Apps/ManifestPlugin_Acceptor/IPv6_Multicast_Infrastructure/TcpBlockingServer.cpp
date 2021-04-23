@@ -36,7 +36,7 @@ namespace ipv6_multicast
       memset(&serverAddr, 0, sizeof serverAddr);
       serverAddr.sin6_family = AF_INET6;
       serverAddr.sin6_addr = in6addr_any;
-      serverAddr.sin6_port = htons(port);
+      serverAddr.sin6_port = htons(static_cast<u_short>(port));
 
       // Bind address and socket together
       int success = bind(socketDesc, reinterpret_cast<struct sockaddr*>(&serverAddr), sizeof serverAddr);
@@ -63,13 +63,13 @@ namespace ipv6_multicast
    {
       struct sockaddr_in6 clientAddr{};
       socklen_t clientAddrLen = sizeof clientAddr;
-      char strAddr[INET6_ADDRSTRLEN];
-      const int messageBufferSize = 1400;
-      const long accTimeoutSec = 1;
       trace(std::to_string(sockAddr.sin6_family) + " unused");
 
       while (!stop)
       {
+         const long accTimeoutSec = 1;
+         const int messageBufferSize = 1400;
+         char strAddr[INET6_ADDRSTRLEN];
          const select_status selectStat = GetMultiplexingStatus(socketDesc, accTimeoutSec, 0);
          switch (selectStat)
          {
@@ -112,7 +112,7 @@ namespace ipv6_multicast
          string toAddrStr = strAddr;
          trace("New connection from: " + toAddrStr + ":" + std::to_string(fmtAddr) + " ...");
 
-         // Wait for data from client (NOTE: Also there should be timeout via select)
+         // Wait for data from client (Also there should be timeout via select)
          char buf[messageBufferSize];
          int addrlen = sizeof clientAddr;
          int msgLen = recvfrom(
@@ -132,7 +132,7 @@ namespace ipv6_multicast
                      ? mman::ManifestResponseMsg
                      : mman::ManifestEmptyResponseMsg;
 
-         // Send response to client (NOTE: Also there should be timeout via select)
+         // Send response to client (Also there should be timeout via select)
          msgLen = sendto(clientSockDesc, answer.c_str(), answer.length(), 0,
                          reinterpret_cast<const struct sockaddr*>(&clientAddr), addrlen);
          if (msgLen == -1)

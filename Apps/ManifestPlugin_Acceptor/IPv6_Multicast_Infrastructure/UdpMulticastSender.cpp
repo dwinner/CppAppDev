@@ -20,8 +20,8 @@ namespace ipv6_multicast
 
    void UdpMulticastSender::ConfigureSocket(const int socketDesc) const
    {
-      int on = 1;
-      if (setsockopt(socketDesc, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&on), sizeof on))
+      int reuseAddr = 1;
+      if (setsockopt(socketDesc, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&reuseAddr), sizeof reuseAddr))
       {
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
@@ -41,7 +41,8 @@ namespace ipv6_multicast
          exit(EXIT_FAILURE);
       }
 
-      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&on), sizeof on))
+      int loop = 1;
+      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&loop), sizeof loop))
       {
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
@@ -55,7 +56,7 @@ namespace ipv6_multicast
 
       memset(&saddr, 0, sizeof(struct sockaddr_in6));
       saddr.sin6_family = AF_INET6;
-      saddr.sin6_port = htons(port);
+      saddr.sin6_port = htons(static_cast<u_short>(port));
       inet_pton(AF_INET6, host.c_str(), &saddr.sin6_addr);
 
       struct ipv6_mreq mreq{};
@@ -74,14 +75,13 @@ namespace ipv6_multicast
 
    bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const
    {
-      const int delaySec = 1;
-
       using namespace mman;
       const char* buffer = ManifestMulticastMsg;
       const int bufferLen = ManifestMulticastMsgLength;
 
       while (!stop)
       {
+         const int delaySec = 1;
          const ssize_t sentLen = sendto(socketDesc, buffer, bufferLen, 0,
                                         reinterpret_cast<const struct sockaddr*>(&sockAddr), sizeof sockAddr);
          if (sentLen < 0)
