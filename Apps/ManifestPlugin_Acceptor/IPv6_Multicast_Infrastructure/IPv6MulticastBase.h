@@ -7,9 +7,9 @@
 
 namespace ipv6_multicast
 {
-   const string DefaultLoopbackIPv6Host = "ff02::1:5";
-   const int DefaultUdpPort = 1900;
-   const int DefaultTcpPort = 1991;
+   const string DefaultLoopbackIPv6Host = "ff08::1:5";
+   const int DefaultUdpPort = 19000;
+   const int DefaultTcpPort = 19001;
 
    inline void trace(const std::string& aMessage)
    {

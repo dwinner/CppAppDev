@@ -15,9 +15,9 @@
 #define new DEBUG_NEW
 #endif
 
-static const std::string Ipv6Host = "ff02::1:5";
-static const int UdpPort = 1900;
-static const int TcpPort = 1991;
+static const std::string Ipv6Host = "ff08::1:5";
+static const int UdpPort = 19000;
+static const int TcpPort = 19001;
 
 // The one and only application object
 CWinApp the_app;

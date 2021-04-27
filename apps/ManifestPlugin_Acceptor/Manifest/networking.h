@@ -3,7 +3,7 @@
 
 namespace manifest_client
 {
-   void throw_error(int ret, const char* sErr);
+   void throw_if_error(int ret, const char* sErr);
 
    void throw_error(const char* sErr);
 

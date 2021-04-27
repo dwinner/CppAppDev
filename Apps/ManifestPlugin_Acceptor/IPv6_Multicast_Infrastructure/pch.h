@@ -5,11 +5,14 @@
 
 #ifdef _WIN32
 
+#include <Windows.h>
 #include <Winsock2.h>
 #include <Ws2tcpip.h>
-#include <Windows.h>
+#include <iphlpapi.h>
 
 #pragma comment (lib, "Ws2_32.lib")
+#pragma comment (lib, "Iphlpapi.lib")
+
 using ssize_t = SSIZE_T;
 
 #else

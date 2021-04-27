@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "UdpMulticastSender.h"
+#include <netioapi.h>
 #include <thread>
 
 namespace ipv6_multicast
@@ -26,9 +27,13 @@ namespace ipv6_multicast
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
       }
+      
+      /*int ifindex;
+      ifindex = if_nametoindex("ethernet_7");
+      setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifindex), sizeof ifindex);*/
 
-      int ifidx = 0;
-      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifidx), sizeof ifidx))
+      int ifIdx = 0;
+      if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifIdx), sizeof ifIdx))
       {
          trace("setsockopt failure");
          exit(EXIT_FAILURE);
@@ -41,7 +46,7 @@ namespace ipv6_multicast
          exit(EXIT_FAILURE);
       }
 
-      int loop = 1;
+      int loop = 0;
       if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_LOOP, reinterpret_cast<const char*>(&loop), sizeof loop))
       {
          trace("setsockopt failure");
@@ -73,7 +78,8 @@ namespace ipv6_multicast
       return saddr;
    }
 
-   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr, std::atomic_bool& stop) const
+   bool UdpMulticastSender::InternalExchange(const int socketDesc, const sockaddr_in6& sockAddr,
+                                             std::atomic_bool& stop) const
    {
       using namespace mman;
       const char* buffer = ManifestMulticastMsg;
@@ -91,7 +97,7 @@ namespace ipv6_multicast
          }
 
          trace("Sent: " + std::to_string(sentLen));
-         std::this_thread::sleep_for(std::chrono::seconds(delaySec));         
+         std::this_thread::sleep_for(std::chrono::seconds(delaySec));
       }
 
       return true;
