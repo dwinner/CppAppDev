@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "UdpMulticastSender.h"
-#include <netioapi.h>
+//#include <netioapi.h>
 #include <thread>
 
 namespace ipv6_multicast
@@ -28,9 +28,9 @@ namespace ipv6_multicast
          exit(EXIT_FAILURE);
       }
       
-      /*int ifindex;
+      /*int ifindex = 16;
       ifindex = if_nametoindex("ethernet_7");
-      setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifindex), sizeof ifindex);*/
+      int result = setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifindex), sizeof ifindex);*/
 
       int ifIdx = 0;
       if (setsockopt(socketDesc, IPPROTO_IPV6, IPV6_MULTICAST_IF, reinterpret_cast<const char*>(&ifIdx), sizeof ifIdx))

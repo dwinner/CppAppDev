@@ -7,13 +7,13 @@
 
 using namespace ipv6_multicast;
 
-std::tuple<std::string, int, int> parse_args(int args, char* argv[]);
+std::tuple<std::string, int, int> parse_args(int argc, char* argv[]);
 
 int main(int argc, char* argv[])
 {
    std::string ipv6Host;
-   int udpPort;
-   int tcpPort;
+   int udpPort = 0;
+   int tcpPort = 0;
    std::tie(ipv6Host, udpPort, tcpPort) = parse_args(argc, argv);
 
    auto* backendLauncherPtr = new MManBackendLauncher(ipv6Host, udpPort, tcpPort);
