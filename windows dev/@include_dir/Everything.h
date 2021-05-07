@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef _NOEXCLUSIONS
 #include "Exclude.h"	/* Define Preprocessor variables to */
 			/* exclude un-wanted header files. */
