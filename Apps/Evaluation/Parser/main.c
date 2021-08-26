@@ -34,8 +34,7 @@ int main(int argc, char* argv[])
       printf("Memory allocation error.\n");
       exit(EXIT_FAILURE);
    }
-
-   /* ��������� ��������� �� ����� ������ ������ */
+   
    do
    {
       program = prgMemory;

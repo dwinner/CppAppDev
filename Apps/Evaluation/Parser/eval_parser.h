@@ -1,18 +1,29 @@
 #ifndef EVAL_PARSER_H
 #define EVAL_PARSER_H
 
+#include <stdbool.h>
+
 /**
  * \brief Type of tokens
  */
-enum token_types
+typedef enum
 {
    none = 0,
    delimeter = 1,
    variable,
    number
-};
+} TokenTypes;
 
-typedef enum token_types TokenTypes;
+/**
+ * \brief Error types
+ */
+typedef enum
+{
+   syntax_error = 0,
+   unbalanced_paren,
+   no_expr,
+   div_by_zero
+} ErrorTypes;
 
 #define PROGRAM_BUFFER  80
 #define VARIABLE_NUMBER 26
@@ -21,6 +32,11 @@ typedef enum token_types TokenTypes;
  * Points to the expression to be analyzed
  */
 extern char* program;
+
+/**
+ * \brief Delimeters
+ */
+extern char* delimeters;
 
 /**
  * 26 user variables, A-Z
@@ -91,9 +107,9 @@ void put_back(void);
 
 /**
  * \brief Display a syntax error
- * \param errorIndex Error type
+ * \param error_type Error type
  */
-void set_error(int errorIndex);
+void set_error(ErrorTypes error_type);
 
 /**
  * \brief Get variable value
@@ -107,6 +123,13 @@ double find_var(const char* symbol);
  * \param symbol The symbol
  * \return True if the symbol is a delimeter
  */
-int is_delimeter(char symbol);
+bool is_delimeter(char symbol);
+
+/**
+ * \brief Converts error type to string value
+ * \param error_type Error type
+ * \return String value for error type
+ */
+const char* error_type_str(ErrorTypes error_type);
 
 #endif // EVAL_PARSER_H

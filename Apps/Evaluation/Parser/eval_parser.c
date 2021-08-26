@@ -3,23 +3,24 @@
 #include <stdio.h>
 #include <string.h>
 #include "eval_parser.h"
+#include <stdbool.h>
+
+char* delimeters = "+-*/%^=()";
 
 void start_evaluation(double* answer)
 {
    get_token();
-
    if (!*token)
    {
-      set_error(2); /* TODO: Introduce enums for error codes */
+      set_error(no_expr);
       return;
    }
 
    process_assignment(answer);
-
    if (*token)
    {
       /* last token must be null */
-      set_error(0); /* TODO: Introduce enums for error codes */
+      set_error(syntax_error);
    }
 }
 
@@ -62,17 +63,16 @@ void process_assignment(double* answer)
 
 void process_add_or_subtract(double* answer)
 {
-   register char operator; /* TODO: Introduce enum for operator types */
+   register char operator;
    double temp;
 
    process_mult_or_divide(answer);
-
    while ((operator = *token) == '+' || operator == '-')
    {
       get_token();
       process_mult_or_divide(&temp);
 
-      switch (operator) /* TOREFACTOR: Move it to function */
+      switch (operator)
       {
       case '-':
          *answer -= temp;
@@ -90,17 +90,16 @@ void process_add_or_subtract(double* answer)
 
 void process_mult_or_divide(double* answer)
 {
-   register char operator; /* TODO: Introduce enum for operator types */
+   register char operator;
    double temp;
 
    process_exponent(answer);
-
    while ((operator = *token) == '*' || operator == '/' || operator == '%')
    {
       get_token();
       process_exponent(&temp);
 
-      switch (operator) /* TODO: Move it to function */
+      switch (operator)
       {
       case '*':
          *answer *= temp;
@@ -109,8 +108,7 @@ void process_mult_or_divide(double* answer)
       case '/':
          if (temp == 0.0)
          {
-            /* TODO: Introduce enum for error types */
-            set_error(3); /* division by zero */
+            set_error(div_by_zero); /* division by zero */
             *answer = 0.0;
          }
          else
@@ -135,7 +133,7 @@ void process_exponent(double* answer)
    register int t;
 
    evaluate_plus_or_minus(answer);
-   if (*token == '^') /* TODO: Introduce enum for token types */
+   if (*token == '^')
    {
       get_token();
       process_exponent(&temp);
@@ -148,14 +146,14 @@ void process_exponent(double* answer)
 
       for (t = temp - 1; t > 0; --t)
       {
-         *answer *= (double)ex;
+         *answer *= ex;
       }
    }
 }
 
 void evaluate_plus_or_minus(double* answer)
 {
-   register char operator; /* TODO: Introduce enum for operator types */
+   register char operator;
 
    operator = 0;
    if (token_type == delimeter && *token == '+' || *token == '-')
@@ -165,7 +163,6 @@ void evaluate_plus_or_minus(double* answer)
    }
 
    process_parenthesized_expr(answer);
-
    if (operator == '-')
    {
       *answer = -*answer;
@@ -178,9 +175,9 @@ void process_parenthesized_expr(double* answer)
    {
       get_token();
       process_add_or_subtract(answer);
-      if (*token != ')') /* TODO: Introduce enum for token types */
+      if (*token != ')')
       {
-         set_error(1); /* TODO: Introduce enum for error types */
+         set_error(unbalanced_paren);
       }
 
       get_token();
@@ -206,7 +203,7 @@ void atom(double* answer)
       break;
 
    default:
-      set_error(0); /* TODO: Introduce enum for error types */
+      set_error(syntax_error);
    }
 }
 
@@ -229,15 +226,14 @@ void get_token(void)
       ++program;
    }
 
-   /* TODO: Introduce delimeter types */
-   if (strchr("+-*/%^=()", *program))
+   if (strchr(delimeters, *program))
    {
       token_type = delimeter;
       *temp++ = *program++; /* advance to the next char */
    }
    else if (isalpha(*program))
    {
-      while (!is_delimeter(*program)) /* TOREFACTOR: Move it to function */
+      while (!is_delimeter(*program))
       {
          *temp++ = *program++;
       }
@@ -246,7 +242,7 @@ void get_token(void)
    }
    else if (isdigit(*program))
    {
-      while (!is_delimeter(*program)) /* TOREFACTOR: Move it to function */
+      while (!is_delimeter(*program))
       {
          *temp++ = *program++;
       }
@@ -268,19 +264,13 @@ void put_back(void)
    }
 }
 
-void set_error(const int errorIndex)
+void set_error(const ErrorTypes error_type)
 {
    /* Due to recursive nature, you can get a lot of errors.
       If you want to stop on the first error, use longjmp()/setjmp() */
-   static char* errorTypes[] =
-   {
-      "Syntax Error",
-      "Unbalanced Parentheses",
-      "No Expression Present",
-      "Division by Zero"
-   };
 
-   printf("%s\n", errorTypes[errorIndex]);
+   const char* errorTypeStr = error_type_str(error_type);
+   printf("%s\n", errorTypeStr);
 }
 
 double find_var(const char* symbol)
@@ -294,11 +284,30 @@ double find_var(const char* symbol)
    return vars[toupper(*token) - 'A'];
 }
 
-/* TODO: Use _Bool for all such return values and checking */
-int is_delimeter(char symbol)
+bool is_delimeter(const char symbol)
 {
-   /* TODO: Introduce delimeter types */
    return strchr(" +-/*%^=()", symbol) || symbol == 9 || symbol == '\r' || symbol == 0
-             ? 1
-             : 0;
+             ? true
+             : false;
+}
+
+const char* error_type_str(const ErrorTypes error_type)
+{
+   switch (error_type)
+   {
+   case syntax_error:
+      return "Syntax Error";
+
+   case unbalanced_paren:
+      return "Unbalanced Parentheses";
+
+   case no_expr:
+      return "No Expression Present";
+
+   case div_by_zero:
+      return "Division by Zero";
+
+   default:
+      return "Unknown error";
+   }
 }
