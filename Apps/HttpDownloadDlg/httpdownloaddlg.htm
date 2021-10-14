@@ -1,0 +1,518 @@
+<html>
+
+<head>
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<title>CHTTPDownloadDlg, CHTTPDownloader, CHTTPDownloadDlg2 &amp; CHTTPDownloader2 
+v1.41</title>
+<link href="naughter.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h2>CHTTPDownloadDlg, CHTTPDownloader, CHTTPDownloadDlg2, CHTTPDownloader2 v1.41</h2>
+<p>The first class implements an MFC CDialog derived class which performs HTTP downloads 
+similar to the old Internet Explorer download dialog as shown below:</p>
+<p><img border="0" height="257" src="httpdownloaddlg.gif" width="348"></p>
+<p>The code to achieve the above can be as simple as the following:</p>
+<p>CHTTPDownloadDlg dlg;<br>dlg.m_sURLToDownload = _T(&quot;http://www.some-site.com/somefile.ext&quot;);<br>
+dlg.m_sFileToDownloadInto = _T(&quot;c:\\somefile.ext&quot;);<br>if (dlg.DoModal() 
+== IDOK)<br>&nbsp;&nbsp;&nbsp; AfxMessageBox(_T(&quot;File was downloaded successfully&quot;));</p>
+<p>&nbsp;</p>
+<p>Alternatively you can use the CHTTPDownloader class (which CHTTPDownloadDlg uses 
+internally) in a synchronous non-UI manner as follows:</p>
+<p>CHTTPDownloader downloader;<br>downloader.m_sURLToDownload = _T(&quot;http://www.some-site.com/somefile.ext&quot;);<br>
+downloader.m_sFileToDownloadInto = _T(&quot;c:\\somefile.ext&quot;);<br>downloader.Download();</p>
+<p>&nbsp;</p>
+<p>Finally if you want to use the WinHTTP stack instead of Wininet, then you can 
+use CHTTPDownloadDlg2 and CHTTPDownloader2 instead of CHTTPDownloadDlg and CHTTPDownloader.</p>
+<p>&nbsp;</p>
+<table border="0">
+	<tr>
+		<td><a href="#Features">Features</a></td>
+	</tr>
+	<tr>
+		<td><a href="#History">History</a></td>
+	</tr>
+	<tr>
+		<td><a href="#Usage">Usage</a></td>
+	</tr>
+	<tr>
+		<td><a href="#Contact">Contacting the Author</a></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><a name="Features"></a>Features</h2>
+<ul>
+	<li>Can use Wininet or WinHTTP to perform the download.</li>
+	<li>Is fully unicode enabled.</li>
+	<li>Supports non-UI and UI based methods of HTTP download.</li>
+	<li>Includes support for Proxy Server and HTTP Server authentication.</li>
+	<li>Supports HTTP Preauthentication and upgrading from anonymous credentials 
+	as the download is occurring.</li>
+	<li>The WinHTTP classes provide fine grained control over the authentication 
+	schemes used, including Basic, NTLM, Passport, Digest and Negotiate.</li>
+	<li>Supports resumed downloads.</li>
+	<li>Supports bandwidth throttling.</li>
+	<li>The user agent, referrer header, accept types header, HTTP verb and HTTP 
+	version can be easily modified.</li>
+	<li>Supports enabling or disabling automatic following of 302 redirects.</li>
+	<li>Supports sending client certificates both via user selection and programmatically.</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><a name="History"></a>History</h2>
+<p><b>v1.41 (16 January 2021)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Updated the code to use std::atomic for thread synchronisation.
+	</li>
+	<li>Replaced ATL::CHeapPtr with std::vector. </li>
+	<li>General cleanup / 
+	review of the code </li>
+</ul>
+<p><b>v1.40 (12 January 2020)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Fixed more Clang-Tidy static code analysis warnings in the code. </li>
+</ul>
+<p><b>v1.39 (8 December 2019)</b></p>
+<ul>
+	<li>Fixed a bug in CHTTPDownloader::Download and CHTTPDownloader2::Download 
+	where an unsuccessfully downloaded file would not be deleted. Thanks to 
+	&quot;michar&quot; for reporting this bug. </li>
+	<li>Fixed various Clang-Tidy static code analysis warnings in the code.</li>
+</ul>
+<p><b>v1.38 (12 October 2019)</b></p>
+<ul>
+	<li>Fixed a number of compiler warnings when the code is compiled with VS 
+	2019 Preview </li>
+	<li>Reworked timing code to use GetTickCount64</li>
+</ul>
+<p><b>v1.37 (30 April 2019)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Updated the code to clean compile on VC 2019 </li>
+</ul>
+<p><b>v1.36 (27 October 2018)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Fixed a number of C++ core guidelines compiler warnings. These changes 
+	mean that the code will now only compile on VC 2017 or later. </li>
+</ul>
+<p><b>v1.35 (28 December 2017)</b></p>
+<ul>
+	<li>Updated the code to compile cleanly when _ATL_NO_AUTOMATIC_NAMESPACE is 
+	defined.</li>
+</ul>
+<p><b>v1.34 (19 September 2017)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Replaced CString::operator LPC*STR() calls throughout the codebase with 
+	CString::GetString calls.</li>
+	<li>Fixed compiler errors in CHTTPDownloader::CreateSession.</li>
+	<li>Fixed compiler errors in CHTTPDownloader2::CreateSession.</li>
+</ul>
+<p><b>v1.33 (25 December 2016)</b></p>
+<ul>
+	<li>Updated code to use nullptr instead of NULL </li>
+	<li>Updated usage of BOOL with bool in codebase </li>
+	<li>Reworked CHTTPDownloader::Abort to use proper thread protection</li>
+	<li>Reworked CHTTPDownloader2::Abort to use proper thread protection</li>
+	<li>Removed support for the m_bIgnoreInvalidCertificate &amp; m_bIgnoreCRLFailures 
+	configuration values and introduced support for SECURITY_FLAG_IGNORE_REVOCATION, 
+	SECURITY_FLAG_IGNORE_UNKNOWN_CA, SECURITY_FLAG_IGNORE_WRONG_USAGE, SECURITY_FLAG_IGNORE_CERT_CN_INVALID, 
+	SECURITY_FLAG_IGNORE_CERT_DATE_INVALID, SECURITY_FLAG_IGNORE_REDIRECT_TO_HTTPS &amp; 
+	SECURITY_FLAG_IGNORE_REDIRECT_TO_HTTP option flags in the CHTTPDownloader class.</li>
+	<li>Removed support for the m_bIgnoreInvalidCertificate configuration value 
+	and introduced support for SECURITY_FLAG_IGNORE_UNKNOWN_CA, SECURITY_FLAG_IGNORE_WRONG_USAGE, 
+	SECURITY_FLAG_IGNORE_CERT_CN_INVALID &amp; SECURITY_FLAG_IGNORE_CERT_DATE_INVALID 
+	option flags in the CHTTPDownloader2 class </li>
+</ul><p><b>v1.32 (16 January 2016)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Verified the code compiles cleanly in VC 2015 </li>
+	<li>Added SAL annotations to all the code </li>
+</ul>
+<p><b>v1.31 (22 February 2015)</b></p>
+<ul>
+	<li>Updated copyright details. </li>
+	<li>Updated the sample project settings to more modern default values </li>
+	<li>Renamed CHttpDownloader class to CHTTPDownloader</li>
+	<li>Renamed CHttpDownloadDlg class to CHTTPDownloadDlg </li>
+	<li>Renamed CHttpDownloader2 class to CHTTPDownloader2</li>
+	<li>Renamed CHttpDownloadDlg2 class to CHTTPDownloadDlg2</li>
+	<li>Updated the code to clean compile using /analyze </li>
+	<li>Added support for a CHTTPDownloader::m_bIgnoreInvalidCertificate value. 
+	Setting this value to TRUE, the code will ignore the ERROR_INTERNET_INVALID_CA 
+	error code when downloading (i.e. an invalid HTTPS certificate)</li>
+	<li>Added support for a CHTTPDownloader::m_bIgnoreCRLFailures. Setting this 
+	value to TRUE, the code will ignore the ERROR_INTERNET_SEC_CERT_REV_FAILED error 
+	code when downloading (i.e. revocation checks failed) </li>
+	<li>Added support for a CHTTPDownloader2::m_bIgnoreInvalidCertificate value. 
+	Setting this value to TRUE, the code will ignore an errors related to invalid 
+	HTTPS certificates </li>
+</ul>
+<p><b>v1.30 (08 June 2008)</b></p>
+<ul>
+	<li>Updated code to compile correctly using _ATL_CSTRING_EXPLICIT_CONSTRUCTORS 
+	define</li>
+	<li>Code now compiles cleanly using Code Analysis (/analyze)</li>
+	<li>The code has now been updated to support VC 2005 or later only.</li>
+</ul>
+<p><b>v1.29 (11 May 2008)</b></p>
+<ul>
+	<li>Updated the logic in CHttpDownloadDlg::OnWininetStatusCallBack to correctly 
+	handle ASCII or Unicode strings. Thanks to Hans Dietrich for prompting this 
+	update.</li>
+	<li>Updated copyright details</li>
+	<li>Addition of AttachSession and DetachSession methods which allow the lifetime 
+	of the session to be controlled independently of the lifetime of the CHttpDownloader(2) 
+	instance. Thanks to Hans Dietrich for prompting this update</li>
+	<li>Fixed a spelling mistake in the IDS_HTTPDOWNLOAD_RETRIEVING_FILE string 
+	resource</li>
+	<li>OnProgress virtual methods now correctly handles reporting results for resumed 
+	downloads</li>
+</ul>
+<p><b>v1.28 (30 December 2007)</b></p>
+<ul>
+	<li>Updated sample apps to clean compile on VC 2008</li>
+	<li>Remove VC 6 style appwizard comments from the code.</li>
+	<li>CHttpDownloader::GetErrorMessage now uses the FORMAT_MESSAGE_IGNORE_INSERTS 
+	flag. For more information please see Raymond Chen's blog at
+	<a href="http://blogs.msdn.com/oldnewthing/archive/2007/11/28/6564257.aspx">
+	http://blogs.msdn.com/oldnewthing/archive/2007/11/28/6564257.aspx</a>. Thanks 
+	to Alexey Kuznetsov for reporting this issue.</li>
+	<li>CHttpDownloader::GetErrorMessage now uses Checked::tcsncpy_s if compiled 
+	using VC 2005 or later.</li>
+	<li>CHttpDownloader2::GetErrorMessage now uses the FORMAT_MESSAGE_IGNORE_INSERTS 
+	flag. For more information please see Raymond Chen's blog at
+	<a href="http://blogs.msdn.com/oldnewthing/archive/2007/11/28/6564257.aspx">
+	http://blogs.msdn.com/oldnewthing/archive/2007/11/28/6564257.aspx</a>. Thanks 
+	to Alexey Kuznetsov for reporting this issue.</li>
+	<li>CHttpDownloader2::GetErrorMessage now uses Checked::tcsncpy_s if compiled 
+	using VC 2005 or later.</li>
+</ul>
+<p><b>v1.27 (10 June 2007)</b></p>
+<ul>
+	<li>Updated comments in documentation about usage of the Platform SDK.</li>
+	<li>Updated copyright details.</li>
+	<li>Updated CHttpDownloadDlg::OnWininetStatusCallBack in line with CFTPTransferer 
+	class.</li>
+	<li>CHttpDownloader now supports resumed downloads for files &gt; 4GB in size.</li>
+	<li>CHttpDownloader2 now supports resumed downloads for files &gt; 4GB in size.</li>
+	<li>Updated sample app to compile cleanly on VC 2005</li>
+</ul>
+<p><b>v1.26 (17 September 2006)</b></p>
+<ul>
+	<li>Fixed an issue where the OnStatusCallback method was not being called. This 
+	has been addressed by renaming the function to CHttpDownloadDlg2::OnWinHttpStatusCallBack. 
+	This is necessary due to the refactoring of the base CHttpDownloader2 class. 
+	Thanks to Johan Sörensen for reporting this bug</li>
+	<li>Fixed an issue where the OnStatusCallback method was not being called. This 
+	has been addressed by renaming the function to CHttpDownloadDlg::OnWininetStatusCallBack. 
+	This is necessary due to the refactoring of the base CHttpDownloader class. 
+	Thanks to Johan Sörensen for reporting this bug</li>
+</ul>
+<p><b>v1.25 (25 August 2006)</b></p>
+<ul>
+	<li>Downloading to file is now optional for both CHttpDownloader and CHttpDownloader2, 
+	a new virtual function OnDownloadData is now called each time a chunk of data 
+	has been retrieved. The default implementation writes the data into the file &quot;m_sFileToDownloadInto&quot;. 
+	A derived class is free to override this function and implement their own specific 
+	functionality. Thanks to Itamar Syn-Hershko for suggesting this update.</li>
+	<li>Optimized the way aborting a download occurs by freeing up the handles in 
+	the SetAbort call. This should hopefully fix times where aborting a download 
+	appears to respond slowly.</li>
+	<li>Class now supports sending client certificates via user selection and programmatically. 
+	Thanks to Johan Sörensen for this very nice addition.</li>
+</ul>
+<p><b>v1.24 (16 July 2006)</b></p>
+<ul>
+	<li>Split off CHttpDownloader class into its own module of HttpDownloader.cpp/h.</li>
+	<li>Implemented a WinHTTP version of CHttpDownloader called CHttpDownloader2.
+	</li>
+	<li>Implemented a WinHTTP version of CHttpDownloadDlg called CHttpDownloadDlg2.</li>
+	<li>Now includes a similar sample app in the download to demonstrate the WinHTTP 
+	functionality.</li>
+	<li>Now includes support for customizing the HTTP_REFERRER header</li>
+	<li>Now includes support for customizing the HTTP verb used e.g. &quot;GET&quot; 
+	etc</li>
+	<li>Now includes support for specifying the HTTP version to use e.g. &quot;HTTP/1.0&quot;. &quot;HTTP/1.1&quot; 
+	etc</li>
+	<li>Now includes support for customizing the HTTP_ACCEPT header</li>
+	<li>Added support for client customization of any other HTTP headers which are 
+	now transmitted</li>
+	<li>Brought the CHttpDownloadSettings member variables back into the CHttpDownloader 
+	class. This means that the HttpDownloadSettings module is now defunct.</li>
+	<li>In line with the new CHttpDownloader2 class, the creation of the various 
+	handles is now broken down into 3 virtual functions of CreateSession, CreateConnection 
+	and CreateRequest.</li>
+	<li>Now supports both HTTP and Proxy preauthentication.</li>
+	<li>Reviewed all TRACE statements for correctness</li>
+	<li>internet handles are now freed up before CHttpDownloader::Download returns</li>
+	<li>Moved the m_lAbort flag from the CHttpDownloadDlg up into CHttpDownloader. 
+	This allows client code extra flexibility in how users can cancel a download. 
+	Thanks to Itamar Syn-Hershko for reporting this issue.</li>
+	<li>Inclusion of a function called &quot;DeleteDownloadedFile&quot; which is 
+	a simple wrapper for deleting the downloaded file. Thanks to Itamar Syn-Hershko 
+	for suggesting this addition.</li>
+</ul>
+<p><b>v1.23 (15 July 2006)</b></p>
+<ul>
+	<li>Fixed some issues in OnStatusCallback when the code is compiled for Unicode. 
+	Thanks to Itamar Syn-Hershko for reporting this issue.</li>
+	<li>WM_HTTPDOWNLOAD_THREAD_FINISHED now uses WM_USER instead of WM_APP to define 
+	its value </li>
+	<li>Major refactoring of the code into 3 classes namely CHttpDownloadSettings, 
+	CHttpDownloader and the existing CHttpDownloadDlg class which has been significantly 
+	reworked to fit in with this new layout. The new layout means that you can use 
+	the new &quot;CHttpDownloader&quot; class in a synchronous manner without any 
+	UI at all. For example to download a file without any UI you would just use 
+	something like:<br><br>CHttpDownloader downloader;<br>downloader.m_Settings.m_sURLToDownload 
+	= _T(&quot;http://www.some-site.com/somefile.ext&quot;);<br>downloader.m_Settings.m_sFileToDownloadInto 
+	= _T(&quot;c:\\somefile.ext&quot;);<br>downloader.Download();<br><br>When the 
+	Download() function returns the file will have been downloaded successfully 
+	or will have failed to download. Various synchronous virtual functions can be 
+	overridden to handle the various events as they occur during the download. The 
+	CHttpDownloadDlg class<br>now derives from both CDialog and CHttpDownloader, 
+	and handles these virtual events to provide the existing functionality which 
+	it had. You should review how CHttpDownloadDlg handles these virtual functions 
+	if you want to create your own customized implementation which derives from 
+	CHttpDownloader.</li>
+	<li>Fixed a spelling mistake in the IDS_HTTPDOWNLOAD_RETREIVEING_FILE string</li>
+	<li>The buffer size used in calls to InternetReadFile can now be changed via 
+	CHttpDownloadSettings::m_dwReadBufferSize</li>
+	<li>Thread protected changes to the Abort flag</li>
+</ul>
+<p><b>v1.22 (2 July 2006)</b></p>
+<ul>
+	<li>Updated the code to clean compile on VC 2005 </li>
+	<li>Code now uses new C++ style casts rather than old style C casts where necessary.
+	</li>
+	<li>The class now requires the Platform SDK if compiled using VC 6.</li>
+</ul>
+<p><b>v1.21 (8 May 2006)</b></p>
+<ul>
+	<li>Updated copyright details.</li>
+	<li>Fixed an ASSERT in CHttpDownloadDlg::OnThreadFinished when you cancel a 
+	download prematurely.</li>
+	<li>Updated the documentation to use the same style as the web site.</li>
+	<li>Did a spell check of the documentation.</li>
+	<li>Addition of a m_bNoURLRedirect variable so that the class can optionally 
+	ignore 302 redirects.</li>
+	<li>The flags passed to HttpOpenRequest can now be customized via a new method 
+	GetOpenRequestFlags</li>
+	<li>Optimized creation of member variables in CHttpDownloadDlg constructor.</li>
+	<li>Updated various captions and version infos in the sample app</li>
+	<li>Fixed a number of compiler warnings when the code is compiled using /Wp64. 
+	Please note that to implement these fixes, the code will now require the Platform 
+	SDK to be installed if you compile the code on VC 6.</li>
+</ul>
+<p><b>v1.20 (4 April 2005)</b></p>
+<ul>
+	<li>Fix for bug when providing all information in the dialog for both proxy 
+	and user validation and one uses the option to connect directly via the proxy 
+	and no prompting is checked then when the code 407 is received the code resends 
+	with proxy info and gets a 401 code. This time it reports the error as the bool 
+	flag for bRetrying is true. Thanks to Stephen Miller for providing the fix for 
+	this problem.</li>
+</ul>
+<p><b>v1.19 (5 March 2005)</b></p>
+<ul>
+	<li>Tidied up the way the file to be downloaded is closed and deleted if the 
+	download fails. Thanks to Guillermo for reporting this bug.</li>
+	<li>Fixed a bug in the main logic of the class which caused the http or proxy 
+	credentials dialog to be continually displayed even when you hit cancel. Thanks 
+	to Guillermo for reporting this bug and providing the fix.</li>
+	<li>Optimized the code which calls GetLastError.</li>
+	<li>Display of error messages now uses FormatMessage to display a more friendlier 
+	value.</li>
+</ul>
+<p><b>v1.18 (11 November 2004)</b></p>
+<ul>
+	<li>Fixed an issue in the code where the request is only reissued when authentication 
+	errors occur and the code needs to prompt the user. Thanks to Thomas Kiesswetter 
+	for reporting this problem and provided the fix.</li>
+	<li>Addition of a CHTTPDOWNLOADDLG_EXT_CLASS preprocessor macro which allows 
+	the class to be easily added to an extension dll</li>
+	<li>Fixed a bug when errors are displayed when QueryStatusCode fails.</li>
+</ul>
+<p><b>v1.17 (12 February 2004)</b></p>
+<ul>
+	<li>Class now automatically pulls in wininet.lib support via a #pragma. This 
+	means that client apps no longer need to update the linker settings.</li>
+</ul>
+<p><b>v1.16 (5 February 2004)</b></p>
+<ul>
+	<li>Updated the way the progress control is displayed when a resumed download 
+	is performed. Thanks to David C. Hochrein for reporting this addition.</li>
+</ul>
+<p><b>v1.15 (29 June 2003)</b></p>
+<ul>
+	<li>The progress control now uses a range of 0 - 100 percent rather than the 
+	actual file size. This prevents overflow with the SetRange method. I could use 
+	SetRange32, but then the class would depend on having an updated version of 
+	the common control dll installed.</li>
+	<li>Fixed a problem in OnStatusCallBack when compiled for Unicode.</li>
+</ul>
+<p><b>v1.14 (19 January 2003)</b></p>
+<ul>
+	<li>Fixed a bug in calling InternetReadFile when doing proxy authentication 
+	which could have resulted in an infinite loop occurring. Thanks to Nathan Lewis 
+	for reporting this.</li>
+	<li>Reworked the code which queries for the HTTP status code to use the HTTP_QUERY_FLAG_NUMBER 
+	flag in the call to HttpQueryInfo. Again thanks to Nathan Lewis for suggesting 
+	this.</li>
+	<li>Reworked the code which queries for the HTTP content length code to use 
+	the HTTP_QUERY_FLAG_NUMBER flag in the call to HttpQueryInfo. Again thanks to 
+	Nathan Lewis for suggesting this.</li>
+</ul>
+<p><b>v1.13 (6 January 2003)</b></p>
+<ul>
+	<li>Fixed a bug where using HTTPS on a non standard port would cause the download 
+	to fail. Thanks to &quot;Sundar&quot; for spotting this problem</li>
+	<li>Fixed a bug in the displaying of errors which use the strings &quot;IDS_HTTPDOWNLOAD_INVALID_SERVER_RESPONSE&quot; 
+	and &quot;IDS_HTTPDOWNLOAD_INVALID_SERVER_RESPONSE&quot;</li>
+</ul>
+<p><b>v1.12 (30 October 2002)</b></p>
+<ul>
+	<li>Fixed a problem with seeking to the correct position when resuming a download. 
+	Thanks to Liping Dai for this bug report.</li>
+</ul>
+<p><b>v1.11 (20 April 2002)</b></p>
+<ul>
+	<li>Fixed bug in call to AfxBeginThread. Thanks to mark Anderson for spotting 
+	this problem.</li>
+	<li>Fixed a redraw glitch where the progress control was being updated twice 
+	instead of once each time for each percentage. Again thanks to Mark Anderson 
+	for spotting this problem.</li>
+</ul>
+<p><b>v1.10 (2 February 2002)</b></p>
+<ul>
+	<li>Fixed a bug where the local downloaded file would get appended to even when 
+	you are not resuming the download. Thanks to Davide Zaccanti for spotting this 
+	problem.</li>
+	<li>Updated documentation to include explicit requirements for the class.</li>
+</ul>
+<p><b>v1.09 (3 December 2001)</b></p>
+<ul>
+	<li>Tidied up support for resumed downloads.</li>
+</ul>
+<p><b>v1.08 (10 October 2001)</b></p>
+<ul>
+	<li>Fixed a problem where old style MFC exception handling was being used instead 
+	of C++ standard.</li>
+	<li>Code is now independent of Platform SDK meaning that it can compile on VC 
+	5 without need for having the Platform SDK installed.</li>
+</ul>
+<p><b>v1.07 (17 June 2001)</b></p>
+<ul>
+	<li>Now provides Bandwidth throttling support. Thanks to Karim Mribti for this 
+	good addition.</li>
+	<li>Code now uses InternetReadFile instead of InternetReadFileEx as InternetReadFileEx 
+	is not implemented under Unicode.</li>
+</ul>
+<p><b>v1.06 (28 April 2001)</b></p>
+<ul>
+	<li>Updated Copyright Information</li>
+	<li>You need to have the Latest Wininet header files installed to compile the 
+	code. This will not be the case with VC 5, which you will also have to install 
+	the platform SDK also.</li>
+	<li>Now includes support for the following fields:<br>m_sProxyUserName: You 
+	can now specify the Proxy user details<br>m_sProxyPassword: The Proxy password 
+	to use<br>m_ConnectionType: You can now specify the HTTP connection type<br>
+	m_bPromptFileOverwrite: Should you be prompted for file overwrites<br>m_bPromptForProxyDetails: 
+	Should you be prompted for Proxy authentication<br>m_bPromptForHTTPDetails: 
+	Should you be prompted for HTTP authentication<br>m_sUserAgent: The User Agent 
+	value to use in HTTP requests</li>
+	<li>Fixed a problem in downloading files using HTTPS.</li>
+	<li>Provided a OnSetOptions method to allow customisation through deriving your 
+	own class from CHttpDownloadDlg.</li>
+</ul>
+<p><b>v1.05 (2 July 2000)</b></p>
+<ul>
+	<li>Now supports resuming downloads. Thanks go to &quot;Eric&quot; for submitting 
+	this very nice enhancement.</li>
+</ul>
+<p><b>v1.04 (12 June 2000)</b></p>
+<ul>
+	<li>Now fully supports HTTPS downloads.</li>
+</ul>
+<p><b>v1.03 (25 January 2000)</b></p>
+<ul>
+	<li>Fixed a problem where server authentication was not being detected correctly, 
+	while proxy authentication was being handled.</li>
+	<li>Updated the way and periodicity certain UI controls are updated during the 
+	HTTP download.</li>
+</ul>
+<p><b>v1.02 (29 November 1999)</b></p>
+<ul>
+	<li>Fixed a number of compiler warnings and errors when used in VC++ 6.0.</li>
+</ul>
+<p><b>v1.01 (15 November 1999)</b></p>
+<ul>
+	<li>Updated documentation to refer to what rc resources are needed by the class.</li>
+	<li>Renamed all resources used from &quot;ASYNC_DOWLOAD&quot; to include &quot;HTTPDOWNLOAD&quot;.</li>
+	<li>Now handles HTTP error 407 (Proxy Authentication) and HTTP error 401 (Server 
+	Authentication). You are prompted with a password dialog when either of these&nbsp; 
+	forms of authentication are required.</li>
+	<li>Sample program now allows you to specify the URL to download from as well 
+	as the file to download into and the username and password to connect with.</li>
+	<li>The download file is now deleted if the download was aborted or if some 
+	other error occurs during the download.</li>
+	<li>Parsing of URL will now work where &quot;http://&quot; is not explicitly 
+	specified.</li>
+	<li>Improved the general look and feel of the demo app and called it &quot;HTML 
+	File Downloader&quot;.</li>
+</ul>
+<p><b>v1.0 (14 November 1999)</b></p>
+<ul>
+	<li>Initial Public Release</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><a name="Usage"></a><b>Usage</b></h2>
+<ul>
+	<li>To use CHTTPDownloadDlg / CHTTPDownloader in your project simply include 
+	HttpDownloadDlg.cpp/h and HttpDownloader.cpp/h from the test application in 
+	your application and #include the appropriate header files in whichever files 
+	you want to use the class in. </li>
+	<li>If you just want to use CHTTPDownloader on its own, then you only need to 
+	add the HttpDownload.cpp/h modules.</li>
+	<li>You should also copy over all the &quot;IDS_HTTPDOWNLOAD_..&quot; string 
+	resources, the IDD_HTTPDOWNLOAD dialog resource and the IDR_HTTPDOWNLOAD_ANIMATION &quot;avi&quot; 
+	resource. The dialog and avi resources are only necessary if you are using CHTTPDownloadDlg(2) 
+	and not CHTTPDownloader(2) on its own.</li>
+	<li>To bring up the dialog to download a specific file, just use some code like 
+	the following:<br><br>CHTTPDownloadDlg dlg;<br>dlg.m_sURLToDownload = _T(&quot;http://www.some-site.com/somefile.ext&quot;);<br>
+	dlg.m_sFileToDownloadInto = _T(&quot;c:\\somefile.ext&quot;);<br>if (dlg.DoModal() 
+	== IDOK)<br>&nbsp;&nbsp;&nbsp; AfxMessageBox(_T(&quot;File was downloaded successfully&quot;));</li>
+	<li>You should also have a look at the CInetDownloadDlg::OnDownload() code in 
+	the sample application.</li>
+	<li>As of v1.23, you can now use the new CHTTPDownloader class also provided 
+	in the download to perform synchronous HTTP downloads with or without a UI. 
+	For more info on this, please review the history notes for v1.23.</li>
+	<li>As of v1.24, If you want to use WinHTTP instead of Wininet for the downloading 
+	then simply replace &quot;CHTTPDownloadDlg&quot; with &quot;CHTTPDownloadDlg2&quot; 
+	and &quot;CHTTPDownloader&quot; with &quot;CHTTPDownloader2&quot; in your code. 
+	Note that the WinHTTP supports some unique functionality such as fine grained 
+	control over the authentication schemes it uses. You should include HttpDownloadDlg2.cpp/h 
+	and HttpDownloader2.cpp/h in your project instead of the Wininet based modules. 
+	Other than that the same procedures apply. Please note that the WinHTTP code 
+	path will require VC 2008 or later to compile cleanly.</li>
+	<li>As of v1.36, the classes are now designed for VC 2017 or later. They will 
+	not compile on earlier releases of VC.</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><a name="Contact"></a>Contacting the Author</h2>
+<p>PJ Naughter<br>Email: <a href="mailto:pjna@naughter.com">pjna@naughter.com</a><br>
+Web: <a href="http://www.naughter.com">http://www.naughter.com</a><br>16 January 2021</p>
+
+</body>
+
+</html>
