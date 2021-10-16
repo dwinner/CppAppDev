@@ -126,51 +126,6 @@ int get_token(void)
   return token_type;
 }
 
-listing 2
-/* Display an error message. */
-void sntx_err(int error)
-{
-  char *p, *temp;
-  int linecount = 0;
-  register int i;
-
-  static char *e[]= {
-    "syntax error",
-    "unbalanced parentheses",
-    "no expression present",
-    "equals sign expected",
-    "not a variable",
-    "parameter error",
-    "semicolon expected",
-    "unbalanced braces",
-    "function undefined",
-    "type specifier expected",
-    "too many nested function calls",
-    "return without call",
-    "parentheses expected",
-    "while expected",
-    "closing quote expected",
-    "not a string",
-    "too many local variables",
-    "division by zero"
-  };
-  printf("\n%s", e[error]);
-  p = p_buf;
-  while(p != prog) {  /* find line number of error */
-    p++;
-    if(*p == '\r') {
-      linecount++;
-    }
-  }
-  printf(" in line %d\n", linecount);
-
-  temp = p;
-  for(i=0; i < 20 && p > p_buf && *p != '\n'; i++, p--);
-  for(i=0; i < 30 && p <= temp; i++, p++) printf("%c", *p);
-
-  longjmp(e_buf, 1); /* return to safe point */
-}
-
 listing 3
 /* Recursive descent parser for integer expressions
    which may include variables and function calls.
@@ -181,39 +136,6 @@ listing 3
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-
-#define NUM_FUNC        100
-#define NUM_GLOBAL_VARS 100
-#define NUM_LOCAL_VARS  200
-#define ID_LEN          31
-#define FUNC_CALLS      31
-#define PROG_SIZE       10000
-#define FOR_NEST        31
-
-enum tok_types {DELIMITER, IDENTIFIER, NUMBER, KEYWORD,
-                TEMP, STRING, BLOCK};
-
-enum tokens {ARG, CHAR, INT, IF, ELSE, FOR, DO, WHILE,
-             SWITCH, RETURN, EOL, FINISHED, END};
-
-enum double_ops {LT=1, LE, GT, GE, EQ, NE};
-
-/* These are the constants used to call sntx_err() when
-   a syntax error occurs. Add more if you like.
-   NOTE: SYNTAX is a generic error message used when
-   nothing else seems appropriate.
-*/
-enum error_msg
-     {SYNTAX, UNBAL_PARENS, NO_EXP, EQUALS_EXPECTED,
-      NOT_VAR, PARAM_ERR, SEMI_EXPECTED,
-      UNBAL_BRACES, FUNC_UNDEF, TYPE_EXPECTED,
-      NEST_FUNC, RET_NOCALL, PAREN_EXPECTED,
-      WHILE_EXPECTED, QUOTE_EXPECTED, NOT_TEMP,
-      TOO_MANY_LVARS, DIV_BY_ZERO};
-
-extern char *prog;  /* current location in source code */
-extern char *p_buf;  /* points to start of program buffer */
-extern jmp_buf e_buf; /* hold environment for longjmp() */
 
 /* An array of these structures will hold the info
    associated with global variables.
