@@ -4,24 +4,16 @@
 
 #include <stdio.h>
 #include <setjmp.h>
+#include <stdlib.h>
 
-/**
- * Current location in source code
- */
-extern char *prog;
-
-/**
- * Points to start of program buffer
- */
-extern char *p_buf;
-
-/**
- * Hold environment for longjmp()
- */
-extern jmp_buf e_buf;
-
-int main()
+int main(int argc, char *argv[])
 {
-   printf("Hello, World!\n");
+
+   if (argc != 2)
+   {
+      printf("Usage: LittleC <filename>\n");
+      exit(EXIT_FAILURE);
+   }
+
    return 0;
 }
