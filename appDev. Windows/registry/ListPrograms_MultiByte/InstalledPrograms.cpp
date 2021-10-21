@@ -33,23 +33,23 @@ namespace programList
 	{
 		auto softwareList = new vector<SoftwareEntity>();
 
-		RegistryKey* classesKey = RegistryKey::GetHklmKey().OpenSubKey("Software\\Classes\\Installer\\Products");
+		RegistryKey* classesKey = RegistryKey::GetHklmKey().OpenSubKey(R"(Software\Classes\Installer\Products)");
 		RegistryKey* wow64UninstallKey = RegistryKey::GetHklmKey().OpenSubKey32(
-			"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall");
+			R"(Software\Microsoft\Windows\CurrentVersion\Uninstall)");
 		softwareList = GetUninstallKeyPrograms(wow64UninstallKey, classesKey, softwareList, includeUpdates);
 		RegistryKey* uninstallKey = RegistryKey::GetHklmKey().OpenSubKey64(
-			"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall");
+			R"(Software\Microsoft\Windows\CurrentVersion\Uninstall)");
 		softwareList = GetUninstallKeyPrograms(uninstallKey, classesKey, softwareList, includeUpdates);
 		vector<string> subkeys = RegistryKey::GetHkuKey().GetSubKeyNames();
 
 		for (auto it = subkeys.begin(); it != subkeys.end(); ++it)
 		{
-			string uninstallSubs = *it + "\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall";
+			string uninstallSubs = *it + R"(\Software\Microsoft\Windows\CurrentVersion\Uninstall)";
 			RegistryKey* lUninstallKey = RegistryKey::GetHkuKey().OpenSubKey(uninstallSubs);
 			softwareList = GetUninstallKeyPrograms(lUninstallKey, classesKey, softwareList, includeUpdates);
 			delete lUninstallKey;
 
-			string installersubs = *it + "\\Software\\Microsoft\\Installer\\Products";
+			string installersubs = *it + R"(\Software\Microsoft\Installer\Products)";
 			RegistryKey* installerKey = RegistryKey::GetHkuKey().OpenSubKey(installersubs);
 			softwareList = GetUserInstallerKeyPrograms(installerKey, softwareList);
 			delete installerKey;
@@ -79,9 +79,9 @@ namespace programList
 		}
 
 		RegistryKey* userData32 = RegistryKey::GetHklmKey().OpenSubKey32(
-			"Software\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData");
+			R"(Software\Microsoft\Windows\CurrentVersion\Installer\UserData)");
 		RegistryKey* userData64 = RegistryKey::GetHklmKey().OpenSubKey64(
-			"Software\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData");
+			R"(Software\Microsoft\Windows\CurrentVersion\Installer\UserData)");
 
 		if (userData32 == nullptr && userData64 == nullptr)
 		{
@@ -111,7 +111,7 @@ namespace programList
 					}
 
 					RegistryKey* productsKey = RegistryKey::GetHklmKey().OpenSubKey(
-						string("Software\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\")
+						string(R"(Software\Microsoft\Windows\CurrentVersion\Installer\UserData\)")
 						.append(*userDataIter)
 						.append("\\Products"), UnKnown);
 
@@ -124,7 +124,7 @@ namespace programList
 							if (*productIter == *it)
 							{
 								RegistryKey* userDataProgramKey = RegistryKey::GetHklmKey().OpenSubKey(
-									string("Software\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\")
+									string(R"(Software\Microsoft\Windows\CurrentVersion\Installer\UserData\)")
 									.append(*userDataIter)
 									.append("\\Products\\")
 									.append(*productIter)
@@ -132,6 +132,7 @@ namespace programList
 								if (userDataProgramKey != nullptr)
 								{
 									string sysCompValue = userDataProgramKey->GetValue("SystemComponent");
+									
 									if (sysCompValue.empty() || atoi(sysCompValue.c_str()) != 1)
 									{
 										RegistryKey* temp = uInstallerKey->OpenSubKey(*it, uInstallerKey->KeyArch);
