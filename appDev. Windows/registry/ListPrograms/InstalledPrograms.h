@@ -3,30 +3,44 @@
 #include <vector>
 #include <Windows.h>
 #include "RegistryKey.h"
-using namespace std;
 
-class Software
+namespace programList
 {
-public:
-	wstring DisplayName;
-	wstring InstallLocation;
-	wstring Version;
-	Arch Architecture; // 32 or 64
-	wstring Icon;
-	Software(wstring, wstring, wstring, wstring, Arch);
-};
+	class SoftwareEntity
+	{
+	public:
+		std::wstring DisplayName;
 
+		std::wstring InstallLocation;
 
-class InstalledPrograms
-{
-public:
-	InstalledPrograms(void);
-	~InstalledPrograms(void);
-	static vector<Software>* GetInstalledPrograms(bool IncludeUpdates);
-private:
-	static vector<Software>* GetInstalledProgramsImp(bool IncludeUpdates);
-	static vector<Software>* GetUninstallKeyPrograms(RegistryKey* UninstallKey, RegistryKey* ClassesKey, vector<Software>*, bool IncludeUpdates);
-	static vector<Software>* GetUserInstallerKeyPrograms(RegistryKey* uInstallerKey, vector<Software>* ExistingProgramList);
-};
+		std::wstring Version;
+
+		Arch Architecture; // 32 or 64
+
+		std::wstring Icon;
+
+		SoftwareEntity(std::wstring, std::wstring, std::wstring, std::wstring, Arch);
+	};
+
+	class InstalledPrograms
+	{
+	public:
+		InstalledPrograms();
+
+		~InstalledPrograms();
+
+		static std::vector<SoftwareEntity>* GetInstalledPrograms(bool includeUpdates);
+
+	private:
+		static std::vector<SoftwareEntity>* GetInstalledProgramsImp(bool includeUpdates);
+
+		static std::vector<SoftwareEntity>* GetUninstallKeyPrograms(RegistryKey* uninstallKey, RegistryKey* classesKey,
+		                                                            std::vector<SoftwareEntity>*, bool includeUpdates);
+
+		static std::vector<SoftwareEntity>* GetUserInstallerKeyPrograms(RegistryKey* uInstallerKey,
+		                                                                std::vector<SoftwareEntity>*
+		                                                                existingProgramList);
+	};
+}
 
 #endif

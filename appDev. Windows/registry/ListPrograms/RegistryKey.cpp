@@ -1,136 +1,139 @@
 #include "RegistryKey.h"
 
-
-RegistryKey::RegistryKey(HKEY hkey, Arch arch)
+namespace programList
 {
-	this->hkey = hkey;
-	this->KeyArch = arch;
-}
+	using namespace std;
 
-
-RegistryKey::~RegistryKey(void)
-{
-	if( this->hkey == HKEY_LOCAL_MACHINE || this->hkey == HKEY_USERS )
-		return;
-	RegCloseKey(this->hkey);
-}
-
-RegistryKey* RegistryKey::OpenSubKey64(wstring subkey)
-{
-	HKEY hKey;
-	if (RegOpenKeyEx(this->hkey, subkey.c_str(), 0, KEY_READ|KEY_WOW64_64KEY, &hKey) != ERROR_SUCCESS)
+	RegistryKey::RegistryKey(HKEY hkey, Arch arch)
 	{
-		return NULL;
+		this->hkey_ = hkey;
+		this->KeyArch = arch;
 	}
-	else
-	{
-		return new RegistryKey(hKey, X64);
-	}
-}
 
-RegistryKey* RegistryKey::OpenSubKey32(wstring subkey)
-{
-	HKEY hKey;
-	if (RegOpenKeyEx(this->hkey, subkey.c_str(), 0, KEY_READ|KEY_WOW64_32KEY, &hKey) != ERROR_SUCCESS)
+	RegistryKey::~RegistryKey(void)
 	{
-		return NULL;
-	}
-	else
-	{
-		return new RegistryKey(hKey, X86);
-	}
-}
-
-RegistryKey* RegistryKey::OpenSubKey(wstring subkey)
-{
-	HKEY hKey;
-	if (RegOpenKeyEx(this->hkey, subkey.c_str(), 0, KEY_READ, &hKey) != ERROR_SUCCESS)
-	{
-		return NULL;
-	}
-	else
-	{
-		return new RegistryKey(hKey, UnKnown);
-	}
-}
-
-RegistryKey* RegistryKey::OpenSubKey(wstring subkey, Arch a)
-{
-	HKEY hKey;
-	DWORD FLAG;
-	if(a==X64)
-		FLAG = KEY_WOW64_64KEY;
-	else if(a==X86)
-		FLAG = KEY_WOW64_32KEY;
-	else
-		FLAG = 0;
-
-	if (RegOpenKeyEx(this->hkey, subkey.c_str(), 0, KEY_READ|FLAG, &hKey) != ERROR_SUCCESS)
-	{
-		return NULL;
-	}
-	else
-	{
-		return new RegistryKey(hKey, a);
-	}
-}
-
-
-RegistryKey& RegistryKey::HKLM()
-{
-	static RegistryKey Key(HKEY_LOCAL_MACHINE, UnKnown);
-	return Key;
-}
-
-RegistryKey& RegistryKey::HKU()
-{
-	static RegistryKey Key(HKEY_USERS, UnKnown);
-	return Key;
-}
-
-vector<wstring> RegistryKey::GetSubKeyNames()
-{
-	vector<wstring> ret;
-	LONG lRet;
-	DWORD dwIndex = 0;
-	DWORD cbName = MAX_PATH;
-	WCHAR szSubKeyName[MAX_PATH];
-	while( (lRet = RegEnumKeyEx(this->hkey, dwIndex, szSubKeyName, &cbName, NULL,NULL, NULL, NULL)) != ERROR_NO_MORE_ITEMS )
-	{
-		if(lRet == ERROR_SUCCESS)
+		if (this->hkey_ == HKEY_LOCAL_MACHINE || this->hkey_ == HKEY_USERS)
 		{
-			ret.push_back(wstring(szSubKeyName));
+			return;
 		}
-		cbName = MAX_PATH;
-		dwIndex++;
+
+		RegCloseKey(this->hkey_);
 	}
-	return ret;
-}
 
-
-wstring RegistryKey::GetValue(wstring query)
-{
-	WCHAR Value[MAX_PATH];
-	DWORD dwSize = sizeof(Value);
-	DWORD dwType;
-	if (RegQueryValueEx(this->hkey, query.c_str(), NULL, &dwType, (LPBYTE)&Value, &dwSize) == ERROR_SUCCESS)
-    {
-		if(dwType==REG_DWORD)
-		{
-			DWORD * ret = (DWORD*)Value;
-			return wstring(_itow((*ret),Value,10));
-		}
-		else if(dwType==REG_SZ)
-			return wstring(Value);
-		else if(dwType==REG_EXPAND_SZ)
-		{
-			WCHAR Expanded[MAX_PATH];
-			ExpandEnvironmentStrings(Value, Expanded, MAX_PATH);
-			return wstring(Expanded);
-		}
-    }
-	else
+	RegistryKey* RegistryKey::OpenSubKey64(const wstring& subKey) const
 	{
+		HKEY hKey;
+		return RegOpenKeyEx(this->hkey_, subKey.c_str(), 0, KEY_READ | KEY_WOW64_64KEY, &hKey) != ERROR_SUCCESS
+			       ? nullptr
+			       : new RegistryKey(hKey, X64);
+	}
+
+	RegistryKey* RegistryKey::OpenSubKey32(const wstring& subKey) const
+	{
+		HKEY hKey;
+		return RegOpenKeyEx(this->hkey_, subKey.c_str(), 0, KEY_READ | KEY_WOW64_32KEY, &hKey) != ERROR_SUCCESS
+			       ? nullptr
+			       : new RegistryKey(hKey, X86);
+	}
+
+	RegistryKey* RegistryKey::OpenSubKey(const wstring& subKey) const
+	{
+		HKEY hKey;
+		return RegOpenKeyEx(this->hkey_, subKey.c_str(), 0, KEY_READ, &hKey) != ERROR_SUCCESS
+			       ? nullptr
+			       : new RegistryKey(hKey, UnKnown);
+	}
+
+	RegistryKey* RegistryKey::OpenSubKey(const wstring& subKey, const Arch arch) const
+	{
+		HKEY hKey;
+		const DWORD flag = arch != X64
+			                   ? arch == X86
+				                     ? KEY_WOW64_32KEY
+				                     : 0
+			                   : KEY_WOW64_64KEY;
+		return RegOpenKeyEx(this->hkey_, subKey.c_str(), 0, KEY_READ | flag, &hKey) != ERROR_SUCCESS
+			       ? nullptr
+			       : new RegistryKey(hKey, arch);
+	}
+
+	RegistryKey& RegistryKey::GetHklmKey()
+	{
+		static RegistryKey registryKey(HKEY_LOCAL_MACHINE, UnKnown); // NOLINT(clang-diagnostic-exit-time-destructors)
+		return registryKey;
+	}
+
+	RegistryKey& RegistryKey::GetHkuKey()
+	{
+		static RegistryKey registryKey(HKEY_USERS, UnKnown); // NOLINT(clang-diagnostic-exit-time-destructors)
+		return registryKey;
+	}
+
+	vector<wstring> RegistryKey::GetSubKeyNames() const
+	{
+		vector<wstring> subKeyNames;
+		LONG lRet;
+		DWORD dwIndex = 0;
+		DWORD cbName = MAX_PATH;
+		WCHAR szSubKeyName[MAX_PATH];
+
+		while ((lRet = RegEnumKeyEx(this->hkey_,
+		                            dwIndex,
+		                            szSubKeyName,
+		                            &cbName,
+		                            nullptr,
+		                            nullptr,
+		                            nullptr,
+		                            nullptr)) != ERROR_NO_MORE_ITEMS)
+		{
+			if (lRet == ERROR_SUCCESS)
+			{
+				subKeyNames.emplace_back(szSubKeyName);
+			}
+
+			cbName = MAX_PATH;
+			dwIndex++;
+		}
+
+		return subKeyNames;
+	}
+
+	wstring RegistryKey::GetValue(const wstring& query) const
+	{
+		WCHAR value[MAX_PATH];
+		DWORD dwSize = sizeof value;
+		DWORD dwType;
+
+		if (RegQueryValueEx(this->hkey_,
+		                    query.c_str(),
+		                    nullptr,
+		                    &dwType,
+		                    reinterpret_cast<LPBYTE>(&value),
+		                    &dwSize) != ERROR_SUCCESS)
+		{
+			return L"";
+		}
+
+		if (dwType == REG_DWORD)
+		{
+			const DWORD* pEncodedValue = reinterpret_cast<DWORD*>(value);
+			const int encodedValue = static_cast<int>(*pEncodedValue);
+			const errno_t errorCode = _itow_s(encodedValue, value, MAX_PATH, 10);
+			return wstring(errorCode == 0 ? value : L"");
+		}
+
+		if (dwType == REG_SZ)
+		{
+			return wstring(value);
+		}
+
+		if (dwType == REG_EXPAND_SZ)
+		{
+			WCHAR expanded[MAX_PATH];
+			ExpandEnvironmentStrings(value, expanded, MAX_PATH);
+			return wstring(expanded);
+		}
+
 		return L"";
 	}
 }
