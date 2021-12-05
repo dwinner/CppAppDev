@@ -44,19 +44,23 @@ int main() noexcept
    assert(fs::exists(extensionsDir));
 
    // Get all installed extensions
-   string ceVsixPath = "caneasy-1.0.0.vsix";
-   string caplPath = "kmasif.capl-vector";
+   string ceVsixExtId = "caneasy-1.0.0.vsix";
+   string caplExtId = "kmasif.capl-vector";
    set<fs::path> extensionSet;
    for (const auto& directoryEntry : fs::directory_iterator(extensionsDir))
    {
       extensionSet.insert(directoryEntry.path());
    }
 
+   // split path to extension name, major.minor.patch version
+   fs::path ceVsixPath(ceVsixExtId);
+
+   abort();
    string codeCmdPath = R"(c:\Users\vinevtsev\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd)";
    assert(fs::exists(codeCmdPath));
-   assert(fs::exists(ceVsixPath));
-   installExtension(codeCmdPath, ceVsixPath);
-   installExtension(codeCmdPath, caplPath, false);
+   assert(fs::exists(ceVsixExtId));
+   installExtension(codeCmdPath, ceVsixExtId);
+   installExtension(codeCmdPath, caplExtId, false);
 
    return EXIT_SUCCESS;
 }
