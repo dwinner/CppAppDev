@@ -10,7 +10,7 @@ public:
 
    [[nodiscard]] ExtensionEntity(int major, int minor, int patch,
                                  std::string vendor,
-                                 std::string id);
+                                 std::string extId);
 
    [[nodiscard]] int GetMajor() const;
 
@@ -20,12 +20,12 @@ public:
 
    [[nodiscard]] std::string GetVendor() const;
 
-   [[nodiscard]] std::string GetId() const;
+   [[nodiscard]] std::string GetExtId() const;
 
 private:
    int major_;
    int minor_;
    int patch_;
    std::string vendor_;
-   std::string id_;
+   std::string extId_;
 };

@@ -11,6 +11,13 @@
 #include <string>
 #include <set>
 #include <sstream>
+#include <regex>
+#include <iostream>
+#include <iterator>
+#include <algorithm>
+#include <iomanip>
+
+#include "ExtensionEntity.h"
 
 #pragma comment(lib, "userenv.lib")
 
@@ -36,7 +43,7 @@ int main() noexcept
    }
 
    // Find file *caneasy*.vsix in the current directory;
-   const auto vsixVector = findFiles(fs::current_path(), [](const fs::path& path)
+   const auto vsixList = findFiles(fs::current_path(), [](const fs::path& path)
    {
       auto fileName = path.string();
       return fileName.find("caneasy") != std::string::npos
@@ -45,8 +52,8 @@ int main() noexcept
    });
 
    // There should be only one vsix in the current directory
-   assert(vsixVector.size() == 1);
-   fs::path vsixPath = vsixVector[0];
+   assert(vsixList.size() == 1);
+   fs::path vsixPath = vsixList[0];
 
    // Adapt the name caneasy-x.x.x.vsix to schleisheimer.caneasy-x.x.x
    string vsixFilename("schleisheimer.");
@@ -55,16 +62,21 @@ int main() noexcept
    string rawVsixName = vsixFileWithExt.substr(0, lastIdx);
    vsixFilename.append(rawVsixName);
 
-   abort();
-   // TODO: 3.    Pack schleisheimer.caneasy-x.x.x to entity;
-   // TODO: 4.    Find all installed extensions and pack them to entitiy-set;
-   // TODO: 5.    Find out if the latest one for caneasy-x.x.x.vsix is installed;
-   // TODO: 6.    If the latest one is there - go to item 7;
-   // TODO: 7.    Find similar extensions for caneasy have been installed already;
-   // TODO: 8.    If similar extensions are more than one - delete all but latest;
-   // TODO: 9.    If the latest one isn't there - install it then and go to item 7;
-   // TODO: 10.   Find if kmasif.capl-vector is installed;
-   // TODO: 11.   If kmasif.capl-vector is installed - delete it psysically
+   // Pack schleisheimer.caneasy-x.x.x to entity via parsing RegEx-object
+   const regex extRe{R"(^([\w]+)\.([\w]+)\-([\d])\.([\d])\.([\d])$)"};
+   std::smatch extMatch;
+   bool matchFound = regex_match(vsixFilename, extMatch, extRe);
+   assert(matchFound);
+
+   // Wrap RegEx-matches into pdo entity
+   string vendor = extMatch[1];
+   string extId = extMatch[2];
+   int majorVersion = std::stoi(extMatch[3]);
+   int minorVersion = std::stoi(extMatch[4]);
+   int patchVersion = std::stoi(extMatch[5]);
+   ExtensionEntity targetEntity(majorVersion, minorVersion, patchVersion, vendor, extId);
+
+   // TODO: Find all installed extensions and pack them to entity-set
 
    // Check extensions have been already installed
    string userDir = getUserHomeDir();
@@ -73,21 +85,29 @@ int main() noexcept
    assert(fs::exists(extensionsDir));
 
    // Get all installed extensions
-   string ceVsixExtId = "caneasy-1.0.0.vsix";
-   string caplExtId = "kmasif.capl-vector";
    set<fs::path> extensionSet;
    for (const auto& directoryEntry : fs::directory_iterator(extensionsDir))
    {
       extensionSet.insert(directoryEntry.path());
    }
+   
+   abort();
+   // TODO: 5.    Find out if the latest one for caneasy-x.x.x.vsix is installed;
+   // TODO: 6.    If the latest one is there - go to item 7;
+   // TODO: 7.    Find similar extensions for caneasy have been installed already;
+   // TODO: 8.    If similar extensions are more than one - delete all but latest;
+   // TODO: 9.    If the latest one isn't there - install it then and go to item 7;
+   // TODO: 10.   Find if kmasif.capl-vector is installed;
+   // TODO: 11.   If kmasif.capl-vector is installed - delete it psysically
+
+   string caplExtId = "kmasif.capl-vector";
 
    // split path to extension name, major.minor.patch version
-   fs::path ceVsixPath(ceVsixExtId);
+   fs::path ceVsixPath(vsixFileWithExt);
 
    string codeCmdPath = R"(c:\Users\vinevtsev\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd)";
    assert(fs::exists(codeCmdPath));
-   assert(fs::exists(ceVsixExtId));
-   installExtension(codeCmdPath, ceVsixExtId);
+   installExtension(codeCmdPath, vsixFileWithExt);
    installExtension(codeCmdPath, caplExtId, false);
 
    return EXIT_SUCCESS;

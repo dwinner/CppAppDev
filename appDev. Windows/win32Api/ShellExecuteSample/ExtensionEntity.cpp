@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "ExtensionEntity.h"
 
+#include <utility>
+
 ExtensionEntity ExtensionEntity::Parse(std::string extensionPattern)
 {
    ExtensionEntity entity;
@@ -9,12 +11,14 @@ ExtensionEntity ExtensionEntity::Parse(std::string extensionPattern)
 
 ExtensionEntity::ExtensionEntity() = default;
 
-ExtensionEntity::ExtensionEntity(const int major, const int minor, const int patch, std::string vendor, std::string id)
+ExtensionEntity::ExtensionEntity(const int major, const int minor, const int patch,
+                                 std::string vendor,
+                                 std::string extId)
    : major_(major),
      minor_(minor),
      patch_(patch),
      vendor_(std::move(vendor)),
-     id_(std::move(id))
+     extId_(std::move(extId))
 {
 }
 
@@ -38,7 +42,7 @@ std::string ExtensionEntity::GetVendor() const
    return vendor_;
 }
 
-std::string ExtensionEntity::GetId() const
+std::string ExtensionEntity::GetExtId() const
 {
-   return id_;
+   return extId_;
 }
