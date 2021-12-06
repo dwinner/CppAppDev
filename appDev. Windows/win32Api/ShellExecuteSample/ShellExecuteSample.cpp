@@ -48,7 +48,14 @@ int main() noexcept
    assert(vsixVector.size() == 1);
    fs::path vsixPath = vsixVector[0];
 
-   // TODO: 2.    Adapt the name caneasy-x.x.x.vsix to schleisheimer.caneasy-x.x.x;
+   // Adapt the name caneasy-x.x.x.vsix to schleisheimer.caneasy-x.x.x
+   string vsixFilename("schleisheimer.");
+   auto vsixFileWithExt = vsixPath.filename().string();
+   size_t lastIdx = vsixFileWithExt.find_last_of('.');
+   string rawVsixName = vsixFileWithExt.substr(0, lastIdx);
+   vsixFilename.append(rawVsixName);
+
+   abort();
    // TODO: 3.    Pack schleisheimer.caneasy-x.x.x to entity;
    // TODO: 4.    Find all installed extensions and pack them to entitiy-set;
    // TODO: 5.    Find out if the latest one for caneasy-x.x.x.vsix is installed;
