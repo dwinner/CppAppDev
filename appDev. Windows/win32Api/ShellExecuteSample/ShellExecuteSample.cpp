@@ -5,9 +5,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "ShellExecuteSample.h"
-
 #include <cassert>
-
 #include "UserEnv.h"
 #include <filesystem>
 #include <string>
@@ -37,6 +35,30 @@ int main() noexcept
       return EXIT_FAILURE;
    }
 
+   // Find file *caneasy*.vsix in the current directory;
+   const auto vsixVector = findFiles(fs::current_path(), [](const fs::path& path)
+   {
+      auto fileName = path.string();
+      return fileName.find("caneasy") != std::string::npos
+         && path.has_extension()
+         && path.extension() == ".vsix";
+   });
+
+   // There should be only one vsix in the current directory
+   assert(vsixVector.size() == 1);
+   fs::path vsixPath = vsixVector[0];
+
+   // TODO: 2.    Adapt the name caneasy-x.x.x.vsix to schleisheimer.caneasy-x.x.x;
+   // TODO: 3.    Pack schleisheimer.caneasy-x.x.x to entity;
+   // TODO: 4.    Find all installed extensions and pack them to entitiy-set;
+   // TODO: 5.    Find out if the latest one for caneasy-x.x.x.vsix is installed;
+   // TODO: 6.    If the latest one is there - go to item 7;
+   // TODO: 7.    Find similar extensions for caneasy have been installed already;
+   // TODO: 8.    If similar extensions are more than one - delete all but latest;
+   // TODO: 9.    If the latest one isn't there - install it then and go to item 7;
+   // TODO: 10.   Find if kmasif.capl-vector is installed;
+   // TODO: 11.   If kmasif.capl-vector is installed - delete it psysically
+
    // Check extensions have been already installed
    string userDir = getUserHomeDir();
    auto extensionsDir = fs::path(userDir);
@@ -55,7 +77,6 @@ int main() noexcept
    // split path to extension name, major.minor.patch version
    fs::path ceVsixPath(ceVsixExtId);
 
-   abort();
    string codeCmdPath = R"(c:\Users\vinevtsev\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd)";
    assert(fs::exists(codeCmdPath));
    assert(fs::exists(ceVsixExtId));
@@ -97,4 +118,22 @@ bool installExtension(const std::string& vsCodeCmd, const std::string& extension
    const bool success = retVal > nullptr ? true : false;
 
    return success;
+}
+
+std::vector<fs::path> findFiles(const fs::path& dir, std::function<bool(const fs::path&)> filter)
+{
+   auto result = std::vector<fs::path>{};
+
+   if (exists(dir))
+   {
+      for (const auto& entry : fs::recursive_directory_iterator(dir, fs::directory_options::follow_directory_symlink))
+      {
+         if (is_regular_file(entry) && filter(entry))
+         {
+            result.push_back(entry);
+         }
+      }
+   }
+
+   return result;
 }
