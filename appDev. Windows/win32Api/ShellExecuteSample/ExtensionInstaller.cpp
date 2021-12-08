@@ -2,7 +2,6 @@
 #include "ExtensionInstaller.h"
 #include <UserEnv.h>
 #include <sstream>
-
 #include "InstallationError.h"
 
 #pragma comment(lib, "userenv.lib")
