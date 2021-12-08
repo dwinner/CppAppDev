@@ -9,13 +9,9 @@
 #include "UserEnv.h"
 #include <filesystem>
 #include <string>
-#include <set>
 #include <sstream>
 #include <regex>
-#include <iostream>
-#include <iterator>
-#include <algorithm>
-#include <iomanip>
+#include <map>
 
 #include "ExtensionEntity.h"
 
@@ -42,41 +38,13 @@ int main() noexcept
       return EXIT_FAILURE;
    }
 
-   // Find file *caneasy*.vsix in the current directory;
-   const auto vsixList = findFiles(fs::current_path(), [](const fs::path& path)
-   {
-      auto fileName = path.string();
-      return fileName.find("caneasy") != std::string::npos
-         && path.has_extension()
-         && path.extension() == ".vsix";
-   });
+   fs::path ceVsixPath = findVsix();
+   string ceVsixFilename = normalizeVsix(ceVsixPath);
+   bool success;
+   ExtensionEntity ceExtToInstall = ExtensionEntity::Parse(ceVsixFilename, success);
+   assert(success);
 
-   // There should be only one vsix in the current directory
-   assert(vsixList.size() == 1);
-   fs::path vsixPath = vsixList[0];
-
-   // Adapt the name caneasy-x.x.x.vsix to schleisheimer.caneasy-x.x.x
-   string vsixFilename("schleisheimer.");
-   auto vsixFileWithExt = vsixPath.filename().string();
-   size_t lastIdx = vsixFileWithExt.find_last_of('.');
-   string rawVsixName = vsixFileWithExt.substr(0, lastIdx);
-   vsixFilename.append(rawVsixName);
-
-   // Pack schleisheimer.caneasy-x.x.x to entity via parsing RegEx-object
-   const regex extRe{R"(^([\w]+)\.([\w]+)\-([\d])\.([\d])\.([\d])$)"};
-   std::smatch extMatch;
-   bool matchFound = regex_match(vsixFilename, extMatch, extRe);
-   assert(matchFound);
-
-   // Wrap RegEx-matches into pdo entity
-   string vendor = extMatch[1];
-   string extId = extMatch[2];
-   int majorVersion = std::stoi(extMatch[3]);
-   int minorVersion = std::stoi(extMatch[4]);
-   int patchVersion = std::stoi(extMatch[5]);
-   ExtensionEntity targetEntity(majorVersion, minorVersion, patchVersion, vendor, extId);
-
-   // TODO: Find all installed extensions and pack them to entity-set
+   // Find all installed extensions and pack them to entity-set
 
    // Check extensions have been already installed
    string userDir = getUserHomeDir();
@@ -85,29 +53,52 @@ int main() noexcept
    assert(fs::exists(extensionsDir));
 
    // Get all installed extensions
-   set<fs::path> extensionSet;
+   map<fs::path, ExtensionEntity> extensionMap;
    for (const auto& directoryEntry : fs::directory_iterator(extensionsDir))
    {
-      extensionSet.insert(directoryEntry.path());
+      const auto& path = directoryEntry.path();
+      string filename = path.filename().string();
+      bool successParse;
+      auto entity = ExtensionEntity::Parse(filename, successParse);
+      if (successParse)
+      {
+         extensionMap[path] = entity;
+      }
    }
-   
-   abort();
-   // TODO: 5.    Find out if the latest one for caneasy-x.x.x.vsix is installed;
-   // TODO: 6.    If the latest one is there - go to item 7;
-   // TODO: 7.    Find similar extensions for caneasy have been installed already;
-   // TODO: 8.    If similar extensions are more than one - delete all but latest;
-   // TODO: 9.    If the latest one isn't there - install it then and go to item 7;
-   // TODO: 10.   Find if kmasif.capl-vector is installed;
-   // TODO: 11.   If kmasif.capl-vector is installed - delete it psysically
 
-   string caplExtId = "kmasif.capl-vector";
-
-   // split path to extension name, major.minor.patch version
-   fs::path ceVsixPath(vsixFileWithExt);
+   // Find out if the latest one for caneasy-x.x.x.vsix is installed
+   bool installed = false;
+   for (auto mapIt = extensionMap.begin(); mapIt != extensionMap.end(); ++mapIt)
+   {
+      if (mapIt->second == ceExtToInstall)
+      {
+         installed = true;
+         break;
+      }
+   }
 
    string codeCmdPath = R"(c:\Users\vinevtsev\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd)";
    assert(fs::exists(codeCmdPath));
-   installExtension(codeCmdPath, vsixFileWithExt);
+
+   if (!installed)
+   {
+      auto vsixFileWithExt = ceVsixPath.filename().string();
+      installExtension(codeCmdPath, vsixFileWithExt);
+   }
+
+   // Find similar and delete all the previous but the latest one
+   for (auto mapIt = extensionMap.begin(); mapIt != extensionMap.end(); ++mapIt)
+   {
+      if (mapIt->second != ceExtToInstall
+         && (mapIt->second.GetExtId() == ceExtToInstall.GetExtId()
+            && mapIt->second.GetVendor() == ceExtToInstall.GetVendor()))
+      {
+         remove_all(mapIt->first);
+      }
+   }
+
+   // If kmasif.capl-vector is installedm than mark it as inactive than
+   string caplExtId = "kmasif.capl-vector";
    installExtension(codeCmdPath, caplExtId, false);
 
    return EXIT_SUCCESS;
@@ -163,4 +154,37 @@ std::vector<fs::path> findFiles(const fs::path& dir, std::function<bool(const fs
    }
 
    return result;
+}
+
+fs::path findVsix(const std::string& similarName)
+{
+   auto ext = ".vsix";
+
+   // Find file *caneasy*.vsix in the current directory;
+   const auto vsixList = findFiles(fs::current_path(),
+                                   [similarName, ext](const fs::path& path)
+                                   {
+                                      auto fileName = path.string();
+                                      return fileName.find(similarName) != std::string::npos
+                                         && path.has_extension()
+                                         && path.extension() == ext;
+                                   });
+
+   // There should be only one vsix in the current directory
+   assert(vsixList.size() == 1);
+   fs::path vsixPath = vsixList[0];
+
+   return vsixPath;
+}
+
+std::string normalizeVsix(const fs::path& vsixPath, const std::string& vendorName)
+{
+   // Adapt the name extId-x.x.x.vsix to vendor.extId-x.x.x
+   std::string vsixFilename(vendorName + ".");
+   auto vsixFileWithExt = vsixPath.filename().string();
+   size_t lastIdx = vsixFileWithExt.find_last_of('.');
+   std::string rawVsixName = vsixFileWithExt.substr(0, lastIdx);
+   vsixFilename.append(rawVsixName);
+
+   return vsixFilename;
 }
