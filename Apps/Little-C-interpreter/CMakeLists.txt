@@ -3,4 +3,4 @@ project(LittleC C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(LittleC main.c)
+add_executable(LittleC main.c littlecLib.c littlecLib.h)
