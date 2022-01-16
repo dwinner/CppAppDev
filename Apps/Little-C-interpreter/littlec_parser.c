@@ -1,4 +1,5 @@
 #include "littlec_parser.h"
+#include "littlec_app.h"
 
 /**
  * current location in source code
