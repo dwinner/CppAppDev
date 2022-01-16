@@ -27,6 +27,9 @@
 #define strcpy_s(dest, count, source) strncpy( (dest), (source), (count) )
 #endif
 
+/**
+ * C keyword tokens
+ */
 enum tokens
 {
    ARG,
@@ -46,6 +49,9 @@ enum tokens
    END
 };
 
+/**
+ * Double operators
+ */
 enum double_ops
 {
    LT = 1,
@@ -64,7 +70,7 @@ struct var_type
    char var_name[ID_LEN];
    int v_type;
    int value;
-} global_vars[NUM_GLOBAL_VARS];
+};
 
 /**
  * @brief This is the function call stack.
@@ -85,7 +91,7 @@ struct func_type
     * Location of function entry point in file
     */
    char *loc;
-} func_stack[NUM_FUNC];
+}/* func_stack[NUM_FUNC]*/;
 
 /**
  * @brief Keyword table
@@ -94,21 +100,13 @@ struct commands
 {
    char command[20];
    char tok;
-} table[];
+};
 
 struct intern_func_type
 {
    char *f_name; /* function name */
    int (*p)(void);   /* pointer to the function */
-} intern_func[] =
-    {
-        {"getche", call_getche},
-        {"putch",  call_putch},
-        {"puts",   call_puts},
-        {"print",  print},
-        {"getnum", getnum},
-        {"",       0} /* null terminate the list */
-    };
+};
 
 //int get_token(void);
 
@@ -162,6 +160,9 @@ void eval_exp5(int *value);
  */
 void atom(int *value);
 
+/**
+ * @brief Return a token to input stream
+ */
 void putback(void);
 
 #if defined(_MSC_VER) && _MSC_VER >= 1200
@@ -178,20 +179,38 @@ void sntx_err(int error) __attribute((noreturn));
 void sntx_err(int error);
 #endif
 
-void assign_var(char *var_name, int value);
+/**
+ * Finds out if c is a delimeter
+ * @param c
+ * @return true if c is a delimiter
+ */
+int is_delim(char c);
 
-int isdelim(char c);
+/**
+ * Finds out if c is a whitespace character
+ * @param c Character
+ * @return 1 if c is space or tab
+ */
+int is_white(char c);
 
-int iswhite(char c);
+//int find_var(char *s);
 
-int find_var(char *s);
-
+/**
+ * @brief Find internal function
+ * @param Function name
+ * @return Index of internal library function or -1 if not found
+ */
 int internal_func(char *s);
 
-int is_var(char *s);
+//int is_var(char *s);
 
-char *find_func(char *name);
+//char *find_func(char *name);
 
+/**
+ * @brief Look up a token's internal representation in the token table
+ * @param s Token string
+ * @return Token's internal representation
+ */
 char look_up(char *s);
 
 /**
@@ -200,8 +219,15 @@ char look_up(char *s);
  */
 char get_token(void);
 
-void call(void);
+//void call(void);
 
+/**
+ * @brief An in-place modification find and replace of the string.
+ * @note Assumes the buffer pointed to by line is large enough to hold the resulting string
+ * @param line Line to search in
+ * @param search String to search for
+ * @param replace String to replace
+ */
 static void str_replace(char *line, const char *search, const char *replace);
 
 #endif //LITTLEC_LITTLEC_PARSER_H

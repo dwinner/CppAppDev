@@ -35,6 +35,32 @@ extern char tok;
  */
 extern int ret_value;
 
+struct commands table[] =
+    { /* Commands must be entered lowercase */
+        {"if",       IF}, /* in this table. */
+        {"else",     ELSE},
+        {"for",      FOR},
+        {"do",       DO},
+        {"while",    WHILE},
+        {"char",     CHAR},
+        {"int",      INT},
+        {"return",   RETURN},
+        {"continue", CONTINUE},
+        {"break",    BREAK},
+        {"end",      END},
+        {"",         END} /* mark end of table */
+    };
+
+struct intern_func_type intern_func[] =
+    {
+        {"getche", call_getche},
+        {"putch",  call_putch},
+        {"puts",   call_puts},
+        {"print",  print},
+        {"getnum", getnum},
+        {"",       0} /* null terminate the list */
+    };
+
 void eval_exp(int *result)
 {
    get_token();
@@ -376,7 +402,7 @@ char get_token(void)
    *temp = '\0';
 
    /* skip over white space */
-   while (iswhite(*prog) && *prog)
+   while (is_white(*prog) && *prog)
    {
       ++prog;
    }
@@ -393,7 +419,7 @@ char get_token(void)
       }
 
       /* skip over white space */
-      while (iswhite(*prog) && *prog)
+      while (is_white(*prog) && *prog)
       {
          ++prog;
       }
@@ -405,7 +431,7 @@ char get_token(void)
       ++prog;
 
       /* skip over white space */
-      while (iswhite(*prog) && *prog)
+      while (is_white(*prog) && *prog)
       {
          ++prog;
       }
@@ -602,7 +628,7 @@ char get_token(void)
    /* number */
    if (isdigit((int) *prog))
    {
-      while (!isdelim(*prog))
+      while (!is_delim(*prog))
       {
          *temp++ = *prog++;
       }
@@ -614,7 +640,7 @@ char get_token(void)
    /* var or command */
    if (isalpha((int) *prog))
    {
-      while (!isdelim(*prog))
+      while (!is_delim(*prog))
       {
          *temp++ = *prog++;
       }
@@ -633,4 +659,89 @@ char get_token(void)
    }
 
    return token_type;
+}
+
+void putback(void)
+{
+   char *t;
+   t = token;
+   for (; *t; t++)
+   {
+      prog--;
+   }
+}
+
+char look_up(char *s)
+{
+   register int i;
+   char *p;
+
+   /* convert to lowercase */
+   p = s;
+   while (*p)
+   {
+      *p = (char) tolower(*p);
+      p++;
+   }
+
+   /* see if token is in table */
+   for (i = 0; *table[i].command; i++)
+   {
+      if (!strcmp(table[i].command, s))
+      {
+         return table[i].tok;
+      }
+   }
+
+   return 0; /* unknown command */
+}
+
+int internal_func(char *s)
+{
+   int i;
+   for (i = 0; intern_func[i].f_name[0]; i++)
+   {
+      if (!strcmp(intern_func[i].f_name, s))
+      {
+         return i;
+      }
+   }
+
+   return -1;
+}
+
+int is_delim(char c)
+{
+   if (strchr(" !;,+-<>'/*%^=()", c) || c == 9 || c == '\r' || c == '\n' || c == 0)
+   {
+      return 1;
+   }
+
+   return 0;
+}
+
+int is_white(char c)
+{
+   if (c == ' ' || c == '\t')
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;
+   }
+}
+
+void str_replace(char *line, const char *search, const char *replace)
+{
+   char *sp;
+   while ((sp = strstr(line, search)) != NULL)
+   {
+      int search_len = (int) strlen(search);
+      int replace_len = (int) strlen(replace);
+      int tail_len = (int) strlen(sp + search_len);
+
+      memmove(sp + replace_len, sp + search_len, tail_len + 1);
+      memcpy(sp, replace, replace_len);
+   }
 }
