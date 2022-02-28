@@ -1,5 +1,8 @@
-#include <stdlib.h>
 #include "circular_buffer.h"
+#include <stdlib.h>
+#include <time.h>
+#include <stdint.h>
+#include <stdio.h>
 
 /**
  * \brief Produces the time out from the current time

@@ -1,7 +1,7 @@
 #ifndef CIRCULAR_BUFFER_H
 #define CIRCULAR_BUFFER_H
 
-#include <thr/threads.h>
+#include <threads.h>
 #include <stdbool.h>
 
 /**
@@ -12,7 +12,7 @@ typedef struct buffer
    /**
     * \brief Pointer to the array of data
     */
-   int* data;
+   int *data;
 
    /**
     * \brief Maximum number of elements
@@ -56,13 +56,13 @@ typedef struct buffer
  * \param size size of the buffer_t's data
  * \return true if init is successful, false - otherwise
  */
-bool buf_init(BufferT* buf_ptr, const size_t size);
+bool buf_init(BufferT *buf_ptr, size_t size);
 
 /**
  * \brief Destroy the buffer_t and free allocated memory
  * \param buf_ptr Pointer to buffer_t
  */
-void buf_destroy(BufferT* buf_ptr);
+void buf_destroy(BufferT *buf_ptr);
 
 /**
  * \brief Insert a new element in the buffer_t
@@ -71,7 +71,7 @@ void buf_destroy(BufferT* buf_ptr);
  * \param sec Timeout in seconds
  * \return true if data has been put, false - otherwise
  */
-bool buf_put(BufferT* buf_ptr, const int data, const int sec);
+bool buf_put(BufferT *buf_ptr, int data, int sec);
 
 /**
  * \brief Remove an element from the buffer_t
@@ -81,6 +81,6 @@ bool buf_put(BufferT* buf_ptr, const int data, const int sec);
  * \param sec Count of second to wait
  * \return true if consumer has got the data, false - otherwise
  */
-bool buf_get(BufferT* buf_ptr, int* data_ptr, const int sec);
+bool buf_get(BufferT *buf_ptr, int *data_ptr, int sec);
 
 #endif // CIRCULAR_BUFFER_H

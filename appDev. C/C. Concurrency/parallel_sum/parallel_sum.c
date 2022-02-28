@@ -1,6 +1,5 @@
 #include "parallel_sum.h"
-#include <stdlib.h>
-#include <thr/threads.h>
+#include <threads.h>
 
 // Recursive helper function to divide the work among several threads.
 static int parallel_sum(void* arg);
@@ -26,7 +25,6 @@ bool sum(const float arr[], const int len, double* sumPtr)
 static int parallel_sum(void* arg)
 {
    SumArg* argp = (SumArg*)arg; // A pointer to the arguments.
-
    if (argp->len <= argp->block_size) // If length <= block_size, add up the elements.
    {
       for (int i = 0; i < argp->len; ++i)
@@ -51,7 +49,6 @@ static int parallel_sum(void* arg)
    argp->len = mid;
    thrd_t th; // Process 1st half in a new thread.
    int res = 0;
-
    if (thrd_create(&th, parallel_sum, arg) != thrd_success)
    {
       return 0; // Couldn't spawn a thread

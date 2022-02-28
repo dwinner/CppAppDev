@@ -46,6 +46,6 @@ typedef struct
  * \param sumPtr Argument for storing result
  * \return true, if calculation is successful, false - otherwise
  */
-bool sum(const float arr[], const int len, double* sumPtr);
+bool sum(const float arr[], int len, double* sumPtr);
 
 #endif // parallel_sum_h__

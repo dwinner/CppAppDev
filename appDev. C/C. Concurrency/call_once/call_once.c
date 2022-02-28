@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <threads.h>
-#include <pthread.h>
 
 once_flag flag = ONCE_FLAG_INIT;
 

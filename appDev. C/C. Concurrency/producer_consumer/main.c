@@ -5,7 +5,7 @@
 #include "circular_buffer.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <thr/threads.h>
+#include <threads.h>
 
 #define NP 2                  // Number of producers
 #define NC 3                  // Number of consumers

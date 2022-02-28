@@ -1,7 +1,7 @@
 // Adding a mutex to the program to fix race condition
 
 #include <stdio.h>
-#include <thr/threads.h>
+#include <threads.h>
 
 #define COUNT 10000000L
 

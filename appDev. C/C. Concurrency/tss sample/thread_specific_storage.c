@@ -5,13 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <thr/threads.h>
+#include <threads.h>
 
 tss_t key; // Global key for a TSS pointer
 
-int th_func(void* arg); // Thread function
+int th_func(void *arg); // Thread function
 
-void destructor(void* data); // Destructor function
+void destructor(void *data); // Destructor function
 
 int main(void)
 {
@@ -26,7 +26,7 @@ int main(void)
 
    // Create threads:
    if (thrd_create(&th1, th_func, "Thread_1") != thrd_success
-      || thrd_create(&th2, th_func, "Thread_2") != thrd_success)
+       || thrd_create(&th2, th_func, "Thread_2") != thrd_success)
    {
       return -2;
    }
@@ -50,12 +50,12 @@ int main(void)
 
 void print(void) // Display thread-specific storage.
 {
-   printf("print: %s\n", (char*)tss_get(key));
+   printf("print: %s\n", (char *) tss_get(key));
 }
 
-int th_func(void* arg) // Thread function
+int th_func(void *arg) // Thread function
 {
-   char* name = (char*)arg;
+   char *name = (char *) arg;
    const size_t size = strlen(name) + 1;
 
    // Set thread-specific storage:
@@ -63,17 +63,17 @@ int th_func(void* arg) // Thread function
    {
       return -1;
    }
-   
+
    // Store data:
-   char* tss_value = (char*)tss_get(key);
-   strcpy_s(tss_value, size, name);
+   char *tss_value = (char *) tss_get(key);
+   strncpy(tss_value, name, size);
    print();
 
    return 0;
 }
 
-void destructor(void* data)
+void destructor(void *data)
 {
-   printf("Destructor for %s\n", (char*)data);
+   printf("Destructor for %s\n", (char *) data);
    free(data); // Release memory.
 }

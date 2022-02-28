@@ -2,8 +2,7 @@
  * Fibonacci calculations performed in separated threads
  */
 
-#include <stdio.h>
-
+/*
 #ifdef __MINGW32__
 
 #include <pthread.h>
@@ -13,15 +12,17 @@
 #else
 #error "Unsupported thread library"
 #endif
-
+*/
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <threads.h>
 
 #define NUMBER_OF_THREADS  2
 
 /**
  * \brief Called by a thread to begin recursive Fibonacci calculation
- * \param nPtr Generic poiner
+ * \param nPtr Generic pointer
  * \return Number
  */
 int startFibonacci(void *nPtr);
@@ -31,7 +32,7 @@ int startFibonacci(void *nPtr);
  * \param n Number
  * \return Fibonacci numbers
  */
-unsigned long long int fibonacci(const unsigned int n);
+unsigned long long int fibonacci(unsigned int n);
 
 /**
  * \brief Thread data
@@ -58,10 +59,10 @@ int main(void)
 {
    // data passed to the threads; uses designated initializers
    ThreadData data[NUMBER_OF_THREADS] =
-      {
-         [0] = {.number=50},
-         [1] = {.number=49}
-      };
+       {
+           [0] = {.number=50},
+           [1] = {.number=49}
+       };
 
    // each thread needs a thread identifier of type thrd_t
    thrd_t threads[NUMBER_OF_THREADS];

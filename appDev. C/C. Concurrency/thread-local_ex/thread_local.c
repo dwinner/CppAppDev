@@ -2,7 +2,7 @@
 // thread-local.c
 
 #include <stdio.h>
-#include <thr/threads.h>
+#include <threads.h>
 
 _Thread_local int var = 10;
 
@@ -11,9 +11,9 @@ void print_var(void)
    printf("var = %d\n", var);
 }
 
-int func(void*); // Thread function
+int func(void *); // Thread function
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
    thrd_t th1;
    if (thrd_create(&th1, func, NULL) != thrd_success)
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
    return 0;
 }
 
-int func(void* arg) // Thread function
+int func(void *arg) // Thread function
 {
    var += 10; // Thread-local variable
    print_var(); // Output: var = 20
