@@ -9,6 +9,7 @@
 #include "bs.h"
 #include "h264_stream.h"
 #include "h264_sei.h"
+#include "h264_nal.h"
 
 FILE* h264_dbgfile = NULL;
 
