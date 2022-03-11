@@ -35,11 +35,9 @@ static char options[] =
 
 void usage( )
 {
-
    fprintf( stderr, "h264_analyze, version 0.2.0\n");
    fprintf( stderr, "Analyze H.264 bitstreams in Annex B format\n");
    fprintf( stderr, "Usage: \n");
-
    fprintf( stderr, "h264_analyze [options] <input bitstream>\noptions:\n%s\n", options);
 }
 
