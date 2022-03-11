@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include "h264_stream.h"
-#include "h264_nal.h"
+#include "../h264_streamLib/h264_stream.h"
+#include "../h264_streamLib/h264_nal.h"
 
 #define BUFSIZE 32*1024*1024
 

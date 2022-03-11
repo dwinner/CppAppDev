@@ -3,7 +3,7 @@
  */
 
 #include <stdio.h>
-#include "h264_stream.h"
+#include "../h264_streamLib/h264_stream.h"
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -17,6 +17,7 @@
 #define HAVE_GETOPT_LONG
 
 #include <getopt.h>
+#include "../h264_streamLib/h264_nal.h"
 
 static struct option long_options[] =
     {
