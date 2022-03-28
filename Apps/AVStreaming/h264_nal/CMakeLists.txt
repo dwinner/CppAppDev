@@ -3,6 +3,8 @@ project(h264_nal)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_compile_definitions(FDUMP_DEFINE)
+
 include_directories(.)
 include_directories(core)
 include_directories(rtc)
