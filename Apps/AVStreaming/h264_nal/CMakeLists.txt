@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.10)
+project(h264_nal)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(core)
+include_directories(rtc)
+
+add_executable(h264nal
+        core/h264_bitstream_parser.cc
+        core/h264_bitstream_parser.h
+        core/h264_bitstream_parser_state.cc
+        core/h264_bitstream_parser_state.h
+        core/h264_common.cc
+        core/h264_common.h
+        core/h264_dec_ref_pic_marking_parser.cc
+        core/h264_dec_ref_pic_marking_parser.h
+        core/h264_hrd_parameters_parser.cc
+        core/h264_hrd_parameters_parser.h
+        core/h264_nal_unit_header_parser.cc
+        core/h264_nal_unit_header_parser.h
+        core/h264_nal_unit_header_svc_extension_parser.cc
+        core/h264_nal_unit_header_svc_extension_parser.h
+        core/h264_nal_unit_parser.cc
+        core/h264_nal_unit_parser.h
+        core/h264_nal_unit_payload_parser.cc
+        core/h264_nal_unit_payload_parser.h
+        core/h264_pps_parser.cc
+        core/h264_pps_parser.h
+        core/h264_pred_weight_table_parser.cc
+        core/h264_pred_weight_table_parser.h
+        core/h264_prefix_nal_unit_parser.cc
+        core/h264_prefix_nal_unit_parser.h
+        core/h264_ref_pic_list_modification_parser.cc
+        core/h264_ref_pic_list_modification_parser.h
+        core/h264_rtp_fua_parser.cc
+        core/h264_rtp_fua_parser.h
+        core/h264_rtp_parser.cc
+        core/h264_rtp_parser.h
+        core/h264_rtp_single_parser.cc
+        core/h264_rtp_single_parser.h
+        core/h264_rtp_stapa_parser.cc
+        core/h264_rtp_stapa_parser.h
+        core/h264_slice_header_in_scalable_extension_parser.cc
+        core/h264_slice_header_in_scalable_extension_parser.h
+        core/h264_slice_header_parser.cc
+        core/h264_slice_header_parser.h
+        core/h264_slice_layer_extension_rbsp_parser.cc
+        core/h264_slice_layer_extension_rbsp_parser.h
+        core/h264_slice_layer_without_partitioning_rbsp_parser.cc
+        core/h264_slice_layer_without_partitioning_rbsp_parser.h
+        core/h264_sps_parser.cc
+        core/h264_sps_parser.h
+        core/h264_sps_svc_extension_parser.cc
+        core/h264_sps_svc_extension_parser.h
+        core/h264_subset_sps_parser.cc
+        core/h264_subset_sps_parser.h
+        core/h264_vui_parameters_parser.cc
+        core/h264_vui_parameters_parser.h
+        rtc/arraysize.h
+        rtc/bit_buffer.cc
+        rtc/bit_buffer.h
+        rtc/constructor_magic.h
+        config.h
+        h264nal.cc)

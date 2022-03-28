@@ -1,0 +1,10 @@
+#ifndef INCLUDE_GUARD
+#define INCLUDE_GUARD
+
+#define PROJECT_NAME "h264nal"
+#define PROJECT_VER "0.9"
+#define PROJECT_VER_MAJOR "0"
+#define PROJECT_VER_MINOR "9"
+#define PTOJECT_VER_PATCH ""
+
+#endif  // INCLUDE_GUARD
