@@ -282,7 +282,7 @@ int main(int argc, char **argv) {
           options->add_length, options->add_parsed_length,
           options->add_checksum);
 
-//#ifdef FDUMP_DEFINE
+#ifdef FDUMP_DEFINE
   // get outfile file descriptor
   FILE *outfp;
   if (options->outfile == nullptr ||
@@ -315,7 +315,7 @@ int main(int argc, char **argv) {
     }
     fprintf(outfp, "\n");
   }
-//#endif  // FDUMP_DEFINE
+#endif  // FDUMP_DEFINE
 
   return 0;
 }
