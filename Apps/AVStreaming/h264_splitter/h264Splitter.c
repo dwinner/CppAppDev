@@ -1,7 +1,7 @@
 /**
  * h264Splitter.c
  *
- * copyright (c) 2019 Vinevtsev SSH
+ * copyright (c) 2022 Vinevtsev SSH
  */
 
 #include <unistd.h>
