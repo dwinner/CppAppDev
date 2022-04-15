@@ -19,10 +19,10 @@ std::unique_ptr<std::valarray<std::unique_ptr<Nalu>>> H264FileReader::GetNalUnit
                        (std::istreambuf_iterator<char>()));
     vector<string> splitByAudList = SplitByRegex(h264Content, audNaluPattern);
     size_t nalUnitsCount = splitByAudList.size();
-    auto naluValues = make_unique<valarray<unique_ptr<Nalu>>>(nalUnitsCount);
+    auto naluValues = make_unique<valarray<unique_ptr<Nalu>>>(nalUnitsCount - 1);
 
-    // iterate through the NAL-units
-    for (size_t naluIdx = 0; naluIdx < nalUnitsCount; naluIdx++)
+    // iterate through the NAL-units, skip the 1st one - it's always empty
+    for (size_t naluIdx = 1; naluIdx < nalUnitsCount; naluIdx++)
     {
         string strContent = splitByAudList[naluIdx];
         const size_t length = strContent.length();
@@ -32,7 +32,7 @@ std::unique_ptr<std::valarray<std::unique_ptr<Nalu>>> H264FileReader::GetNalUnit
             content[strIdx] = static_cast<uint8_t>(strContent[strIdx]);
         }
 
-        (*naluValues)[naluIdx] = make_unique<Nalu>(length, content);
+        (*naluValues)[naluIdx - 1] = make_unique<Nalu>(length, content);
     }
 
     return naluValues;
