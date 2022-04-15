@@ -65,4 +65,5 @@ add_executable(h264nal
         rtc/bit_buffer.h
         rtc/constructor_magic.h
         config.h
-        h264nal.cc)
+        h264nal.cc
+)

@@ -1,6 +1,7 @@
 /**
- * H.264 stream analyzer
- * (GCC) Simple usage: h264_analyze <someFile.H264> -o nalu.log
+ * H.264 stream analyzer. Simple usage:
+ * (GCC/GNU)    h264_analyze <someFile.H264> -o nalu.log
+ * MSVC++:      h264_analyze <someFile.H264>
  */
 
 #include "../h264_streamLib/h264_stream.h"
@@ -14,6 +15,7 @@
 
 #define H264_BUFFER_SIZE        (32*1024*1024)
 #define H264_ERROR_BUFFER_SIZE  (512)
+#define H264_DEFAULT_DBG_FILE   "nalus.log"
 
 #if (defined(__GNUC__))
 
@@ -58,7 +60,7 @@ int main(const int argc, char *argv[])
 
     int optVerbose = 1;
     int optProbe = 0;
-    errno_t errorNum;
+    errno_t errorNum = 0;
     char errorMsg[H264_ERROR_BUFFER_SIZE] = "";
 
 #ifdef H264_HAVE_GETOPT_LONG
@@ -118,7 +120,13 @@ int main(const int argc, char *argv[])
 
     if (h264_dbgfile == NULL)
     {
-        h264_dbgfile = stdout;
+        errorNum = fopen_s(&h264_dbgfile, H264_DEFAULT_DBG_FILE, "w+");
+        if (errorNum != 0)
+        {
+            strerror_s(errorMsg, sizeof(errorMsg), errorNum);
+            fprintf(stderr, "!! Error: could not open file: %s \n", errorMsg);
+            return EXIT_FAILURE;
+        }
     }
 
     size_t readCount;
