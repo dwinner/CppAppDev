@@ -1,17 +1,16 @@
 #include "circular_buffer.h"
 #include <stdlib.h>
 #include <time.h>
-#include <stdint.h>
 #include <stdio.h>
 
 /**
- * \brief Produces the time out from the current time
- * \param delay Delay in seconds
- * \return Timeout in seconds
+ * @brief Produces the time out from the current time
+ * @param delay Delay in seconds
+ * @return Timeout in seconds
  */
-static xtime make_timeout_sec(const int delay);
+static timespec_t make_timeout_sec(int delay);
 
-bool buf_init(BufferT* buf_ptr, const size_t size)
+bool buf_init(BufferT *buf_ptr, const size_t size)
 {
    if ((buf_ptr->data = malloc(size * sizeof(int))) == NULL)
    {
@@ -23,11 +22,11 @@ bool buf_init(BufferT* buf_ptr, const size_t size)
    buf_ptr->tip = buf_ptr->tail = 0;
 
    return mtx_init(&buf_ptr->mtx, mtx_plain) == thrd_success
-      && cnd_init(&buf_ptr->cnd_put) == thrd_success
-      && cnd_init(&buf_ptr->cnd_get) == thrd_success;
+          && cnd_init(&buf_ptr->cnd_put) == thrd_success
+          && cnd_init(&buf_ptr->cnd_get) == thrd_success;
 }
 
-void buf_destroy(BufferT* buf_ptr)
+void buf_destroy(BufferT *buf_ptr)
 {
    cnd_destroy(&buf_ptr->cnd_get);
    cnd_destroy(&buf_ptr->cnd_put);
@@ -35,10 +34,10 @@ void buf_destroy(BufferT* buf_ptr)
    free(buf_ptr->data);
 }
 
-bool buf_put(BufferT* buf_ptr, const int data, const int sec)
+bool buf_put(BufferT *buf_ptr, const int data, const int sec)
 {
    // set the 'sec'-seconds time out from the current time
-   xtime timeout = make_timeout_sec(sec);
+   timespec_t timeout = make_timeout_sec(sec);
 
    mtx_lock(&buf_ptr->mtx);
 
@@ -62,10 +61,10 @@ bool buf_put(BufferT* buf_ptr, const int data, const int sec)
    return true;
 }
 
-bool buf_get(BufferT* buf_ptr, int* data_ptr, const int sec)
+bool buf_get(BufferT *buf_ptr, int *data_ptr, const int sec)
 {
    // set the 'sec'-seconds time out from the current time
-   xtime timeout = make_timeout_sec(sec);
+   timespec_t timeout = make_timeout_sec(sec);
 
    mtx_lock(&buf_ptr->mtx);
 
@@ -89,11 +88,11 @@ bool buf_get(BufferT* buf_ptr, int* data_ptr, const int sec)
    return true;
 }
 
-static xtime make_timeout_sec(const int delay)
+static timespec_t make_timeout_sec(const int delay)
 {
-   xtime time_out;
-   xtime_get(&time_out, TIME_UTC);
-   time_out.sec += delay;
+   timespec_t time_out;
+   clock_gettime(CLOCK_REALTIME, &time_out);
+   time_out.tv_sec += delay;
 
    return time_out;
 }
