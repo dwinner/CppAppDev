@@ -68,10 +68,9 @@ void buf_destroy(BufferT *buf_ptr);
  * @brief Insert a new element in the buffer_t
  * @param buf_ptr Pointer to buffer_t
  * @param data Data to put
- * @param sec Timeout in seconds
  * @return true if data has been put, false - otherwise
  */
-bool buf_put(BufferT *buf_ptr, int data, int sec);
+bool buf_put(BufferT *buf_ptr, int data);
 
 /**
  * @brief Remove an element from the buffer_t

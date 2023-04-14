@@ -34,18 +34,13 @@ void buf_destroy(BufferT *buf_ptr)
    free(buf_ptr->data);
 }
 
-bool buf_put(BufferT *buf_ptr, const int data, const int sec)
+bool buf_put(BufferT *buf_ptr, const int data)
 {
-   // set the 'sec'-seconds time out from the current time
-   timespec_t timeout = make_timeout_sec(sec);
-
    mtx_lock(&buf_ptr->mtx);
 
-   // while the buffer_t is full
    while (buf_ptr->count == buf_ptr->size)
    {
-      // waiting for consumer to set put-condition with timeout
-      if (cnd_timedwait(&buf_ptr->cnd_put, &buf_ptr->mtx, &timeout) != thrd_success)
+      if (cnd_wait(&buf_ptr->cnd_put, &buf_ptr->mtx) != thrd_success)
       {
          return false;
       }
@@ -65,14 +60,12 @@ bool buf_get(BufferT *buf_ptr, int *data_ptr, const int sec)
 {
    // set the 'sec'-seconds time out from the current time
    timespec_t timeout = make_timeout_sec(sec);
-
    mtx_lock(&buf_ptr->mtx);
 
-   // while the buffer_t is full
    while (buf_ptr->count == 0)
    {
-      // waiting for producer to set get-condition with timeout
-      if (cnd_timedwait(&buf_ptr->cnd_get, &buf_ptr->mtx, &timeout) != thrd_success)
+      if (cnd_timedwait(&buf_ptr->cnd_get,
+                        &buf_ptr->mtx, &timeout) != thrd_success)
       {
          return false;
       }
