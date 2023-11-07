@@ -1,0 +1,1 @@
+tracert -d example.com
