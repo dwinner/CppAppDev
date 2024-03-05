@@ -82,8 +82,7 @@ int find(char *from, char *anywhere)
    findPosition = 0;
    while (findPosition < flightPosition)
    {
-      if (!strcmp(flightStorage[findPosition].from, from)
-          && !flightStorage[findPosition].skipped)
+      if (!strcmp(flightStorage[findPosition].from, from) && !flightStorage[findPosition].skipped)
       {
          strcpy(anywhere, flightStorage[findPosition].to);
          flightStorage[findPosition].skipped = true; /* make active */
@@ -98,29 +97,35 @@ int find(char *from, char *anywhere)
 
 void isFlight(char *from, char *to)
 {
-   int destination;
-   int distance;
+   int dest;
+   int dist;
    char anywhere[20];
 
-   /* see if at destination */
-   destination = match(from, to);
-   if (destination)
+   dist = find(from, anywhere);
+   while (dist)
    {
-      push(from, to, destination);
-      return;
+      /* breadth-first modification */
+      dest = match(anywhere, to);
+      if (dest)
+      {
+         push(from, to, dist);
+         push(anywhere, to, dest);
+         return;
+      }
+
+      dist = find(from, anywhere);
    }
 
-   /* try another connection */
-   distance = find(from, anywhere);
-   if (distance)
+   /* try any connection */
+   dist = find(from, anywhere);
+   if (dist)
    {
-      push(from, to, distance);
+      push(from, to, dist);
       isFlight(anywhere, to);
    }
    else if (topPosition > 0)
    {
-      /* backTrack */
-      pop(from, to, &distance);
+      pop(from, to, &dist);
       isFlight(from, to);
    }
 }
@@ -133,7 +138,7 @@ void push(char *from, char *to, int aDistance)
       strcpy(backTrack[topPosition].to, to);
       backTrack[topPosition].distance = aDistance;
       topPosition++;
-      return ;
+      return;
    }
 
    printf("Stack full.\n");
