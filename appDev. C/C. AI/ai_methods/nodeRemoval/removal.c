@@ -1,146 +1,183 @@
 #include "removal.h"
 
-struct FL flight[MAX];
-int f_pos = 0;    /* number of entries in flight db */
-int find_pos = 0; /* index for searching flight db */
-int tos = 0;      /* top of stack */
-struct stack bt_stack[MAX]; /* backtrack stack */
+/**
+ * Flight DB
+ */
+FlightItemT flightDb[MAX];
 
-/* Initialize the flight database. */
+/**
+ * Number of entries in Flight DB
+ */
+int findPos = 0;
+
+/**
+ * Index for searching flightDb
+ */
+int findIdx = 0;
+
+/**
+ * Top of stack
+ */
+int stackTop = 0;
+
+/**
+ * Backtrack stack
+ */
+StackT backTrack[MAX];
+
 void setup(void)
 {
-   assert_flight("New York", "Chicago", 1000);
-   assert_flight("Chicago", "Denver", 1000);
-   assert_flight("New York", "Toronto", 800);
-   assert_flight("New York", "Denver", 1900);
-   assert_flight("Toronto", "Calgary", 1500);
-   assert_flight("Toronto", "Los Angeles", 1800);
-   assert_flight("Toronto", "Chicago", 500);
-   assert_flight("Denver", "Urbana", 1000);
-   assert_flight("Denver", "Houston", 1500);
-   assert_flight("Houston", "Los Angeles", 1500);
-   assert_flight("Denver", "Los Angeles", 1000);
+   assertFlight("New York", "Chicago", 1000);
+   assertFlight("Chicago", "Denver", 1000);
+   assertFlight("New York", "Toronto", 800);
+   assertFlight("New York", "Denver", 1900);
+   assertFlight("Toronto", "Calgary", 1500);
+   assertFlight("Toronto", "Los Angeles", 1800);
+   assertFlight("Toronto", "Chicago", 500);
+   assertFlight("Denver", "Urbana", 1000);
+   assertFlight("Denver", "Houston", 1500);
+   assertFlight("Houston", "Los Angeles", 1500);
+   assertFlight("Denver", "Los Angeles", 1000);
 }
 
-/* Put facts into the database. */
-void assert_flight(char *from, char *to, int dist)
+void assertFlight(char *from, char *to, int distance)
 {
-   if(f_pos < MAX) {
-      strcpy(flight[f_pos].from, from);
-      strcpy(flight[f_pos].to, to);
-      flight[f_pos].distance = dist;
-      flight[f_pos].skip = 0;
-      f_pos++;
+   if (findPos < MAX)
+   {
+      strcpy(flightDb[findPos].from, from);
+      strcpy(flightDb[findPos].to, to);
+      flightDb[findPos].distance = distance;
+      flightDb[findPos].skip = 0;
+      findPos++;
    }
-   else printf("Flight database full.\n");
+   else
+   {
+      printf("Flight database full.\n");
+   }
 }
-/* Reset the "skip" field - i.e., re-activate all nodes. */
-void clearmarkers()
+
+void clearMarkers()
 {
-   int t;
-
-   for(t=0; t < f_pos; ++t) flight[t].skip = 0;
+   int tIdx;
+   for (tIdx = 0; tIdx < findPos; ++tIdx)
+   {
+      flightDb[tIdx].skip = false;
+   }
 }
 
-/* Remove an entry from the database. */
 void retract(char *from, char *to)
 {
-   int t;
-
-   for(t=0; t < f_pos; t++)
-      if(!strcmp(flight[t].from, from) &&
-          !strcmp(flight[t].to, to)) {
-         strcpy(flight[t].from,"");
+   int tIdx;
+   for (tIdx = 0; tIdx < findPos; tIdx++)
+   {
+      if (!strcmp(flightDb[tIdx].from, from) && !strcmp(flightDb[tIdx].to, to))
+      {
+         strcpy(flightDb[tIdx].from, "");
          return;
-
       }
+   }
 }
 
-/* Show the route and the total distance. */
 void route(char *to)
 {
-   int dist, t;
+   int distance, tIdx;
 
-   dist = 0;
-   t = 0;
-   while(t < tos) {
-      printf("%s to ", bt_stack[t].from);
-      dist += bt_stack[t].dist;
-      t++;
+   distance = 0;
+   tIdx = 0;
+   while (tIdx < stackTop)
+   {
+      printf("%s to ", backTrack[tIdx].from);
+      distance += backTrack[tIdx].distance;
+      tIdx++;
    }
-   printf("%s\n",to);
-   printf("Distance is %d.\n", dist);
+
+   printf("%s\n", to);
+   printf("Distance is %d.\n", distance);
 }
 
-/* Given from, find anywhere. */
 int find(char *from, char *anywhere)
 {
-   find_pos = 0;
-   while(find_pos < f_pos) {
-      if(!strcmp(flight[find_pos].from, from) &&
-          !flight[find_pos].skip) {
-         strcpy(anywhere, flight[find_pos].to);
-         flight[find_pos].skip = 1;
-         return flight[find_pos].distance;
+   findIdx = 0;
+   while (findIdx < findPos)
+   {
+      if (!strcmp(flightDb[findIdx].from, from) && !flightDb[findIdx].skip)
+      {
+         strcpy(anywhere, flightDb[findIdx].to);
+         flightDb[findIdx].skip = true;
+         return flightDb[findIdx].distance;
       }
-      find_pos++;
+
+      findIdx++;
    }
+
    return 0;
 }
 
-/* If flight between from and to, then return
-   the distance of flight; otherwise, return 0. */
 int match(char *from, char *to)
 {
-   register int t;
+   register int tIdx;
+   for (tIdx = findPos - 1; tIdx > -1; tIdx--)
+   {
+      if (!strcmp(flightDb[tIdx].from, from) && !strcmp(flightDb[tIdx].to, to))
+      {
+         return flightDb[tIdx].distance;
+      }
+   }
 
-   for(t=f_pos-1; t > -1; t--)
-      if(!strcmp(flight[t].from, from) &&
-          !strcmp(flight[t].to, to)) return flight[t].distance;
-
-   return 0;  /* not found */
+   return 0; /* not found */
 }
 
-/* Determine if there is a route between from and to. */
-void isflight(char *from, char *to)
+void isFlight(char *from, char *to)
 {
-   int d, dist;
+   int dest, dist;
    char anywhere[20];
 
-   if(d=match(from, to)) {
-      push(from, to, d); /* distance */
+   dest = match(from, to);
+   if (dest)
+   {
+      push(from, to, dest); /* distance */
       return;
    }
 
-   if(dist=find(from, anywhere)) {
+   dist = find(from, anywhere);
+   if (dist)
+   {
       push(from, to, dist);
-      isflight(anywhere, to);
+      isFlight(anywhere, to);
    }
-   else if(tos > 0) {
+   else if (stackTop > 0)
+   {
       pop(from, to, &dist);
-      isflight(from, to);
+      isFlight(from, to);
    }
 }
 
-/* Stack Routines */
-void push(char *from, char *to, int dist)
+void push(char *from, char *to, int distance)
 {
-   if(tos < MAX) {
-      strcpy(bt_stack[tos].from, from);
-      strcpy(bt_stack[tos].to, to);
-      bt_stack[tos].dist = dist;
-      tos++;
+   if (stackTop < MAX)
+   {
+      strcpy(backTrack[stackTop].from, from);
+      strcpy(backTrack[stackTop].to, to);
+      backTrack[stackTop].distance = distance;
+      stackTop++;
    }
-   else printf("Stack full.\n");
+   else
+   {
+      printf("Stack full.\n");
+   }
 }
 
-void pop(char *from, char *to, int *dist)
+void pop(char *from, char *to, int *poDistance)
 {
-   if(tos > 0) {
-      tos--;
-      strcpy(from, bt_stack[tos].from);
-      strcpy(to, bt_stack[tos].to);
-      *dist = bt_stack[tos].dist;
+   if (stackTop > 0)
+   {
+      stackTop--;
+      strcpy(from, backTrack[stackTop].from);
+      strcpy(to, backTrack[stackTop].to);
+      *poDistance = backTrack[stackTop].distance;
    }
-   else printf("Stack underflow.\n");
+   else
+   {
+      printf("Stack underflow.\n");
+   }
 }

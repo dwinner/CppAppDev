@@ -1,12 +1,3 @@
-/*
- *  artpers.c
- *
- *  Application of ART (Adaptive Resonance Theory) to personalization.
- *
- *  M. Tim Jones <mtj@cogitollc.com>
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
