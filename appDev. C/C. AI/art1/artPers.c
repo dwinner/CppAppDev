@@ -3,13 +3,16 @@
 /**
  * Small positive integer
  */
-const float beta = 1.0;
+const float beta = 1.0F;
 
 /**
  * 0 <= vigilance < 1
  */
-const float vigilance = 0.9;
+const float vigilance = 0.9F;
 
+/**
+ * Prototype vector
+ */
 int prototypeVector[TOTAL_PROTOTYPE_VECTORS][MAX_ITEMS];
 
 /**
@@ -52,7 +55,7 @@ char *itemName[MAX_ITEMS] =
  */
 int database[MAX_CUSTOMERS][MAX_ITEMS] =
     {
-        /*     Hmr    Ppr    Snk    Scr    Pen    Kkt    Wrn    Pcl    Hth    Tpm     Bdr */
+        /*       Hmr    Ppr    Snk     Scr    Pen     Kkt     Wrn    Pcl     Hth    Tpm      Bdr */
         {0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0},  //   3
         {0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1},  //  2
         {0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0},  // 1
@@ -70,7 +73,7 @@ int database[MAX_CUSTOMERS][MAX_ITEMS] =
  */
 int numPrototypeVectors = 0;
 
-void displayCustomerDatabase(void)
+void displayCustomerDb(void)
 {
    int customer, item, cluster;
    printf("\n");
@@ -104,7 +107,7 @@ void displayCustomerDatabase(void)
    printf("\n");
 }
 
-void initialize(void)
+void init(void)
 {
    int i, j;
 
@@ -127,12 +130,12 @@ void initialize(void)
    }
 }
 
-int vectorMagnitude(int *vector)
+int vectorMagnitude(const int *poVector)
 {
    int j, total = 0;
    for (j = 0; j < MAX_ITEMS; j++)
    {
-      if (vector[j] == 1)
+      if (poVector[j] == 1)
       {
          total++;
       }
@@ -141,27 +144,30 @@ int vectorMagnitude(int *vector)
    return total;
 }
 
-void vectorBitwiseAnd(int *result, int *v, int *w)
+void vectorBitwiseAnd(int *result, const int *poVector1, const int *poVector2)
 {
-   int i;
-   for (i = 0; i < MAX_ITEMS; i++)
+   for (int i = 0; i < MAX_ITEMS; i++)
    {
-      result[i] = (v[i] && w[i]);
+      result[i] = (poVector1[i] && poVector2[i]);
    }
-
 }
 
-int createNewPrototypeVector(int *example)
+int createNewPrototypeVector(const int *poExample)
 {
    int i, cluster;
 
    for (cluster = 0; cluster < TOTAL_PROTOTYPE_VECTORS; cluster++)
    {
       if (members[cluster] == 0)
-      { break; }
+      {
+         break;
+      }
    }
 
-   if (cluster == TOTAL_PROTOTYPE_VECTORS) assert(0);
+   if (cluster == TOTAL_PROTOTYPE_VECTORS)
+   {
+      assert(0);
+   }
 
 #ifdef DEBUG
    printf("Creating new cluster %d\n", cluster);
@@ -171,9 +177,9 @@ int createNewPrototypeVector(int *example)
 
    for (i = 0; i < MAX_ITEMS; i++)
    {
-      prototypeVector[cluster][i] = example[i];
+      prototypeVector[cluster][i] = poExample[i];
 #ifdef DEBUG
-      printf("%1d ", example[i]);
+      printf("%1d ", poExample[i]);
 #endif
    }
 
@@ -220,8 +226,7 @@ void updatePrototypeVectors(int cluster)
          {
             for (item = 0; item < MAX_ITEMS; item++)
             {
-               prototypeVector[cluster][item] =
-                   prototypeVector[cluster][item] && database[customer][item];
+               prototypeVector[cluster][item] = prototypeVector[cluster][item] && database[customer][item];
                sumVector[cluster][item] += database[customer][item];
             }
          }
@@ -231,8 +236,8 @@ void updatePrototypeVectors(int cluster)
 
 int performArt1(void)
 {
-   int andresult[MAX_ITEMS];
-   int pvec, magPE, magP, magE;
+   int andResult[MAX_ITEMS];
+   int pVec, magPE, magP, magE;
    float result, test;
    int index, done = 0;
    int count = 50;
@@ -249,25 +254,20 @@ int performArt1(void)
 #endif
 
          /* Step 3 */
-         for (pvec = 0; pvec < TOTAL_PROTOTYPE_VECTORS; pvec++)
+         for (pVec = 0; pVec < TOTAL_PROTOTYPE_VECTORS; pVec++)
          {
-
-            if (members[pvec])
+            if (members[pVec])
             {
 
 #ifdef DEBUG
-               printf("Test vector %d (members %d)\n", pvec, members[pvec]);
+               printf("Test vector %d (members %d)\n", pVec, members[pVec]);
 #endif
 
-               vectorBitwiseAnd(andresult,
-                                &database[index][0], &prototypeVector[pvec][0]);
-
-               magPE = vectorMagnitude(andresult);
-               magP = vectorMagnitude(&prototypeVector[pvec][0]);
+               vectorBitwiseAnd(andResult, &database[index][0], &prototypeVector[pVec][0]);
+               magPE = vectorMagnitude(andResult);
+               magP = vectorMagnitude(&prototypeVector[pVec][0]);
                magE = vectorMagnitude(&database[index][0]);
-
                result = (float) magPE / (beta + (float) magP);
-
                test = (float) magE / (beta + (float) MAX_ITEMS);
 
 #ifdef DEBUG
@@ -276,7 +276,6 @@ int performArt1(void)
 
                if (result > test)
                {
-
                   /* Test for vigilance acceptability */
 
 #ifdef DEBUG
@@ -286,28 +285,29 @@ int performArt1(void)
 
                   if (((float) magPE / (float) magE) < vigilance)
                   {
-
                      int old;
 
                      /* Ensure this is a different cluster */
-                     if (membership[index] != pvec)
+                     if (membership[index] != pVec)
                      {
-
                         old = membership[index];
-                        membership[index] = pvec;
+                        membership[index] = pVec;
 
 #ifdef DEBUG
                         printf("Moved example %d from cluster %d to %d\n",
-                        index, old, pvec);
+                        index, old, pVec);
 #endif
 
                         if (old >= 0)
                         {
                            members[old]--;
                            if (members[old] == 0)
-                           { numPrototypeVectors--; }
+                           {
+                              numPrototypeVectors--;
+                           }
                         }
-                        members[pvec]++;
+
+                        members[pVec]++;
 
                         /* Recalculate the prototype vectors for the old and new
                          * clusters.
@@ -317,24 +317,15 @@ int performArt1(void)
                            updatePrototypeVectors(old);
                         }
 
-                        updatePrototypeVectors(pvec);
+                        updatePrototypeVectors(pVec);
 
                         done = 0;
                         break;
-
                      }
-                     else
-                     {
-                        /* Already in this cluster */
-                     }
-
-                  } /* vigilance test */
-
+                  }
                }
-
             }
-
-         } /* for vector loop */
+         }
 
          /* Check to see if the current vector was processed */
          if (membership[index] == -1)
@@ -353,9 +344,10 @@ int performArt1(void)
 #endif
 
       if (!count--)
-      { break; }
-
-   } /* !done */
+      {
+         break;
+      }
+   }
 
    return 0;
 }
@@ -368,13 +360,11 @@ void makeRecommendation(int customer)
 
    for (item = 0; item < MAX_ITEMS; item++)
    {
-      if ((database[customer][item] == 0) &&
-          (sumVector[membership[customer]][item] > val))
+      if ((database[customer][item] == 0) && (sumVector[membership[customer]][item] > val))
       {
          bestItem = item;
          val = sumVector[membership[customer]][item];
       }
-
    }
 
    printf("For Customer %d, ", customer);
@@ -396,7 +386,10 @@ void makeRecommendation(int customer)
    for (item = 0; item < MAX_ITEMS; item++)
    {
       if (database[customer][item])
-      { printf("%s ", itemName[item]); }
+      {
+         printf("%s ", itemName[item]);
+      }
    }
+
    printf("\n\n");
 }

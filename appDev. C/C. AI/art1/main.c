@@ -14,11 +14,11 @@ int main()
 {
    int customer;
 
-   srand(time(NULL));
+   srand(time(NULL)); // NOLINT(*-msc51-cpp)
 
-   initialize();
+   init();
    performArt1();
-   displayCustomerDatabase();
+   displayCustomerDb();
 
    for (customer = 0; customer < MAX_CUSTOMERS; customer++)
    {
