@@ -1,16 +1,12 @@
 /*
- *  Common Symbolics and Prototypes
- *
- *  ./software/ch6/common.h
- *
- *  mtj@cogitollc.com
- *
+ * Common Symbolics and Prototypes
  */
 
-#include <stdlib.h>
+#ifndef GENETIC_COMMON_H
+#define GENETIC_COMMON_H
 
-#ifndef COMMON_H
-#define COMMON_H
+#include <stdlib.h>
+#include <stdio.h>
 
 /* Genetic Algorithm Parameters */
 
@@ -35,9 +31,9 @@ int performFitnessCheck ( FILE * );
 int performSelection( void );
 
 typedef struct population {
-  float fitness;
-  int   progSize;
-  int   program[MAX_PROGRAM];
+   float fitness;
+   int   progSize;
+   int   program[MAX_PROGRAM];
 } POPULATION_TYPE;
 
 #define TIER1   1                           // 1
@@ -61,4 +57,4 @@ typedef struct population {
 #define STACK_VIOLATION		1
 #define MATH_VIOLATION		2
 
-#endif /* _COMMON_H */
+#endif //GENETIC_COMMON_H
