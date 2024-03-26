@@ -1,53 +1,51 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc50-cpp"
 //
 // Genetic Algorithm Population Initialization
 //
 
-#include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
 #include "common.h"
 
-POPULATION_TYPE populations[2][MAX_CHROMS];
+PopulationT populations[2][MAX_CHROMOSOMES];
 
 int curPop;
 
-/*
- *  initMember()
- *
- *  Initialize a single member in the population.  This includes the
+/**
+ * @brief Init member
+ * @details Initialize a single member in the population.  This includes the
  *  initial fitness, program size and the initial set of random
  *  instructions.
- *
+ * @param pop pop index
+ * @param index 2nd dim index
  */
-
-void initMember(int pop, int index )
+void initMember(int pop, int index)
 {
-   int progIndex;
+   int programIdx;
 
-   populations[pop][index].fitness = 0.0;
-   populations[pop][index].progSize = MAX_PROGRAM-1;
+   populations[pop][index].fitness = 0.0F;
+   populations[pop][index].programSize = MAX_PROGRAM - 1;
 
-   progIndex = 0;
-   while (progIndex < MAX_PROGRAM) {
-      populations[pop][index].program[progIndex++] = getRand(MAX_INSTRUCTION);
+   programIdx = 0;
+   while (programIdx < MAX_PROGRAM)
+   {
+      populations[pop][index].program[programIdx++] = getRand(MAX_INSTRUCTION);
    }
-
 }
 
-
-/*
- *  initPopulation()
- *
- *  Initialize all of the chromosomes in the population (potential
+/**
+ * @brief Init population
+ * @details Initialize all of the chromosomes in the population (potential
  *  solutions to the given problem).
- *
  */
-
-void initPopulation( void )
+void initPopulation(void)
 {
    int index;
 
-   for (index = 0 ; index < MAX_CHROMS ; index++) {
+   for (index = 0; index < MAX_CHROMOSOMES; index++)
+   {
       initMember(curPop, index);
    }
 }
+
+#pragma clang diagnostic pop

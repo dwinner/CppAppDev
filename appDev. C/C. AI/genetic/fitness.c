@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc50-cpp"
 //
 // Genetic Algorithm Fitness Evaluation Functions (user-defined)
 //
@@ -6,13 +8,12 @@
 #include <stdio.h>
 #include "common.h"
 
-extern POPULATION_TYPE populations[2][MAX_CHROMS];
+extern PopulationT populations[2][MAX_CHROMOSOMES];
 extern int curPop;
 
 float maxFitness;
 float avgFitness;
 float minFitness;
-
 
 /*
  * NOTE: This function is different for each problem to be solved...
@@ -24,67 +25,74 @@ extern int stack[];
 static int x = 0;
 float totFitness;
 
-/*
- *  performFitnessCheck()
- *
- *  This is the fitness function used to score the potential solution.
- *  This function can be modifed to solve different problems.
- *
+/**
+ * @brief Perform fitness check
+ * @param outP out file
+ * @return Always 0
  */
-
-int performFitnessCheck( FILE *outP )
+int performFitnessCheck(FILE *outP)
 {
-   int chrom, result, i;
+   int chromosome, result, i;
    int args[10], answer;
 
-   maxFitness = 0.0;
-   avgFitness = 0.0;
-   minFitness = 1000.0;
-   totFitness = 0.0;
+   maxFitness = 0.0F;
+   avgFitness = 0.0F;
+   minFitness = 1000.0F;
+   totFitness = 0.0F;
 
-   for ( chrom = 0 ; chrom < MAX_CHROMS ; chrom++ ) {
+   for (chromosome = 0; chromosome < MAX_CHROMOSOMES; chromosome++)
+   {
+      populations[curPop][chromosome].fitness = 0.0F;
 
-      populations[curPop][chrom].fitness = 0.0;
-
-      for ( i = 0 ; i < COUNT ; i++ ) {
-
+      for (i = 0; i < COUNT; i++)
+      {
          args[0] = (rand() & 0x1f) + 1;
          args[1] = (rand() & 0x1f) + 1;
          args[2] = (rand() & 0x1f) + 1;
 
          /* Problem is xy + y^2 + z */
          answer = (args[0] * args[1]) + (args[1] * args[1]) + args[2];
-
-         result = interpretSTM(populations[curPop][chrom].program,
-                               populations[curPop][chrom].progSize,
+         result = interpretStm(populations[curPop][chromosome].program,
+                               populations[curPop][chromosome].programSize,
                                args, 3);
 
-         if (result == NONE) {
-            populations[curPop][chrom].fitness += TIER1;
+         if (result == NONE)
+         {
+            populations[curPop][chromosome].fitness += TIER1;
          }
 
-         if (stackPointer == 1) populations[curPop][chrom].fitness += TIER2;
+         if (stackPointer == 1)
+         {
+            populations[curPop][chromosome].fitness += TIER2;
+         }
 
-         if (stack[0] == answer) populations[curPop][chrom].fitness += TIER3;
-
+         if (stack[0] == answer)
+         {
+            populations[curPop][chromosome].fitness += TIER3;
+         }
       }
 
-      if (populations[curPop][chrom].fitness > maxFitness) {
-         maxFitness = populations[curPop][chrom].fitness;
-      } else if (populations[curPop][chrom].fitness < minFitness) {
-         minFitness = populations[curPop][chrom].fitness;
+      if (populations[curPop][chromosome].fitness > maxFitness)
+      {
+         maxFitness = populations[curPop][chromosome].fitness;
+      }
+      else if (populations[curPop][chromosome].fitness < minFitness)
+      {
+         minFitness = populations[curPop][chromosome].fitness;
       }
 
-      totFitness += populations[curPop][chrom].fitness;
-
+      totFitness += populations[curPop][chromosome].fitness;
    }
 
-   avgFitness = totFitness / (float)MAX_CHROMS;
+   avgFitness = totFitness / (float) MAX_CHROMOSOMES;
 
-   if (outP) {
+   if (outP)
+   {
       fprintf(outP, "%d %6.4f %6.4f %6.4f\n",
               x++, minFitness, avgFitness, maxFitness);
    }
 
    return 0;
 }
+
+#pragma clang diagnostic pop

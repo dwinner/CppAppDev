@@ -2,39 +2,42 @@
 // Genetic Algorithm Stack Machine (Virtual Computer) Implementation
 //
 
-#include <stdio.h>
 #include "common.h"
 
-#define STACK_DEPTH	25
+#define STACK_DEPTH   25
 
 int stack[STACK_DEPTH];
 int stackPointer;
 
 #define ASSERT_STACK_ELEMENTS(x) \
-	 if (stackPointer < x) { error = STACK_VIOLATION ; break; }
+    if (stackPointer < x) { error = STACK_VIOLATION ; break; }
 
 #define ASSERT_STACK_NOT_FULL \
-	 if (stackPointer == STACK_DEPTH) { error = STACK_VIOLATION ; break; }
+    if (stackPointer == STACK_DEPTH) { error = STACK_VIOLATION ; break; }
 
-#define SPUSH(x) (stack[stackPointer++] = x)
-#define SPOP     (stack[--stackPointer])
-#define SPEEK    (stack[stackPointer-1])
+#define S_PUSH(x) (stack[stackPointer++] = x)
+#define S_POP     (stack[--stackPointer])
+#define S_PEEK    (stack[stackPointer-1])
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunsequenced"
 
-/*
- *  interpretSTM()
+/**
+ * @brief Interpret stack machine
  *
- *  This function is the stack machine interpreter.  The program, its
- *  length, and 'argsLength' number of arguments are passed to perform
- *  whatever function is provided within 'program'.  Upon completion,
- *  any error encountered is returned to the caller.  The global stack
- *  'stack' is used to determine the result of the program and to test
- *  what was expected (which determines the fitness).
- *
+ * @details This function is the stack machine interpreter. The program, its
+ * length, and 'argsLength' number of arguments are passed to perform
+ * whatever function is provided within 'program'. Upon completion,
+ * any error encountered is returned to the caller. The global stack
+ * 'stack' is used to determine the result of the program and to test
+ * what was expected (which determines the fitness).
+ * @param program program
+ * @param progLength program length
+ * @param args program arguments
+ * @param argsLength
+ * @return Exit code
  */
-
-int interpretSTM(const int *program, int progLength,
-                 const int *args, int argsLength)
+int interpretStm(const int *program, int progLength, const int *args, int argsLength)
 {
    int pc = 0;
    int i, error = NONE;
@@ -43,48 +46,52 @@ int interpretSTM(const int *program, int progLength,
    stackPointer = 0;
 
    /* Load the arguments onto the stack */
-   for (i = argsLength-1 ; i >= 0 ; i--) {
-      SPUSH(args[i]);
+   for (i = argsLength - 1; i >= 0; i--)
+   {
+      S_PUSH(args[i]);
    }
 
    /* Execute the program */
-   while ((error == NONE) && (pc < progLength)) {
-
-      switch(program[pc++]) {
-
+   while ((error == NONE) && (pc < progLength))
+   {
+      switch (program[pc++])
+      {
          case DUP:
-            ASSERT_STACK_ELEMENTS(1);
-            ASSERT_STACK_NOT_FULL;
-            SPUSH(SPEEK);
+            ASSERT_STACK_ELEMENTS(1)
+            ASSERT_STACK_NOT_FULL
+            S_PUSH(S_PEEK);
             break;
 
          case SWAP:
-            ASSERT_STACK_ELEMENTS(2);
-            a = stack[stackPointer-1];
-            stack[stackPointer-1] = stack[stackPointer-2];
-            stack[stackPointer-2] = a;
+            ASSERT_STACK_ELEMENTS(2)
+            a = stack[stackPointer - 1];
+            stack[stackPointer - 1] = stack[stackPointer - 2];
+            stack[stackPointer - 2] = a;
             break;
 
          case MUL:
-            ASSERT_STACK_ELEMENTS(2);
-            a = SPOP; b = SPOP;
-            SPUSH(a * b);
+            ASSERT_STACK_ELEMENTS(2)
+            a = S_POP;
+            b = S_POP;
+            S_PUSH(a * b);
             break;
 
          case ADD:
-            ASSERT_STACK_ELEMENTS(2);
-            a = SPOP; b = SPOP;
-            SPUSH(a + b);
+            ASSERT_STACK_ELEMENTS(2)
+            a = S_POP;
+            b = S_POP;
+            S_PUSH(a + b);
             break;
 
          case OVER:
-            ASSERT_STACK_ELEMENTS(2);
-            SPUSH(stack[stackPointer-2]);
+            ASSERT_STACK_ELEMENTS(2)
+            S_PUSH(stack[stackPointer - 2]);
             break;
 
-      } /* Switch opcode */
+      }
+   }
 
-   } /* Loop */
-
-   return(error);
+   return (error);
 }
+
+#pragma clang diagnostic pop
