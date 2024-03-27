@@ -1,9 +1,12 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc51-cpp"
+
 #include <stdio.h>
 #include "neuralNetwork.h"
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-   int i, c;
+   int i, cmdOption;
    FILE *fp = NULL, *rfp = NULL;
 
    seedPopulation = 0;
@@ -11,12 +14,12 @@ int main (int argc, char *argv[])
    /*
     *  Parse all options from the command line.
     */
-   while (1) {
-
-      if ((c = getopt( argc, argv, "prgcnsh")) > 0) {
-
-         switch( c ) {
-
+   while (1)
+   {
+      if ((cmdOption = getopt(argc, argv, "prgcnsh")) > 0)
+      {
+         switch (cmdOption)
+         {
             case 'p':
                /* Playback mode */
                seedPopulation = 1;
@@ -48,24 +51,30 @@ int main (int argc, char *argv[])
                break;
 
             case 'h':
-               emitHelp( argv[0] );
+               emitHelp(argv[0]);
                break;
 
+            default:
+               break;
          }
-
-      } else break;
-
+      }
+      else
+      {
+         break;
+      }
    }
 
    /* Seed the random number generator */
-   srand( time(NULL) );
+   srand(time(NULL));
 
    /* If we're in playback mode, don't do stats */
-   if (seedPopulation == 0) {
+   if (seedPopulation == 0)
+   {
       fp = fopen(STATS, "w");
    }
 
-   if (emitRuntimeTrend == 1) {
+   if (emitRuntimeTrend == 1)
+   {
       rfp = fopen(RUNTIME, "w");
    }
 
@@ -73,43 +82,58 @@ int main (int argc, char *argv[])
    init();
 
    /* Main loop for the simulation.  */
-   for (i = 0 ; i < MAX_STEPS ; i++) {
-
-      /* Emit the landscape to the terminal if we're in playback mode. */
-      if (seedPopulation) emitLandscape();
+   for (i = 0; i < MAX_STEPS; i++)
+   {
+      /* Emit the landScape to the terminal if we're in playback mode. */
+      if (seedPopulation)
+      {
+         emitLandscape();
+      }
 
       /* Await user return before continuing */
-      if (step) {
-         (void)getchar();
+      if (step)
+      {
+         (void) getchar();
       }
 
       /* Simulate each agent for one time step */
       simulate();
 
       /* Emit data at some low rate */
-      if (seedPopulation == 0) {
-         if ((i % 100) == 0) {
-            emitTrend2File( fp, i );
+      if (seedPopulation == 0)
+      {
+         if ((i % 100) == 0)
+         {
+            emitTrend2File(fp, i);
          }
-      } else {
-         if ((agentTypeCounts[0] == 0) && (agentTypeCounts[1] == 0)) break;
+      }
+      else
+      {
+         if ((agentTypeCounts[0] == 0) && (agentTypeCounts[1] == 0))
+         {
+            break;
+         }
       }
 
       /* For playback trend data, emit each time step */
-      if (emitRuntimeTrend) {
-         emitRuntimeTrend2File( rfp, i );
+      if (emitRuntimeTrend)
+      {
+         emitRuntimeTrend2File(rfp, i);
       }
-
    }
 
-   if (seedPopulation == 0) {
+   if (seedPopulation == 0)
+   {
       fclose(fp);
       emitAgents2File();
    }
 
-   if (emitRuntimeTrend) {
+   if (emitRuntimeTrend)
+   {
       fclose(rfp);
    }
 
    return 0;
 }
+
+#pragma clang diagnostic pop
