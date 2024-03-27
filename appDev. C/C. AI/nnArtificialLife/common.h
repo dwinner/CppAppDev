@@ -1,14 +1,9 @@
-/*
- *  Artificial Life Simulation Types and Symbolic Constants
- *
- *  ./software/ch7/common.h
- *
- *  mtj@cogitollc.com
- *
- */
+//
+// Artificial Life Simulation Types and Symbolic Constants
+//
 
-#ifndef __COMMON_H
-#define __COMMON_H
+#ifndef NNARTIFICIALLIFE_COMMON_H
+#define NNARTIFICIALLIFE_COMMON_H
 
 #include <math.h>
 #include <stdlib.h>
@@ -32,7 +27,7 @@
 
 
 /* Output Cells */
- 
+
 #define ACTION_TURN_LEFT	0
 #define ACTION_TURN_RIGHT	1
 #define ACTION_MOVE		2
@@ -66,26 +61,26 @@
 /* Types for location, plants and agents */
 
 typedef struct {
-  short x;
-  short y;
+   short x;
+   short y;
 } locType;
 
 typedef struct {
-  locType location;
+   locType location;
 } plantType;
 
 typedef struct {
-  short type;
-  short energy;
-  short parent;
-  short age;
-  short generation;
-  locType location;
-  unsigned short direction;
-  short inputs[MAX_INPUTS];
-  short weight_oi[MAX_INPUTS * MAX_OUTPUTS];
-  short biaso[MAX_OUTPUTS];
-  short actions[MAX_OUTPUTS];
+   short type;
+   short energy;
+   short parent;
+   short age;
+   short generation;
+   locType location;
+   unsigned short direction;
+   short inputs[MAX_INPUTS];
+   short weight_oi[MAX_INPUTS * MAX_OUTPUTS];
+   short biaso[MAX_OUTPUTS];
+   short actions[MAX_OUTPUTS];
 } agentType;
 
 #define TYPE_HERBIVORE	0
@@ -93,29 +88,22 @@ typedef struct {
 #define TYPE_DEAD	-1
 
 typedef struct {
-  short y_offset;
-  short x_offset;
+   short y_offset;
+   short x_offset;
 } offsetPairType;
 
 
 /* Grid offsets for Front/Left/Right/Proximity (North/-South facing) */
-
-const offsetPairType northFront[]=
-      {{-2,-2}, {-2,-1}, {-2,0}, {-2,1}, {-2,2}, {9,9}};
-const offsetPairType northLeft[]={{0,-2}, {-1,-2}, {9,9}};
-const offsetPairType northRight[]={{0,2}, {-1,2}, {9,9}};
-const offsetPairType northProx[]=
-      {{0,-1}, {-1,-1}, {-1,0}, {-1,1}, {0,1}, {9,9}};
+extern const offsetPairType northFront[];
+extern const offsetPairType northLeft[];
+extern const offsetPairType northRight[];
+extern const offsetPairType northProx[];
 
 /* Grid offsets for Front/Left/Right/Proximity (West/-East facing) */
-
-const offsetPairType westFront[]=
-      {{2,-2}, {1,-2}, {0,-2}, {-1,-2}, {-2,-2}, {9,9}};
-const offsetPairType westLeft[]={{2,0}, {2,-1}, {9,9}};
-const offsetPairType westRight[]={{-2,0}, {-2,-1}, {9,9}};
-const offsetPairType westProx[]=
-      {{1,0}, {1,-1}, {0,-1}, {-1,-1}, {-1,0}, {9,9}};
-
+extern const offsetPairType westFront[];
+extern const offsetPairType westLeft[];
+extern const offsetPairType westRight[];
+extern const offsetPairType westProx[];
 
 /* Macro Function Definitions */
 
@@ -135,8 +123,9 @@ const offsetPairType westProx[]=
 
 #define MAX_PLANTS	35
 
+#define DIM 3
 #define MAX_GRID	30
 
 #define MAX_STEPS	1000000
 
-#endif /* __COMMON_H */
+#endif //NNARTIFICIALLIFE_COMMON_H
