@@ -7,8 +7,9 @@
 
 #include <stdio.h>
 #include "common.h"
+#include "ruleFire.h"
 
-timerType timers[MAX_TIMERS];
+extern timerType timers[MAX_TIMERS];
 
 /**
  * @brief Fire the defined timer. This involves adding a '(timer-triggered x)'
@@ -16,19 +17,19 @@ timerType timers[MAX_TIMERS];
  * @param timerIndex Timer index
  * @return Result code of adding command
  */
-int fireTimer( int timerIndex );
+int fireTimer(int timerIndex);
 
 /**
  * @brief Activate a timer with a given expiration time.
  * @param index Timer index
  * @param expiration Expiration
  */
-void startTimer( int index, int expiration );
+void startTimer(int index, int expiration);
 
 /**
  * @brief Process the active timer list, upon finding an expired timer,
  *  fire it.
  */
-void processTimers( void );
+void processTimers(void);
 
 #endif //EXPERTSYSTEMS_TIMERS_H

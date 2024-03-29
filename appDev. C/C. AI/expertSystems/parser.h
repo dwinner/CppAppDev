@@ -11,7 +11,7 @@
 #include <assert.h>
 #include "common.h"
 
-#define MAX_FILE_SIZE	16384
+#define MAX_FILE_SIZE   16384
 
 extern memoryElementType workingMemory[MAX_MEMORY_ELEMENTS];
 extern ruleType ruleSet[MAX_RULES];
@@ -22,7 +22,7 @@ extern int ruleIndex;
  * @param block Char block
  * @return Modified block
  */
-char *skipWhiteSpace( char *block );
+char *skipWhiteSpace(char *block);
 
 /**
  * @brief Parse a single consequent or antecedent from the file.
@@ -30,7 +30,7 @@ char *skipWhiteSpace( char *block );
  * @param met Memory element type
  * @return Char block
  */
-char *parseElement( char *block, memoryElementType **met );
+char *parseElement(char *block, memoryElementType **met);
 
 /**
  * @brief Parse an antecedent from the file.
@@ -38,7 +38,7 @@ char *parseElement( char *block, memoryElementType **met );
  * @param rule Rule type
  * @return Char block
  */
-char *parseAntecedent( char *block, ruleType *rule );
+char *parseAntecedent(char *block, ruleType *rule);
 
 /**
  * @brief Parse a consequent from the file.
@@ -46,7 +46,7 @@ char *parseAntecedent( char *block, ruleType *rule );
  * @param rule Rule type
  * @return Char block
  */
-char *parseConsequent( char *block, ruleType *rule );
+char *parseConsequent(char *block, ruleType *rule);
 
 /**
  * @brief Parse the rules file.  This function parses the high level elements
@@ -55,6 +55,6 @@ char *parseConsequent( char *block, ruleType *rule );
  * @param filename file name
  * @return -1 if something went wrong, 0 if everything is fine
  */
-int parseFile( char *filename );
+int parseFile(char *filename);
 
 #endif //EXPERTSYSTEMS_PARSER_H
