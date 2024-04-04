@@ -13,7 +13,7 @@
 /**
  * @brief Fuzzy type as float
  */
-typedef float fuzzyType;
+typedef float FuzzyBoolT;
 
 /**
  * @brief Fuzzy version of the AND operator.
@@ -21,7 +21,7 @@ typedef float fuzzyType;
  * @param rhs Right fuzzy value
  * @return Computed fuzzy value
  */
-fuzzyType fuzzyAnd(fuzzyType lhs, fuzzyType rhs);
+FuzzyBoolT fuzzyAnd(FuzzyBoolT lhs, FuzzyBoolT rhs);
 
 /**
  * @brief Fuzzy version of the OR operator.
@@ -29,13 +29,13 @@ fuzzyType fuzzyAnd(fuzzyType lhs, fuzzyType rhs);
  * @param rhs Right fuzzy value
  * @return Computed fuzzy value
  */
-fuzzyType fuzzyOr(fuzzyType lhs, fuzzyType rhs);
+FuzzyBoolT fuzzyOr(FuzzyBoolT lhs, FuzzyBoolT rhs);
 
 /**
  * @brief Fuzzy version of the NOT operator.
  * @param fuzzyValue Fuzzy value
  * @return Inverse fuzzy value
  */
-fuzzyType fuzzyNot(fuzzyType fuzzyValue);
+FuzzyBoolT fuzzyNot(FuzzyBoolT fuzzyValue);
 
 #endif //FUZZYLOGIC_FUZZY_H

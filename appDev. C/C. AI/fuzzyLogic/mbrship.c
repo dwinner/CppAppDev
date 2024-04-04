@@ -1,143 +1,195 @@
-//
-// Created by Man on 4/3/2024.
-//
-
 #include "mbrship.h"
 
-int normalize(fuzzyType in)
+int normalize(FuzzyBoolT in)
 {
-   if (in >= 0.5)
-      return 1;
-   else
-      return 0;
+   return in >= 0.5 ? 1 : 0;
 }
 
-fuzzyType spikeProfile(float value, float lo, float high)
+FuzzyBoolT spikeProfile(float value, float lo, float high)
 {
    float peak;
-
    value += (-lo);
 
-   if      ((lo < 0) && (high < 0)) {
+   if ((lo < 0) && (high < 0))
+   {
       high = -(high - lo);
-   } else if ((lo < 0) && (high > 0)) {
+   }
+   else if ((lo < 0) && (high > 0))
+   {
       high += -lo;
-   } else if ((lo > 0) && (high > 0)) {
+   }
+   else if ((lo > 0) && (high > 0))
+   {
       high -= lo;
    }
 
-   peak = (high / 2.0);
-   lo = 0.0;
-
-   if        (value < peak) {
-      return( value / peak );
-   } else if (value > peak) {
-      return( (high-value) / peak );
+   peak = (float) (high / 2.0);
+   if (value < peak)
+   {
+      return (value / peak);
+   }
+   else if (value > peak)
+   {
+      return ((high - value) / peak);
    }
 
-   return 1.0;
+   return 1.0F;
 }
 
-fuzzyType plateauProfile(float value, float lo, float loPlat, float hiPlat, float hi)
+FuzzyBoolT plateauProfile(float value, float lo, float loPlat, float hiPlat, float hi)
 {
-   float upslope;
-   float downslope;
-
+   float upSlope;
+   float downSlope;
    value += (-lo);
 
-   if (lo < 0.0) {
-      loPlat += -lo;  hiPlat += -lo;
-      hi      += -lo;  lo       = 0;
-   } else {
-      loPlat -= lo;  hiPlat -= lo;
-      hi      -= lo;  lo       = 0;
+   if (lo < 0.0)
+   {
+      loPlat += -lo;
+      hiPlat += -lo;
+      hi += -lo;
+      lo = 0;
+   }
+   else
+   {
+      loPlat -= lo;
+      hiPlat -= lo;
+      hi -= lo;
+      lo = 0;
    }
 
-   upslope = (1.0 / (loPlat - lo));
-   downslope = (1.0 / (hi - hiPlat));
-
-   if      (value < lo) return 0.0F;
-   else if (value > hi) return 0.0F;
-   else if ((value >= loPlat) && (value <= hiPlat)) return 1.0F;
-   else if (value < loPlat) return ((value-lo) * upslope);
-   else if (value > hiPlat) return ((hi-value) * downslope);
+   upSlope = (float) (1.0 / (loPlat - lo));
+   downSlope = (float) (1.0 / (hi - hiPlat));
+   if (value < lo || value > hi)
+   {
+      return 0.0F;
+   }
+   else if ((value >= loPlat) && (value <= hiPlat))
+   {
+      return 1.0F;
+   }
+   else if (value < loPlat)
+   {
+      return ((value - lo) * upSlope);
+   }
+   else if (value > hiPlat)
+   {
+      return ((hi - value) * downSlope);
+   }
 
    return 0.0F;
 }
 
-fuzzyType mTempHot(float temperature)
+FuzzyBoolT mTempHot(float temperature)
 {
-   const float lo = 35.0;
-   const float lo_plat = 45.0;
-   const float hi_plat = 45.0;
-   const float hi = 45.0;
+   const float lo = 35.0F;
+   const float loPlat = 45.0F;
+   const float hiPlat = 45.0F;
+   const float hi = 45.0F;
 
-   if (temperature < lo) return 0.0;
-   if (temperature > hi) return 1.0;
+   if (temperature < lo)
+   {
+      return 0.0F;
+   }
 
-   return plateauProfile( temperature, lo, lo_plat, hi_plat, hi );
+   if (temperature > hi)
+   {
+      return 1.0F;
+   }
+
+   return plateauProfile(temperature, lo, loPlat, hiPlat, hi);
 }
 
-fuzzyType mTempWarm(float temperature)
+FuzzyBoolT mTempWarm(float aTemperature)
 {
-   const float lo = 15.0;
-   const float lo_plat = 25.0;
-   const float hi_plat = 35.0;
-   const float hi = 45.0;
+   const float lo = 15.0F;
+   const float loPlat = 25.0F;
+   const float hiPlat = 35.0F;
+   const float hi = 45.0F;
 
-   if ((temperature < lo) || (temperature > hi)) return 0.0;
+   if ((aTemperature < lo) || (aTemperature > hi))
+   {
+      return 0.0F;
+   }
 
-   return plateauProfile( temperature, lo, lo_plat, hi_plat, hi );
+   return plateauProfile(aTemperature, lo, loPlat, hiPlat, hi);
 }
 
-fuzzyType mTempCold(float temperature)
+FuzzyBoolT mTempCold(float temperature)
 {
-   const float lo = 15.0;
-   const float lo_plat = 15.0;
-   const float hi_plat = 15.0;
-   const float hi = 25.0;
+   const float lo = 15.0F;
+   const float loPlat = 15.0F;
+   const float hiPlat = 15.0F;
+   const float hi = 25.0F;
 
-   if (temperature < lo) return 1.0;
-   if (temperature > hi) return 0.0;
+   if (temperature < lo)
+   {
+      return 1.0F;
+   }
 
-   return plateauProfile( temperature, lo, lo_plat, hi_plat, hi );
+   if (temperature > hi)
+   {
+      return 0.0F;
+   }
+
+   return plateauProfile(temperature, lo, loPlat, hiPlat, hi);
 }
 
-fuzzyType mVoltageLow(float voltage)
+FuzzyBoolT mVoltageLow(float voltage)
 {
-   const float lo = 5.0;
-   const float lo_plat = 5.0;
-   const float hi_plat = 5.0;
-   const float hi = 10.0;
+   const float lo = 5.0F;
+   const float loPlat = 5.0F;
+   const float hiPlat = 5.0F;
+   const float hi = 10.0F;
 
-   if (voltage < lo) return 1.0;
-   if (voltage > hi) return 0.0;
+   if (voltage < lo)
+   {
+      return 1.0F;
+   }
 
-   return plateauProfile( voltage, lo, lo_plat, hi_plat, hi );
+   if (voltage > hi)
+   {
+      return 0.0F;
+   }
+
+   return plateauProfile(voltage, lo, loPlat, hiPlat, hi);
 }
 
-fuzzyType mVoltageMedium(float voltage)
+FuzzyBoolT mVoltageMedium(float voltage)
 {
-   const float lo = 5.0;
-   const float lo_plat = 10.0;
-   const float hi_plat = 20.0;
-   const float hi = 25.0;
+   const float lo = 5.0F;
+   const float lo_plat = 10.0F;
+   const float hi_plat = 20.0F;
+   const float hi = 25.0F;
 
-   if (voltage < lo) return 0.0;
-   if (voltage > hi) return 0.0;
+   if (voltage < lo)
+   {
+      return 0.0F;
+   }
 
-   return plateauProfile( voltage, lo, lo_plat, hi_plat, hi );
+   if (voltage > hi)
+   {
+      return 0.0F;
+   }
+
+   return plateauProfile(voltage, lo, lo_plat, hi_plat, hi);
 }
 
-fuzzyType mVoltageHigh(float voltage)
+FuzzyBoolT mVoltageHigh(float voltage)
 {
-   const float lo = 25.0;
-   const float lo_plat = 30.0;
-   const float hi_plat = 30.0;
-   const float hi = 30.0;
+   const float lo = 25.0F;
+   const float lo_plat = 30.0F;
+   const float hi_plat = 30.0F;
+   const float hi = 30.0F;
 
-   if (voltage < lo) return 0.0;
-   if (voltage > hi) return 1.0;
+   if (voltage < lo)
+   {
+      return 0.0F;
+   }
 
-   return plateauProfile( voltage, lo, lo_plat, hi_plat, hi );
+   if (voltage > hi)
+   {
+      return 1.0F;
+   }
+
+   return plateauProfile(voltage, lo, lo_plat, hi_plat, hi);
 }

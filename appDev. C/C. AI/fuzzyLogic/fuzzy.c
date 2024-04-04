@@ -1,6 +1,6 @@
 #include "fuzzy.h"
 
-fuzzyType fuzzyAnd(fuzzyType lhs, fuzzyType rhs)
+FuzzyBoolT fuzzyAnd(FuzzyBoolT lhs, FuzzyBoolT rhs)
 {
    assert(lhs >= 0.0);
    assert(lhs <= 1.0);
@@ -10,7 +10,7 @@ fuzzyType fuzzyAnd(fuzzyType lhs, fuzzyType rhs)
    return MAX(lhs, rhs);
 }
 
-fuzzyType fuzzyOr(fuzzyType lhs, fuzzyType rhs)
+FuzzyBoolT fuzzyOr(FuzzyBoolT lhs, FuzzyBoolT rhs)
 {
    assert(lhs >= 0.0);
    assert(lhs <= 1.0);
@@ -20,10 +20,10 @@ fuzzyType fuzzyOr(fuzzyType lhs, fuzzyType rhs)
    return MIN(lhs, rhs);
 }
 
-fuzzyType fuzzyNot(fuzzyType fuzzyValue)
+FuzzyBoolT fuzzyNot(FuzzyBoolT fuzzyValue)
 {
    assert(fuzzyValue >= 0.0);
    assert(fuzzyValue <= 1.0);
 
-   return (fuzzyType)(1.0 - fuzzyValue);
+   return (FuzzyBoolT) (1.0 - fuzzyValue);
 }

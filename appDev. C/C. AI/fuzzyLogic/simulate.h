@@ -11,9 +11,9 @@
 #include "fuzzy.h"
 #include "mbrship.h"
 
-#define getSRand()	((float)rand() / (float)RAND_MAX)
-#define getRand(x)	(int)((x) * getSRand())
-#define MAX_LOADS	5
+#define getSRand()   ((float)rand() / (float)RAND_MAX)
+#define getRand(x)   (int)((x) * getSRand())
+#define MAX_LOADS   5
 
 extern int chargeMode;
 extern float voltage;
@@ -25,12 +25,12 @@ extern const float load[MAX_LOADS];
  * @brief Given temperature and voltage values, use the fuzzy logic
  *  membership functions and fuzzy operators to determine the
  *  charge mode.
- * @param timer Timer value
+ * @param aTimer Timer value
  */
-void chargeControl( float *timer );
+void chargeControl(float *aTimer);
 
-double charge( int temperature);
+double charge(int aTemperature);
 
-int simulate( void );
+int simulate(void);
 
 #endif //FUZZYLOGIC_SIMULATE_H

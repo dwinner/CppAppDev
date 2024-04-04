@@ -15,7 +15,7 @@
  * @param in Fuzzy value
  * @return Normalized fuzzy value
  */
-int normalize(fuzzyType in);
+int normalize(FuzzyBoolT in);
 
 /**
  * @brief Return the fuzzified value given the spike profile.
@@ -24,7 +24,7 @@ int normalize(fuzzyType in);
  * @param high High range
  * @return Fuzzified value
  */
-fuzzyType spikeProfile(float value, float lo, float high);
+FuzzyBoolT spikeProfile(float value, float lo, float high);
 
 /**
  * @brief Return the fuzzified value given the plateau profile.
@@ -35,7 +35,7 @@ fuzzyType spikeProfile(float value, float lo, float high);
  * @param hi High range
  * @return
  */
-fuzzyType plateauProfile(float value, float lo, float loPlat, float hiPlat, float hi);
+FuzzyBoolT plateauProfile(float value, float lo, float loPlat, float hiPlat, float hi);
 
 /**
  * @brief Return the fuzzified value using the hot (temperature)
@@ -44,16 +44,16 @@ fuzzyType plateauProfile(float value, float lo, float loPlat, float hiPlat, floa
  * @param temperature Temperature
  * @return Fuzzified temperature value
  */
-fuzzyType mTempHot(float temperature);
+FuzzyBoolT mTempHot(float temperature);
 
 /**
- * @brief Return the fuzzified value using the warm (temperature)
+ * @brief Return the fuzzified value using the warm (aTemperature)
  *  membership function.  The warm membership function uses
  *  the plateau profile.
- * @param temperature Temperature
- * @return Fuzzified temperature value
+ * @param aTemperature Temperature
+ * @return Fuzzified aTemperature value
  */
-fuzzyType mTempWarm(float temperature);
+FuzzyBoolT mTempWarm(float aTemperature);
 
 /**
  * @brief Return the fuzzified value using the cold (temperature)
@@ -62,7 +62,7 @@ fuzzyType mTempWarm(float temperature);
  * @param temperature Temperature
  * @return Fuzzified temperature value
  */
-fuzzyType mTempCold(float temperature);
+FuzzyBoolT mTempCold(float temperature);
 
 /**
  * @brief Return the fuzzified value using the low (voltage)
@@ -71,7 +71,7 @@ fuzzyType mTempCold(float temperature);
  * @param voltage Voltage
  * @return Fuzzified voltage value
  */
-fuzzyType mVoltageLow(float voltage);
+FuzzyBoolT mVoltageLow(float voltage);
 
 /**
  * @brief Return the fuzzified value using the medium (voltage)
@@ -80,7 +80,7 @@ fuzzyType mVoltageLow(float voltage);
  * @param voltage Voltage
  * @return Fuzzified voltage value
  */
-fuzzyType mVoltageMedium(float voltage);
+FuzzyBoolT mVoltageMedium(float voltage);
 
 /**
  * @brief Return the fuzzified value using the high (voltage)
@@ -89,6 +89,6 @@ fuzzyType mVoltageMedium(float voltage);
  * @param voltage Voltage
  * @return Fuzzified voltage value
  */
-fuzzyType mVoltageHigh(float voltage);
+FuzzyBoolT mVoltageHigh(float voltage);
 
 #endif //FUZZYLOGIC_MBRSHIP_H
