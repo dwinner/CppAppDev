@@ -1,8 +1,10 @@
 #include "AirlineTicket.h"
 
+#include <utility>
+
 using namespace std;
 
-double AirlineTicket::calculatePriceInDollars()
+double AirlineTicket::calculatePriceInDollars() const
 {
    if (hasEliteSuperRewardsStatus())
    {
@@ -15,32 +17,32 @@ double AirlineTicket::calculatePriceInDollars()
    return getNumberOfMiles() * 0.1;
 }
 
-string AirlineTicket::getPassengerName()
+[[maybe_unused]] string AirlineTicket::getPassengerName()
 {
-   return m_passengerName;
+   return _passengerName;
 }
 
 void AirlineTicket::setPassengerName(string name)
 {
-   m_passengerName = name;
+   _passengerName = std::move(name);
 }
 
-int AirlineTicket::getNumberOfMiles()
+int AirlineTicket::getNumberOfMiles() const
 {
-   return m_numberOfMiles;
+   return _numberOfMiles;
 }
 
 void AirlineTicket::setNumberOfMiles(int miles)
 {
-   m_numberOfMiles = miles;
+   _numberOfMiles = miles;
 }
 
-bool AirlineTicket::hasEliteSuperRewardsStatus()
+bool AirlineTicket::hasEliteSuperRewardsStatus() const
 {
-   return m_hasEliteSuperRewardsStatus;
+   return _hasEliteSuperRewardsStatus;
 }
 
-void AirlineTicket::setHasEliteSuperRewardsStatus(bool status)
+[[maybe_unused]] void AirlineTicket::setHasEliteSuperRewardsStatus(bool status)
 {
-   m_hasEliteSuperRewardsStatus = status;
+   _hasEliteSuperRewardsStatus = status;
 }

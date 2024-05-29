@@ -6,24 +6,24 @@
 class AirlineTicket
 {
 public:
-   double calculatePriceInDollars();
+   [[nodiscard]] double calculatePriceInDollars() const;
 
-   std::string getPassengerName();
+   [[maybe_unused]] std::string getPassengerName();
 
    void setPassengerName(std::string name);
 
-   int getNumberOfMiles();
+   [[nodiscard]] int getNumberOfMiles() const;
 
    void setNumberOfMiles(int miles);
 
-   bool hasEliteSuperRewardsStatus();
+   [[nodiscard]] bool hasEliteSuperRewardsStatus() const;
 
-   void setHasEliteSuperRewardsStatus(bool status);
+   [[maybe_unused]] void setHasEliteSuperRewardsStatus(bool status);
 
 private:
-   std::string m_passengerName{"Unknown Passenger"};
-   int m_numberOfMiles{0};
-   bool m_hasEliteSuperRewardsStatus{false};
+   std::string _passengerName{"Unknown Passenger"};
+   int _numberOfMiles{0};
+   bool _hasEliteSuperRewardsStatus{false};
 };
 
 #endif //AIRLINETICKET_AIRLINETICKET_H
