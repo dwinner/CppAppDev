@@ -1,6 +1,0 @@
-[package]
-name = "fview"
-version = "0.1.0"
-authors = ["Tim McNamara <author@rustinaction.com>"]
-
-[dependencies]
