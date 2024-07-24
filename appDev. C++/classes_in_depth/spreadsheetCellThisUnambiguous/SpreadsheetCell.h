@@ -1,0 +1,28 @@
+#ifndef SPREADSHEETCELLTHISUNAMBIGUOUS_SPREADSHEETCELL_H
+#define SPREADSHEETCELLTHISUNAMBIGUOUS_SPREADSHEETCELL_H
+
+
+#include <string_view>
+#include <string>
+
+class SpreadsheetCell
+{
+public:
+   void setValue(double value);
+
+   double getValue() const;
+
+   void setString(std::string_view value);
+
+   std::string getString() const;
+
+private:
+   std::string doubleToString(double value) const;
+
+   double stringToDouble(std::string_view value) const;
+
+   double value{0};
+};
+
+
+#endif //SPREADSHEETCELLTHISUNAMBIGUOUS_SPREADSHEETCELL_H
