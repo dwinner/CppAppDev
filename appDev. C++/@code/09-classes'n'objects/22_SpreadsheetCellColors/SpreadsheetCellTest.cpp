@@ -1,5 +1,3 @@
-import spreadsheet_cell;
-
 using namespace std;
 
 int main()

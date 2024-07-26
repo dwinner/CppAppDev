@@ -1,7 +1,3 @@
-module spreadsheet_cell;
-
-import std;
-
 using namespace std;
 
 SpreadsheetCell::SpreadsheetCell(double initialValue)

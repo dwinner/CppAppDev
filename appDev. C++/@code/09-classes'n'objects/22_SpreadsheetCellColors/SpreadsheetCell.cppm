@@ -1,8 +1,4 @@
-export module spreadsheet_cell;
-
-import std;
-
-export class SpreadsheetCell
+class SpreadsheetCell
 {
 public:
 	SpreadsheetCell() = default;
