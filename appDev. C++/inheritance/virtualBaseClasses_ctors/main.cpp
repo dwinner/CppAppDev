@@ -1,4 +1,5 @@
-import std;
+#include <iostream>
+#include <print>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ using namespace std;
 //	private:
 //		double m_weight{ 0.0 };
 //	};
-//	
+//
 //	class Dog : public virtual Animal
 //	{
 //	public:
@@ -21,7 +22,7 @@ using namespace std;
 //	private:
 //		string m_name;
 //	};
-//	
+//
 //	class Bird : public virtual Animal
 //	{
 //	public:
@@ -29,7 +30,7 @@ using namespace std;
 //	private:
 //		bool m_canFly{ false };
 //	};
-//	
+//
 //	class DogBird : public Dog, public Bird
 //	{
 //	public:
@@ -37,48 +38,80 @@ using namespace std;
 //			: Dog{ weight, move(name) }, Bird{ weight, canFly } {}
 //	};
 
-
 // CORRECT IMPLEMENTATION.
 class Animal
 {
 public:
-	explicit Animal(double weight) : m_weight{ weight } {}
-	virtual double getWeight() const { return m_weight; }
+   explicit Animal(double weight)
+       : m_weight{weight}
+   {
+   }
+
+   virtual double getWeight() const
+   {
+      return m_weight;
+   }
+
 protected:
-	Animal() = default;
+   Animal() = default;
+
 private:
-	double m_weight{ 0.0 };
+   double m_weight{0.0};
 };
 
 class Dog : public virtual Animal
 {
 public:
-	explicit Dog(double weight, string name) : Animal{ weight }, m_name{ move(name) } {}
+   explicit Dog(double weight, string name)
+       : Animal{weight},
+         m_name{std::move(name)}
+   {
+   }
+
 protected:
-	explicit Dog(string name) : m_name{ move(name) } {}
+   explicit Dog(string name)
+       : m_name{std::move(name)}
+   {
+   }
+
 private:
-	string m_name;
+   string m_name;
 };
 
 class Bird : public virtual Animal
 {
 public:
-	explicit Bird(double weight, bool canFly) : Animal{ weight }, m_canFly{ canFly } {}
+   explicit Bird(double weight, bool canFly)
+       : Animal{weight},
+         m_canFly{canFly}
+   {
+   }
+
 protected:
-	explicit Bird(bool canFly) : m_canFly{ canFly } {}
+   explicit Bird(bool canFly)
+       : m_canFly{canFly}
+   {
+   }
+
 private:
-	bool m_canFly{ false };
+   bool m_canFly{false};
 };
 
 class DogBird : public Dog, public Bird
 {
 public:
-	explicit DogBird(double weight, string name, bool canFly)
-		: Animal { weight }, Dog{ move(name) }, Bird{ canFly } {}
+   explicit DogBird(double weight, string name, bool canFly)
+       : Animal{weight},
+         Dog{std::move(name)},
+         Bird{canFly}
+   {
+   }
 };
 
 int main()
 {
-	DogBird dogBird{ 22.33, "Bella", true };
-	println("Weight: {}", dogBird.getWeight());
+   DogBird dogBird{22.33, "Bella", true};
+   println("Weight: {}", dogBird.getWeight());
+
+   return 0;
 }
