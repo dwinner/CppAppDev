@@ -38,7 +38,7 @@ public:
 private:
    void verifyCoordinate(std::size_t x, std::size_t y) const;
 
-   std::optional<T> m_cells[WIDTH][HEIGHT];
+   std::optional<T> cells_[WIDTH][HEIGHT];
 };
 
 template <typename T, std::size_t WIDTH, std::size_t HEIGHT>
@@ -58,7 +58,7 @@ template <typename T, std::size_t WIDTH, std::size_t HEIGHT>
 const std::optional<T>& Grid<T, WIDTH, HEIGHT>::at(std::size_t x, std::size_t y) const
 {
    verifyCoordinate(x, y);
-   return m_cells[x][y];
+   return cells_[x][y];
 }
 
 template <typename T, std::size_t WIDTH, std::size_t HEIGHT>
