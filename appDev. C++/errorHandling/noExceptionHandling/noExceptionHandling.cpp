@@ -2,7 +2,7 @@ import std;
 
 using namespace std;
 
-vector<int> readIntegerFile(const string& filename)
+vector<int> ReadIntegerFile(const string& filename)
 {
    ifstream inputStream{filename};
 
@@ -20,6 +20,11 @@ vector<int> readIntegerFile(const string& filename)
 int main()
 {
    const string filename{"IntegerFile.txt"};
-   vector<int> myInts{readIntegerFile(filename)};
-   println("{} ", myInts);
+   vector<int> myInts{ReadIntegerFile(filename)};
+   for (const auto& myInt : myInts)
+   {
+      print("{} ", myInt);
+   }
+
+   println("");
 }
