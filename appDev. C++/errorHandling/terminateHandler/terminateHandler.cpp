@@ -2,7 +2,7 @@ import std;
 
 using namespace std;
 
-vector<int> readIntegerFile(const string& filename)
+vector<int> ReadIntegerFile(const string& filename)
 {
 	ifstream inputStream{ filename };
 	if (inputStream.fail())
@@ -41,6 +41,6 @@ int main()
 	set_terminate(myTerminate);
 
 	const string filename{ "IntegerFile.txt" };
-	vector<int> myInts{ readIntegerFile(filename) };
+	vector<int> myInts{ ReadIntegerFile(filename) };
 	//println("{} ", myInts);
 }

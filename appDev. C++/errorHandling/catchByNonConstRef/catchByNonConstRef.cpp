@@ -2,7 +2,7 @@ import std;
 
 using namespace std;
 
-vector<int> readIntegerFile(const string& filename)
+vector<int> ReadIntegerFile(const string& filename)
 {
 	ifstream inputStream{ filename };
 	if (inputStream.fail())
@@ -29,7 +29,7 @@ int main()
 
 	try
 	{
-		myInts = readIntegerFile(filename);
+		myInts = ReadIntegerFile(filename);
 	}
 	catch (exception& /* e */)
 	{

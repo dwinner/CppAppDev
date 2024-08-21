@@ -6,77 +6,74 @@ class FileError : public exception
 {
 public:
    explicit FileError(string filename)
-      : m_filename{ move(filename) } 
+      : filename_{move(filename)}
    {
    }
 
-   const char* what() const noexcept override 
+   const char* what() const noexcept override
    {
-      return m_message.c_str(); 
+      return message_.c_str();
    }
 
    virtual const string& getFilename() const noexcept
    {
-      return m_filename;
+      return filename_;
    }
 
 protected:
    virtual void setMessage(string message)
    {
-      m_message = move(message);
+      message_ = move(message);
    }
 
 private:
-   string m_filename;
-   string m_message;
+   string filename_;
+   string message_;
 };
-
 
 
 class FileOpenError : public FileError
 {
 public:
    explicit FileOpenError(string filename)
-      : FileError{ move(filename) }
+      : FileError{move(filename)}
    {
-      setMessage(format("Unable to open {}.", getFilename()));
+      FileError::setMessage(format("Unable to open {}.", FileError::getFilename()));
    }
 };
-
 
 
 class FileReadError : public FileError
 {
 public:
    explicit FileReadError(string filename, size_t lineNumber) :
-      FileError{ move(filename) },
-      m_lineNumber{ lineNumber }
+      FileError{move(filename)},
+      lineNumber_{lineNumber}
    {
-      setMessage(format("Error reading {}, line {}.", getFilename(), lineNumber));
+      FileError::setMessage(format("Error reading {}, line {}.", FileError::getFilename(), lineNumber));
    }
 
-   virtual size_t getLineNumber() const noexcept 
+   virtual size_t getLineNumber() const noexcept
    {
-      return m_lineNumber;
+      return lineNumber_;
    }
 
 private:
-   size_t m_lineNumber{ 0 };
+   size_t lineNumber_{0};
 };
 
 
-
-vector<int> readIntegerFile(const string& filename)
+vector<int> ReadIntegerFile(const string& filename)
 {
-   ifstream inputStream{ filename };
+   ifstream inputStream{filename};
    if (inputStream.fail())
    {
       // We failed to open the file: throw an exception.
-      throw FileOpenError{ filename };
+      throw FileOpenError{filename};
    }
 
    vector<int> integers;
-   size_t lineNumber{ 0 };
+   size_t lineNumber{0};
    while (!inputStream.eof())
    {
       // Read one line from the file.
@@ -85,7 +82,7 @@ vector<int> readIntegerFile(const string& filename)
       ++lineNumber;
 
       // Create a string stream out of the line.
-      istringstream lineStream{ line };
+      istringstream lineStream{line};
 
       // Read the integers one-by-one and add them to the vector.
       int temp;
@@ -99,7 +96,7 @@ vector<int> readIntegerFile(const string& filename)
          // We did not reach the end of the string stream.
          // This means that some error occurred while reading this line.
          // Throw an exception.
-         throw FileReadError{ filename, lineNumber };
+         throw FileReadError{filename, lineNumber};
       }
    }
 
@@ -108,12 +105,12 @@ vector<int> readIntegerFile(const string& filename)
 
 int main()
 {
-   const string filename{ "IntegerFile.txt" };
+   const string filename{"IntegerFile.txt"};
    vector<int> myInts;
 
    try
    {
-      myInts = readIntegerFile(filename);
+      myInts = ReadIntegerFile(filename);
    }
    catch (const FileError& e)
    {
@@ -121,5 +118,10 @@ int main()
       return 1;
    }
 
-   //println("{} ", myInts);
+   for (int myInt : myInts)
+   {
+      print("{} ", myInt);
+   }
+
+   println("");
 }
