@@ -1,0 +1,3 @@
+F:/cppAppDev/appDev. C++/castVariants/dynamicCastSample/cmake-build-debug-mingw/CMakeFiles/dynamicCastSample.dir
+F:/cppAppDev/appDev. C++/castVariants/dynamicCastSample/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+F:/cppAppDev/appDev. C++/castVariants/dynamicCastSample/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
