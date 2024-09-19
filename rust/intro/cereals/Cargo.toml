@@ -1,7 +1,0 @@
-[package]
-name = "cereals"
-version = "0.1.0"
-authors = ["dwinner@inbox.ru"]
-edition = "2021"
-
-[dependencies]
