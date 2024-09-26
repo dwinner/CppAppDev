@@ -1,0 +1,86 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 26,
+    "patch": 0
+  },
+  "include": [],
+  "configurePresets": [
+    {
+      "name": "myConfigure",
+      "displayName": "Configure Preset",
+      "description": "Ninja generator",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "installDir": "${sourceDir}/build/install"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "myBuild",
+      "displayName": "Build Preset",
+      "description": "Four jobs",
+      "configurePreset": "myConfigure",
+      "jobs": 4
+    },
+    {
+      "name": "myInstall",
+      "displayName": "Installation",
+      "targets" : "install",
+      "configurePreset": "myConfigure"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "myTest",
+      "displayName": "Test Preset",
+      "description": "Output short progress",
+      "configurePreset": "myConfigure",
+      "output": {
+        "shortProgress": true
+      }
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "myPackage",
+      "displayName": "Package Preset",
+      "description": "ZIP generator",
+      "configurePreset": "myConfigure",
+      "generators": [
+        "ZIP"
+      ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "myWorkflow",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "myConfigure"
+        },
+        {
+          "type": "build",
+          "name": "myBuild"
+        },
+        {
+          "type": "test",
+          "name": "myTest"
+        },
+        {
+          "type": "package",
+          "name": "myPackage"
+        },
+        {
+          "type": "build",
+          "name": "myInstall"
+        }
+      ]
+    }
+  ],
+  "vendor": {
+    "data": "IDE-specific information"
+  }
+}
