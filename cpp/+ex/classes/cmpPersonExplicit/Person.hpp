@@ -39,6 +39,22 @@ namespace HR
 
       virtual ~Person();
 
+      friend bool operator==(const Person &lhs, const Person &rhs);
+
+      friend bool operator!=(const Person &lhs, const Person &rhs);
+
+      friend bool operator<(const Person &lhs, const Person &rhs);
+
+      friend bool operator>(const Person &lhs, const Person &rhs);
+
+      friend bool operator<=(const Person &lhs, const Person &rhs);
+
+      friend bool operator>=(const Person &lhs, const Person &rhs);
+
+      friend std::ostream &operator<<(std::ostream &ostream, const Person &person);
+
+      friend void swap(Person &first, Person &second);
+
    private:
       [[nodiscard]] static std::string extractInitials(const std::string &firstName, const std::string &lastName);
 
@@ -46,11 +62,6 @@ namespace HR
       std::string lastName_;
       std::string initials_;
    };
-
-
-   std::ostream &operator<<(std::ostream &ostream, const Person &person);
-
-   void swap(Person &first, Person &second);
 }
 
 #endif //PERSONSAMPLE_PERSON_HPP
