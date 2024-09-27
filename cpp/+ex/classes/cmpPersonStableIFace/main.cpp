@@ -11,7 +11,6 @@ void Cmp_check();
 int main()
 {
    Cmp_check();
-
    return 0;
 }
 
@@ -26,6 +25,7 @@ void Cmp_check()
    employees.emplace_back("Sweeney", "Todd");
 
    // print unsorted
+   cout << "=== Unsorted ===" << '\n';
    for (const auto& item : employees)
    {
       cout << item << '\n';
@@ -36,6 +36,7 @@ void Cmp_check()
    ranges::sort(employees);
 
    // print sorted
+   cout << "=== Sorted ===" << '\n';
    for (const auto& item : employees)
    {
       cout << item << '\n';
