@@ -1,6 +1,12 @@
-#include <iostream>
+import std;
+import utils;
+
+using namespace std;
 
 int main()
 {
-   std::cout << "Hello World!\n";
+   println("{}", Concat(1, 2.2));
+	println("{}", Concat("Hello ", "World"));
+	println("{}", Concat("Hello ", 1));
+	println("{}", Concat(2, " World"));
 }
