@@ -1,0 +1,130 @@
+; Listing 11-3
+;
+; Demonstrate segment directives
+
+        option  casemap:none
+
+nl          =       10
+
+
+CONST       segment readonly para 'CONST'
+ttlStr      byte    "Listing 11-3", 0
+CONST       ends
+           
+
+_DATA       segment para 'DATA'
+ps          real4   1.0, 2.0, 3.0, 4.0
+_DATA       ends
+
+
+_BSS        segment para 'BSS'
+pi          dword   4 dup (?)
+_BSS        ends
+
+
+cseg        segment para 'CODE'
+            externdef printf:proc
+            
+; Return program title to C++ program:
+
+            public  getTitle
+getTitle    proc
+            lea     rax, ttlStr
+            ret
+getTitle    endp
+
+
+; Used for debugging:
+
+print       proc
+            push    rax
+            push    rbx
+            push    rcx
+            push    rdx
+            push    r8
+            push    r9
+            push    r10
+            push    r11
+            
+            push    rbp
+            mov     rbp, rsp
+            sub     rsp, 40
+            and     rsp, -16
+            
+            mov     rcx, [rbp+72]   ;Return address
+            call    printf
+            
+            mov     rcx, [rbp+72]
+            dec     rcx
+skipTo0:    inc     rcx
+            cmp     byte ptr [rcx], 0
+            jne     skipTo0
+            inc     rcx
+            mov     [rbp+72], rcx
+            
+            leave
+            pop     r11
+            pop     r10
+            pop     r9
+            pop     r8
+            pop     rdx
+            pop     rcx
+            pop     rbx
+            pop     rax
+            ret
+print       endp
+cseg        ends
+
+
+            
+                    
+_TEXT       segment para 'CODE'            
+; Here is the "asmMain" function.
+
+            public  asmMain
+asmMain     proc
+            push    rbx
+            push    rbp
+            mov     rbp, rsp
+            sub     rsp, 56         ;Shadow storage 
+
+            movss     xmm0, ps
+            cvttss2si eax, xmm0
+            mov       pi, eax
+            
+            movss     xmm0, ps[4]
+            cvttss2si eax, xmm0
+            mov       pi[4], eax
+            
+            movss     xmm0, ps[8]
+            cvttss2si eax, xmm0
+            mov       pi[8], eax
+            
+            movss     xmm0, ps[12]
+            cvttss2si eax, xmm0
+            mov       pi[12], eax
+            
+            mov     edx, pi
+            call    print
+            byte    "(1)=%d", nl, 0
+
+            mov     edx, pi[4]
+            call    print
+            byte    "(2)=%d", nl, 0
+
+            mov     edx, pi[8]
+            call    print
+            byte    "(3)=%d", nl, 0
+
+            mov     edx, pi[12]
+            call    print
+            byte    "(4)=%d", nl, 0
+
+             
+allDone:    leave
+            pop     rbx
+            ret     ;Returns to caller
+            
+asmMain     endp
+_TEXT       ends
+            end

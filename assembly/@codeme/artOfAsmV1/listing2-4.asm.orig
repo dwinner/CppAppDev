@@ -1,0 +1,285 @@
+; Listing 2-4
+;
+; Demonstrate sign and zero extension
+
+        option  casemap:none
+
+nl      =       10  ;ASCII code for newline
+maxLen  =       256
+
+
+; New data declaration section.
+; .const holds data values for read-only constants
+
+        .const
+ttlStr  byte   'Listing 2-4', 0
+
+cxxStr  byte    nl, "Sign extension using CBW, CWD, CDQ, "
+        byte    "CQO, CWDE, and CDQE", nl, 0
+movStr  byte    nl, "Sign extension using movsx", nl, 0
+movzStr byte    nl, "Zero extension using mov and movzx", nl, 0
+special byte    nl, "Zero extension that does not affect "
+        byte    "bits 16-63", nl, 0
+
+fmt1    byte    "Sign extending %x produces %x", nl, 0
+fmt2    byte    "Sign extending %x produces %x:%x", nl, 0
+
+; This is a Microsoft-ism. To print a 64-bit integer
+; in hexadecimal form, use the %I64x format specifier.
+
+fmt3    byte    "Sign extending %x produces %I64x", nl, 0
+fmt4    byte    "Sign extending %I64x produces %I64x:%I64x", nl, 0
+fmt5    byte    "Sign extending %I64x produces %I64x", nl, 0
+
+fmt6    byte    "Zero extending %I64x produces %04I64x", nl, 0
+fmt7    byte    "Zero extending %I64x produces %08I64x", nl, 0
+fmt8    byte    "Zero extending %I64x produces %016I64x", nl, 0
+
+
+         .data
+
+
+u8Val   byte    123
+i8Val   sbyte   -123
+
+u16Val  word    12345
+i16Val  sword   -12345
+
+u32Val  dword   1234567890
+i32Val  sdword  -1234567890
+
+u64Val  qword   123456789012345678
+i64Val  qword   -123456789012345678
+
+minus1  dword   -1
+
+
+        .code
+        externdef printf:proc
+
+; Return program title to C++ program:
+
+         public getTitle
+getTitle proc
+         lea rax, ttlStr
+         ret
+getTitle endp
+
+        
+; Here is the "asmMain" function.
+
+        
+        public  asmMain
+asmMain proc
+                           
+; "Magic" instruction offered without
+; explanation at this point:
+
+        sub     rsp, 56
+                
+                
+; Quick demonstrations of the "Convert XXX to YYY"
+; instructions:
+
+        lea     rcx, cxxStr
+        call    printf
+        
+;       CBW instruction:
+
+        mov     al, i8Val
+        mov     rdx, rax
+        cbw                     ;AL -> AX
+        lea     rcx, fmt1
+        mov     r8, rax
+        call    printf
+        
+;       CWD instruction:
+
+        mov     ax, i16Val
+        cwd                     ;AX -> DX:AX
+        lea     rcx, fmt2
+        mov     r8, rdx
+        mov     r9, rax
+        mov     dx, i16Val
+        call    printf
+        
+;       CWDE instruction:
+
+        mov     ax, i16Val
+        mov     rdx, rax
+        cwde                    ;AX -> EAX
+        lea     rcx, fmt1
+        mov     r8, rax
+        call    printf
+        
+;       CDQ instruction:
+
+        mov     eax, i32Val
+        cdq                     ;EAX -> EDX:EAX
+        lea     rcx, fmt2
+        mov     r8, rdx
+        mov     r9, rax
+        mov     edx, i32Val
+        call    printf
+        
+;       CDQE instruction:
+
+        mov     eax, i32Val
+        mov     rdx, rax
+        cdqe                    ;EAX -> RAX
+        lea     rcx, fmt3
+        mov     r8, rax
+        call    printf
+        
+;       CQO instruction:
+
+        mov     rax, i64Val
+        cqo                     ;RAX -> RDX:RAX
+        lea     rcx, fmt4
+        mov     r8, rdx
+        mov     r9, rax
+        mov     rdx, i64Val
+        call    printf
+        
+
+; Quick demonstrations of the "MOVSX" instructions:
+
+        lea     rcx, movStr
+        call    printf
+        
+        ; 8 bits to 16 bits
+        
+        xor     r8, r8
+        lea     rcx, fmt5
+        movzx   rdx, i8Val
+        movsx   r8w, i8Val
+        call    printf
+        
+        ; 8 bits to 32 bits
+        
+        xor     r8, r8
+        lea     rcx, fmt5
+        movzx   rdx, i8Val
+        movsx   r8d, i8Val
+        call    printf
+        
+        
+        ; 8 bits to 64 bits
+        
+        xor     r8, r8
+        lea     rcx, fmt5
+        movzx   rdx, i8Val
+        movsx   r8, i8Val
+        call    printf
+        
+        ; 16 bits to 32 bits
+        
+        xor     r8, r8
+        lea     rcx, fmt5
+        movzx   rdx, i16Val
+        movsx   r8d, i16Val
+        call    printf
+        
+        
+        ; 16 bits to 64 bits
+        
+        xor     r8, r8
+        lea     rcx, fmt5
+        movzx   rdx, i16Val
+        movsx   r8, i16Val
+        call    printf
+        
+        
+        ; 32 bits to 64 bits
+        
+        xor     r8, r8
+        lea     rcx, fmt5
+        mov     edx, i32Val ;Yes, zero extends!
+        movsxd  r8, i32Val
+        call    printf
+        
+        
+        
+
+; Quick demonstrations of the "MOVZX" instructions:
+
+        
+        lea     rcx, movzStr
+        call    printf
+
+        ; 8 bits to 16 bits
+        
+        xor     r8, r8          ; Initialize to 0
+        lea     rcx, fmt6
+        movzx   rdx, i8Val
+        movzx   r8w, i8Val      ;Does not affect bits 16-31
+        call    printf
+        
+        ; 8 bits to 32 bits
+        
+        mov     r8, -1          ;Initialize to all 1 bits
+        lea     rcx, fmt7
+        movzx   rdx, i8Val
+        movzx   r8d, i8Val      ;Zeros bits 32-63, too
+        call    printf
+        
+        
+        ; 8 bits to 64 bits
+        
+        mov     r8, -1          ;Initialize to all 1 bits
+        lea     rcx, fmt8
+        movzx   rdx, i8Val
+        movzx   r8, i8Val
+        call    printf
+        
+        ; 16 bits to 32 bits
+        
+        mov     r8, -1          ;Initialize to all 1 bits
+        lea     rcx, fmt7
+        movzx   rdx, i16Val
+        movzx   r8d, i16Val
+        call    printf
+        
+        
+        ; 16 bits to 64 bits
+        
+        mov     r8, -1          ;Initialize to all 1 bits
+        lea     rcx, fmt8
+        movzx   rdx, i16Val
+        movzx   r8, i16Val
+        call    printf
+        
+        
+        ; 32 bits to 64 bits
+        
+        mov     r8, -1          ;Initialize to all 1 bits
+        lea     rcx, fmt8
+        mov     edx, i32Val
+        mov     r8d, i32Val
+        call    printf
+        
+
+        
+        lea     rcx, special
+        call    printf
+
+
+        ; 8 bits to 16 bits
+        
+        mov     r8, -1          ; Initialize to all 1 bits
+        lea     rcx, fmt6
+        movzx   rdx, i8Val
+        movzx   r8w, i8Val      ;Does not affect bits 16-31
+        call    printf
+        
+        
+        
+
+; Another "magic" instruction that undoes
+; the effect of the previous one before
+; this procedure returns to its caller.
+       
+        add     rsp, 56
+        ret     ;Returns to caller
+asmMain endp
+        end

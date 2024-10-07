@@ -1,0 +1,124 @@
+; Listing 11-4
+;
+; MASM syntax for various movap* instructions 
+
+        option  casemap:none
+
+nl          =       10
+
+            .const
+ttlStr      byte    "Listing 11-4", 0
+           
+
+            .data
+            align   16
+r4m         real4   1.0, 2.0, 3.0, 4.0
+r8m         real8   1.0, 2.0
+b16         byte    0, 1, 2, 3, 4, 5, 6, 7,
+                    8, 0ah, 0bh, 0ch, 0dh, 0eh, 0fh
+                    
+w8          word    0, 1, 2, 3, 4, 5, 6, 7, 8
+
+d4          dword   0, 1, 2, 3
+
+q2          qword   0, 1
+
+o1          oword   0
+
+
+
+            
+            .code
+            externdef printf:proc
+            
+; Return program title to C++ program:
+
+            public  getTitle
+getTitle    proc
+            lea     rax, ttlStr
+            ret
+getTitle    endp
+
+
+            
+; Here is the "asmMain" function.
+
+        
+            public  asmMain
+asmMain     proc
+            push    rbx
+            push    rbp
+            mov     rbp, rsp
+            sub     rsp, 56         ;Shadow storage
+            
+            movaps  xmm0, r4m
+            movaps  xmm0, xmmword ptr r8m
+            movaps  xmm0, xmmword ptr b16
+            movaps  xmm0, xmmword ptr w8
+            movaps  xmm0, d4
+            movaps  xmm0, xmmword ptr q2
+            movaps  xmm0, o1
+
+            movapd  xmm0, real8 ptr r4m
+            movapd  xmm0, r8m
+            movapd  xmm0, xmmword ptr b16
+            movapd  xmm0, xmmword ptr w8
+            movapd  xmm0, xmmword ptr d4
+            movapd  xmm0, q2
+            movapd  xmm0, o1
+
+            movdqa  xmm0, xmmword ptr r4m
+            movdqa  xmm0, xmmword ptr r8m
+            movdqa  xmm0, xmmword ptr b16
+            movdqa  xmm0, xmmword ptr w8
+            movdqa  xmm0, xmmword ptr d4
+            movdqa  xmm0, xmmword ptr q2
+            movdqa  xmm0, o1
+
+            vmovaps ymm0, r4m
+            vmovaps ymm0, ymmword ptr r8m
+            vmovaps ymm0, ymmword ptr b16
+            vmovaps ymm0, ymmword ptr w8
+            vmovaps ymm0, d4
+            vmovaps ymm0, ymmword ptr q2
+            vmovaps ymm0, ymmword ptr o1
+
+            vmovapd ymm0, ymmword ptr r4m
+            vmovapd ymm0, r8m
+            vmovapd ymm0, ymmword ptr b16
+            vmovapd ymm0, ymmword ptr w8
+            vmovapd ymm0, ymmword ptr d4
+            vmovapd ymm0, q2
+            vmovapd ymm0, ymmword ptr o1
+
+            vmovdqa ymm0, ymmword ptr r4m
+            vmovdqa ymm0, ymmword ptr r8m
+            vmovdqa ymm0, ymmword ptr b16
+            vmovdqa ymm0, ymmword ptr w8
+            vmovdqa ymm0, ymmword ptr d4
+            vmovdqa ymm0, ymmword ptr q2
+            vmovdqa ymm0, ymmword ptr o1
+
+            vmovaps zmm0, r4m
+            vmovaps zmm0, zmmword ptr r8m
+            vmovaps zmm0, zmmword ptr b16
+            vmovaps zmm0, zmmword ptr w8
+            vmovaps zmm0, d4
+            vmovaps zmm0, zmmword ptr q2
+            vmovaps zmm0, zmmword ptr o1
+
+            vmovapd zmm0, real8 ptr r4m
+            vmovapd zmm0, r8m
+            vmovapd zmm0, zmmword ptr b16
+            vmovapd zmm0, zmmword ptr w8
+            vmovapd zmm0, zmmword ptr d4
+            vmovapd zmm0, q2
+            vmovapd zmm0, zmmword ptr o1
+            
+
+             
+allDone:    leave
+            pop     rbx
+            ret     ;Returns to caller
+asmMain     endp
+            end

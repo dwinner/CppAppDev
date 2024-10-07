@@ -1,0 +1,5 @@
+Calling Listing 2-1:
+i=1, converted to hex=1
+j=123, converted to hex=7b
+k=456789, converted to hex=6f855
+Listing 2-1 terminated
