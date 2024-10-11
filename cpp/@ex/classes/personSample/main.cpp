@@ -14,7 +14,7 @@ int main()
    cout << *person2 << endl;
 
    array<Person, empLen> employees;
-   for (auto &employee: employees)
+   for (auto &employee : employees)
    {
       employee = person1;
    }
