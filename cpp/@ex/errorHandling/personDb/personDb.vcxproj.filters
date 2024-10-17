@@ -15,10 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bidirectional.cpp">
+    <ClCompile Include="personDb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="errorHandling.ixx">
+    <ClCompile Include="person_database.ixx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="person.ixx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file_errors.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

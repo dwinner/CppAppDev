@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bidirectional.cpp">
+    <ClCompile Include="sheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="errorHandling.ixx">
+    <ClCompile Include="spread_sheet.ixx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spreadSheet_errors.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

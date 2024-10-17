@@ -1,22 +1,31 @@
 import std;
+import errorHandling;
 
 using namespace std;
+using namespace biDir;
 
-// Returns false on error
-bool ChangeNumberForId(const string& filename, int id, string_view newNumber);
+void ChangeNumberForId(const string& filename, int id, string_view newNumber);
 
 int main()
 {
-   ChangeNumberForId("data.txt", 263, "415-555-3333");
+   try
+   {
+      ChangeNumberForId("data.txt", 263, "415-555-3333");
+   }
+   catch (const FileNotFoundException& fnfEx)
+   {
+      std::cout << fnfEx.what() << std::endl;
+      throw;
+   }
 }
 
-bool ChangeNumberForId(const string& filename, const int id, const string_view newNumber)
+void ChangeNumberForId(const string& filename, const int id, const string_view newNumber)
 {
-   fstream ioData{ filename };   
+   fstream ioData{filename};
    if (!ioData)
-   {      
-      println(cerr, "Error while opening file {}.", filename);
-      return false;
+   {
+      const string errorMsg = std::format("Error while opening file {}.", filename);
+      throw FileNotFoundException{errorMsg.c_str()};
    }
 
    // Loop until the end of file
@@ -45,6 +54,4 @@ bool ChangeNumberForId(const string& filename, const int id, const string_view n
       string number;
       ioData >> number;
    }
-
-   return true;
 }

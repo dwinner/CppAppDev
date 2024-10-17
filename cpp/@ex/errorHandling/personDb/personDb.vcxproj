@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f37c0834-1a66-4d59-8bc7-223ecd3f5a44}</ProjectGuid>
-    <RootNamespace>bidirectional</RootNamespace>
+    <ProjectGuid>{ab918030-5730-421b-987a-47b594b1120f}</ProjectGuid>
+    <RootNamespace>personDb</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -121,6 +121,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
+      <BuildStlModules>true</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,8 +133,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bidirectional.cpp" />
-    <ClCompile Include="errorHandling.ixx" />
+    <ClCompile Include="Database.cpp" />
+    <ClCompile Include="file_errors.ixx" />
+    <ClCompile Include="person.ixx" />
+    <ClCompile Include="personDb.cpp" />
+    <ClCompile Include="person_database.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
