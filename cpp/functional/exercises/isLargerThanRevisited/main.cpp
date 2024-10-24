@@ -25,31 +25,20 @@ void findMatches(span<const int> values1,
    }
 }
 
-void printMatch(size_t position, int value1, int value2)
-{
-   println("Match found at position {} ({}, {})", position, value1, value2);
-}
-
-class IsLargerThan
-{
-public:
-   explicit IsLargerThan(int value) : val_{value}
-   {
-   }
-
-   bool operator()(int value1, int value2) const
-   {
-      return value1 > val_ && value2 > val_;
-   }
-
-private:
-   int val_;
-};
-
 int main()
 {
    vector values1{2, 500, 6, 9, 10, 101, 1};
    vector values2{4, 4, 2, 9, 0, 300, 1};
 
-   findMatches(values1, values2, IsLargerThan{100}, printMatch);
+   findMatches(
+       values1,
+       values2,
+       [val = 100](int val1, int val2) -> bool
+       {
+          return val1 > val && val2 > val;
+       },
+       [](size_t position, int val1, int val2) -> void
+       {
+          println("Match found at position {} ({}, {})", position, val1, val2);
+       });
 }
