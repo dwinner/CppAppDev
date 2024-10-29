@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <print>
 
 using namespace std;
 
@@ -24,8 +23,6 @@ int main()
       printSequence(vec1St);
    }
    while (next_permutation(vec1St.begin(), vec1St.end()));
-
-   println();
 
    // Modern way
    vector<int> vec2Nd = {1, 2, 3};
