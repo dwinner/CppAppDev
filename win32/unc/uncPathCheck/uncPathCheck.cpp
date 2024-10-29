@@ -38,7 +38,7 @@ int main()
 bool IsUncPath(const std::string& path)
 {
     const regex uncRegEx{
-        R"(^\\\\([\w]+)\\([\w]+)\$(\\[\w]+)*)"
+        R"(^\\\\([\w]+)\\([\w]+)\$(\\[\w]+[\\]?)*)"
     };
 
     smatch uncMatched;

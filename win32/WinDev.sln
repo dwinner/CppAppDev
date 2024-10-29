@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unc", "unc", "{F09A440B-862
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uncPathCheck", "unc\uncPathCheck\uncPathCheck.vcxproj", "{5987FA3A-3EA3-4B4B-9DDA-B499BFA17D43}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mapUncToLocalDrive", "unc\mapUncToLocalDrive\mapUncToLocalDrive.vcxproj", "{03235EAF-9B37-476D-A582-C1CB51C6A61F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -85,6 +87,14 @@ Global
 		{5987FA3A-3EA3-4B4B-9DDA-B499BFA17D43}.Release|x64.Build.0 = Release|x64
 		{5987FA3A-3EA3-4B4B-9DDA-B499BFA17D43}.Release|x86.ActiveCfg = Release|Win32
 		{5987FA3A-3EA3-4B4B-9DDA-B499BFA17D43}.Release|x86.Build.0 = Release|Win32
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Debug|x64.ActiveCfg = Debug|x64
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Debug|x64.Build.0 = Debug|x64
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Debug|x86.ActiveCfg = Debug|Win32
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Debug|x86.Build.0 = Debug|Win32
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Release|x64.ActiveCfg = Release|x64
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Release|x64.Build.0 = Release|x64
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Release|x86.ActiveCfg = Release|Win32
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +107,7 @@ Global
 		{87B9FCC8-B5D3-4085-89F1-A6C925019990} = {E343FAD4-7B23-414B-8401-9B1BCF6C0E30}
 		{31572CD6-6115-4958-A8FF-945DBCCA3758} = {6C1A6B68-CE48-4495-B38D-65D9109F6C1E}
 		{5987FA3A-3EA3-4B4B-9DDA-B499BFA17D43} = {F09A440B-862A-48DA-B2A2-9F337D22D321}
+		{03235EAF-9B37-476D-A582-C1CB51C6A61F} = {F09A440B-862A-48DA-B2A2-9F337D22D321}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1221F1B0-97EA-45B2-975B-42E380160F94}
