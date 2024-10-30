@@ -5,7 +5,7 @@ using namespace std;
 // Using the abbreviated function template syntax.
 void fillVector(vector<int>& values, const auto& generator)
 {
-	ranges::generate(values, generator);
+   ranges::generate(values, generator);
 }
 
 //template<invocable T>
@@ -21,15 +21,17 @@ void fillVector(vector<int>& values, const auto& generator)
 
 int main()
 {
-	random_device seeder;
-	mt19937 engine{ seeder() };
-	uniform_int_distribution<int> distribution{ 1, 99 };
+   random_device seeder;
+   mt19937 engine{seeder()};
+   uniform_int_distribution<int> distribution{1, 99};
 
-	auto generator{ bind(distribution, engine) };
+   auto generator{bind(distribution, engine)};
 
-	vector<int> values(10);
-	fillVector(values, generator);
+   vector<int> values(10);
+   fillVector(values, generator);
 
-	println("{:n}", values);
+   for (const auto& value : values)
+   {
+      print("{} ", value);
+   }
 }
-
