@@ -1,0 +1,10 @@
+digraph "drawing" {
+node [
+  fontsize = "12"
+];
+    "node3" [ label = "drawing", shape = octagon ];
+    "node2" [ label = "gui_app", shape = egg ];
+    "node2" -> "node3" [ style = dotted ] // gui_app -> drawing
+    "node1" [ label = "checksum", shape = box ];
+    "node1" -> "node2"  // checksum -> gui_app
+}

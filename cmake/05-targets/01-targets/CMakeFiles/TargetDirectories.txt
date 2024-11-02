@@ -1,0 +1,7 @@
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/terminal_app.dir
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/gui_app.dir
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/calculations.dir
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/drawing.dir
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/checksum.dir
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/ALL_BUILD.dir
+F:/cppAppDev/cmake/05-targets/01-targets/CMakeFiles/ZERO_CHECK.dir

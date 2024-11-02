@@ -1,0 +1,14 @@
+digraph "calculations" {
+node [
+  fontsize = "12"
+];
+    "node0" [ label = "calculations", shape = octagon ];
+    "node2" [ label = "gui_app", shape = egg ];
+    "node2" -> "node0" [ style = dotted ] // gui_app -> calculations
+    "node1" [ label = "checksum", shape = box ];
+    "node1" -> "node2"  // checksum -> gui_app
+    "node4" [ label = "terminal_app", shape = egg ];
+    "node4" -> "node0" [ style = dotted ] // terminal_app -> calculations
+    "node1" [ label = "checksum", shape = box ];
+    "node1" -> "node4"  // checksum -> terminal_app
+}

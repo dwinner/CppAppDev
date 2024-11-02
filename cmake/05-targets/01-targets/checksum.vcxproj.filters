@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="F:\cppAppDev\cmake\05-targets\01-targets\CMakeFiles\d469b448c66e10bdb2185358efc4c895\checksum.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="F:\cppAppDev\cmake\05-targets\01-targets\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="F:\cppAppDev\cmake\05-targets\01-targets\CMakeFiles\checksum" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{266DF08D-F39B-37CE-B847-8BC5A4812709}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

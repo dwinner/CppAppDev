@@ -1,0 +1,16 @@
+digraph "checksum" {
+node [
+  fontsize = "12"
+];
+    "node1" [ label = "checksum", shape = box ];
+    "node2" [ label = "gui_app", shape = egg ];
+    "node1" -> "node2"  // checksum -> gui_app
+    "node0" [ label = "calculations", shape = octagon ];
+    "node2" -> "node0" [ style = dotted ] // gui_app -> calculations
+    "node3" [ label = "drawing", shape = octagon ];
+    "node2" -> "node3" [ style = dotted ] // gui_app -> drawing
+    "node4" [ label = "terminal_app", shape = egg ];
+    "node1" -> "node4"  // checksum -> terminal_app
+    "node0" [ label = "calculations", shape = octagon ];
+    "node4" -> "node0" [ style = dotted ] // terminal_app -> calculations
+}
