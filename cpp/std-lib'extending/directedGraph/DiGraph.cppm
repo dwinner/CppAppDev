@@ -156,6 +156,13 @@ namespace proCpp
 
       [[nodiscard]] bool empty() const noexcept;
 
+      // Finds an element in the graph.
+      // Returns an end iterator if not found.
+      ConstIterator find(const T& nodeValue) const;
+
+      // Returns true if node_value is in the graph, false otherwise.
+      bool contains(const T& nodeValue) const;
+
    private:
       friend class ConstDiGraphIteratorImpl<DiGraph>;
       friend class details::GraphNode<T>;
@@ -582,5 +589,19 @@ namespace proCpp
    bool DiGraph<T>::empty() const noexcept
    {
       return nodes_.empty();
+   }
+
+   template <typename T>
+   typename DiGraph<T>::ConstIterator DiGraph<T>::find(const T& nodeValue) const
+   {
+      auto iter{findNode(nodeValue)};
+      return ConstIterator{iter};
+   }
+
+   template <typename T>
+   bool DiGraph<T>::contains(const T& nodeValue) const
+   {
+      const auto iter{findNode(nodeValue)};
+      return iter != std::end(nodes_);
    }
 }

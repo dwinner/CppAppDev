@@ -274,4 +274,27 @@ int main()
    {
       println("Node String 3 NOT found.");
    }
+
+   // Test find mem. func.
+   {
+      DiGraph<int> curGraph;
+      curGraph.insert(11);
+      curGraph.insert(22);
+      curGraph.insert(33);
+      curGraph.insert(44);
+      curGraph.insertEdge(11, 22);
+      curGraph.insertEdge(11, 33);
+      curGraph.insertEdge(22, 33);
+      curGraph.insertEdge(33, 44);
+
+      auto findRes{curGraph.find(44)};
+      if (findRes != end(curGraph))
+      {
+         println("Found 44.");
+      }
+      else
+      {
+         println("Didn't find 44.");
+      }
+   }
 }
