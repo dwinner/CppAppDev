@@ -11,5 +11,5 @@ file(GENERATE OUTPUT nesting CONTENT "
   2 $<UPPER_CASE:$<PLATFORM_ID>>
   3 $<UPPER_CASE:hello world>
   4 $<UPPER_CASE:${myvar}>
-  5 $<UPPER_CASE:${myvar2}>
+  5 $<UPPER_CASE:${myvar2}>  
 ")
