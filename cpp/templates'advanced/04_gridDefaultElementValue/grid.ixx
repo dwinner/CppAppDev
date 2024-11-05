@@ -2,17 +2,8 @@
 
 import std;
 
-template <typename TContainer>
-concept grid_container_type =
-   std::ranges::random_access_range<TContainer> &&
-   requires(TContainer container)
-   {
-      typename TContainer::value_type;
-      container.resize(1);
-   };
-
 export
-template <typename T, grid_container_type TContainer>
+template <typename T, T Default = T{}>
 class Grid
 {
 public:
@@ -30,9 +21,9 @@ public:
 
    Grid& operator=(Grid&& rhs) = default;
 
-   typename TContainer::value_type& at(std::size_t x, std::size_t y);
+   std::optional<T>& at(std::size_t x, std::size_t y);
 
-   const typename TContainer::value_type& at(std::size_t x, std::size_t y) const;
+   const std::optional<T>& at(std::size_t x, std::size_t y) const;
 
    std::size_t getHeight() const
    {
@@ -45,26 +36,25 @@ public:
    }
 
    static constexpr std::size_t defaultWidth{10};
-
    static constexpr std::size_t defaultHeight{10};
 
 private:
    void verifyCoordinate(std::size_t x, std::size_t y) const;
 
-   TContainer cells_;
+   std::vector<std::optional<T>> cells_;
    std::size_t width_{0}, height_{0};
 };
 
-template <typename T, grid_container_type Container>
-Grid<T, Container>::Grid(std::size_t width, std::size_t height):
-   width_{width},
-   height_{height}
+template <typename T, T Default>
+Grid<T, Default>::Grid(std::size_t width, std::size_t height)
+   : width_{width}
+     , height_{height}
 {
-   cells_.resize(width_ * height_);
+   cells_.resize(width_ * height_, Default);
 }
 
-template <typename T, grid_container_type Container>
-void Grid<T, Container>::verifyCoordinate(std::size_t x, std::size_t y) const
+template <typename T, T Default>
+void Grid<T, Default>::verifyCoordinate(std::size_t x, std::size_t y) const
 {
    if (x >= width_)
    {
@@ -81,16 +71,15 @@ void Grid<T, Container>::verifyCoordinate(std::size_t x, std::size_t y) const
    }
 }
 
-template <typename T, grid_container_type Container>
-const typename Container::value_type& Grid<T, Container>::at(std::size_t x, std::size_t y) const
+template <typename T, T Default>
+const std::optional<T>& Grid<T, Default>::at(std::size_t x, std::size_t y) const
 {
    verifyCoordinate(x, y);
    return cells_[x + y * width_];
 }
 
-template <typename T, grid_container_type Container>
-typename Container::value_type& Grid<T, Container>::at(std::size_t x, std::size_t y)
+template <typename T, T Default>
+std::optional<T>& Grid<T, Default>::at(std::size_t x, std::size_t y)
 {
-   return const_cast<typename Container::value_type&>(
-      std::as_const(*this).at(x, y));
+   return const_cast<std::optional<T>&>(std::as_const(*this).at(x, y));
 }

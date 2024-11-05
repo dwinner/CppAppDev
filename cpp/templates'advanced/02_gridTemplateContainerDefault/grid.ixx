@@ -12,7 +12,7 @@ concept grid_container_type =
    };
 
 export
-template <typename T, grid_container_type TContainer>
+template <typename T, grid_container_type TContainer = std::vector<std::optional<T>>>
 class Grid
 {
 public:
