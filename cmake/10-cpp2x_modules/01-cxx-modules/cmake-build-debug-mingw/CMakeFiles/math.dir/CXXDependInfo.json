@@ -1,0 +1,30 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : 
+	{
+		"CMakeFiles/math.dir/math.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "CXX_MODULES",
+			"relative-directory" : "",
+			"source" : "F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/math.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		}
+	},
+	"dir-cur-bld" : "F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw",
+	"dir-cur-src" : "F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules",
+	"dir-top-bld" : "F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw",
+	"dir-top-src" : "F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw/CMakeFiles/math.dir"
+}
