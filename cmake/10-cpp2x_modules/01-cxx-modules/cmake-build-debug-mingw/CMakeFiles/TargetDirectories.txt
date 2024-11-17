@@ -1,4 +1,0 @@
-F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw/CMakeFiles/math.dir
-F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw/CMakeFiles/main.dir
-F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
-F:/cppAppDev/cmake/10-cpp2x_modules/01-cxx-modules/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
