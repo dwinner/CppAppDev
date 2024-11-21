@@ -1,4 +1,5 @@
 #include "calc/basic.h"
+
 namespace Calc {
 int Add(int a, int b) {
   return a + b;
