@@ -1,0 +1,18 @@
+     1                                  ; hello.asm
+     2                                  section .data
+     3 00000000 68656C6C6F2C20776F-         msg db      "hello, world",0
+     3 00000009 726C6400           
+     4                                  section .bss
+     5                                  section .text
+     6                                      global main
+     7                                  main:
+     8                                  
+     9 00000000 B801000000                  mov     rax, 1      ; 1 = write
+    10 00000005 BF01000000                  mov     rdi, 1      ; 1 = to stdout
+    11 0000000A 48BE-                       mov     rsi, msg    ; string to display in rsi
+    11 0000000C [0000000000000000] 
+    12 00000014 BA0C000000                  mov     rdx, 12     ; length of the string, without 0
+    13 00000019 0F05                        syscall             ; display the string
+    14 0000001B B83C000000                  mov     rax, 60     ; 60 = exit
+    15 00000020 BF00000000                  mov     rdi, 0      ; 0 = success exit code
+    16 00000025 0F05                        syscall             ; quit
