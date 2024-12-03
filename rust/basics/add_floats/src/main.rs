@@ -12,6 +12,6 @@ fn main() {
     println!("         0.3: {:x}", (xyz.2).to_bits());
     println!();
 
-    assert!(abc.0 + abc.1 == abc.2);    //<1>
-    assert!(xyz.0 + xyz.1 == xyz.2);    //<2>
+    assert!(abc.0 + abc.1 == abc.2); // Ok
+    assert!(xyz.0 + xyz.1 == xyz.2); // Nok
 }
