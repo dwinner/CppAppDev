@@ -1,12 +1,11 @@
 fn main() {
-    let _needle = 42; // <1>
+    let _needle = 42;
     let haystack = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862];
 
     for item in &haystack {
         let result = match item {
-            // <2>
-            42 | 132 => "hit!", // <3>
-            _ => "miss",        // <4>
+            42 | 132 => "hit!",
+            _ => "miss",
         };
 
         if result == "hit!" {
