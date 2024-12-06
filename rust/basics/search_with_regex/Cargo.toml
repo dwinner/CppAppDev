@@ -1,0 +1,8 @@
+[package]
+name = "search_with_regex"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = "4.5.23"
+regex = "1.11.1"
