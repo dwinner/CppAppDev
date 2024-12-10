@@ -1,0 +1,29 @@
+     1                                  ; betterloop
+     2                                  extern printf
+     3                                  section .data							
+     4 00000000 0500000000000000        	number	dq	5					
+     5 00000008 5468652073756D2066-     	fmt	    db	"The sum from 0 to %ld is %ld",10,0
+     5 00000011 726F6D203020746F20-
+     5 0000001A 256C6420697320256C-
+     5 00000023 640A00             
+     6                                  section .bss
+     7                                  section .text							
+     8                                  	global main						
+     9                                  main:
+    10 00000000 55                        	push 	rbp
+    11 00000001 4889E5                    	mov 	rbp, rsp
+    12 00000004 488B0C25[00000000]      	mov		rcx, [number]	; initialize rcx with number
+    13 0000000C B800000000              	mov		rax, 0					
+    14                                  bloop:	
+    15 00000011 4801C8                  	add 	rax, rcx  	; add rcx to sum
+    16 00000014 E2FB                    	loop 	bloop		; loop while decreasing rcx with 1
+    17                                  						; until rcx = 0				
+    18 00000016 48BF-                   	mov		rdi, fmt	; rcx = 0, continue here		
+    18 00000018 [0800000000000000] 
+    19 00000020 488B3425[00000000]      	mov		rsi, [number]   ; sum to be displayed
+    20 00000028 4889C2                  	mov		rdx, rax
+    21 0000002B B800000000              	mov		rax, 0		; no floating point
+    22 00000030 E8(00000000)            	call 	printf		; display 
+    23 00000035 4889EC                  	mov rsp, rbp
+    24 00000038 5D                      	pop rbp
+    25 00000039 C3                      	ret

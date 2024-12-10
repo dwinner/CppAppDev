@@ -1,0 +1,25 @@
+     1                                  ; hello4.asm
+     2                                  extern	printf		; declare the function as alien						
+     3                                  section .data							
+     4 00000000 48656C6C6F2C20576F-     	msg	    db  "Hello, World!",0			
+     4 00000009 726C642100         
+     5 0000000E 54686973206973206F-     	fmtstr	db	"This is our string: %s",10,0 	; printf format	
+     5 00000017 757220737472696E67-
+     5 00000020 3A2025730A00       
+     6                                  section .bss							
+     7                                  section .text						
+     8                                  	global main	
+     9                                  main:
+    10 00000000 55                      	push	rbp
+    11 00000001 4889E5                  	mov	    rbp, rsp
+    12 00000004 48BF-                   	mov     rdi, fmtstr	; first argument for printf
+    12 00000006 [0E00000000000000] 
+    13 0000000E 48BE-                   	mov     rsi, msg	; second argument for printf	
+    13 00000010 [0000000000000000] 
+    14 00000018 B800000000              	mov 	rax, 0		; no xmm registers involved
+    15 0000001D E8(00000000)              	call 	printf		; call the function
+    16 00000022 4889EC                  	mov	    rsp, rbp
+    17 00000025 5D                      	pop	    rbp
+    18 00000026 B83C000000              	mov     rax, 60
+    19 0000002B BF00000000              	mov     rdi, 0
+    20 00000030 0F05                    	syscall

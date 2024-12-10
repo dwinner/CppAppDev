@@ -1,0 +1,34 @@
+     1                                  ; alive.asm
+     2                                  section .data
+     3 00000000 48656C6C6F2C20576F-     	msg1	db	"Hello, World!",10,0	    ; string with NL and 0
+     3 00000009 726C64210A00       
+     4                                  	msg1Len	equ	$-msg1-1			        ; measure the length, minus the 0
+     5 0000000F 416C69766520616E64-     	msg2	db	"Alive and Kicking!",10,0	; string with NL and 0
+     5 00000018 204B69636B696E6721-
+     5 00000021 0A00               
+     6                                  	msg2Len	equ	$-msg2-1		            ; measure the length, minus the 0
+     7 00000023 6501000000000000        	radius	dq	357			                ; no string, not displayable?
+     8 0000002B 1F85EB51B81E0940        	pi		dq	3.14			            ; no string, not displayable?
+     9                                  section .bss
+    10                                  section .text
+    11                                  	global main
+    12                                  main:
+    13 00000000 55                          push 	rbp				                ; function prologue
+    14 00000001 4889E5                      mov 	rbp, rsp			            ; function prologue
+    15 00000004 B801000000                  mov		rax, 1		                    ; 1 = write
+    16 00000009 BF01000000                  mov		rdi, 1		                    ; 1 = to stdout
+    17 0000000E 48BE-                       mov		rsi, msg1		                ; string to display
+    17 00000010 [0000000000000000] 
+    18 00000018 BA0E000000                  mov		rdx, msg1Len	                ; length of the string
+    19 0000001D 0F05                        syscall				                    ; display the string
+    20 0000001F B801000000                  mov		rax, 1		                    ; 1 = write
+    21 00000024 BF01000000                  mov		rdi, 1		                    ; 1 = to stdout
+    22 00000029 48BE-                       mov		rsi, msg2		                ; string to display
+    22 0000002B [0F00000000000000] 
+    23 00000033 BA13000000                  mov		rdx, msg2Len	                ; length of the string
+    24 00000038 0F05                        syscall				                    ; display the string
+    25 0000003A 4889EC                  	mov 	rsp, rbp			            ; function epilogue
+    26 0000003D 5D                      	pop 	rbp				                ; function epilogue
+    27 0000003E B83C000000                  mov		rax, 60		                    ; 60 = exit
+    28 00000043 BF00000000                  mov		rdi, 0		                    ; 0 = success exit code
+    29 00000048 0F05                        syscall				                    ; quit
