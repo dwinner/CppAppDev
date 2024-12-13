@@ -1,0 +1,37 @@
+     1                                  ; function.asm
+     2                                  extern printf
+     3                                  section .data
+     4 00000000 0000000000002440           radius   dq 10.0
+     5 00000008 1F85EB51B81E0940           pi       dq 3.14
+     6 00000010 546865206172656120-        fmt      db "The area of the circle is %.2f",10,0
+     6 00000019 6F6620746865206369-
+     6 00000022 72636C652069732025-
+     6 0000002B 2E32660A00         
+     7                                  section .bss
+     8                                  section .text
+     9                                     global main
+    10                                  ;----------------------------------------------
+    11                                  main:
+    12 00000000 55                         push  rbp
+    13 00000001 4889E5                     mov   rbp, rsp 
+    14 00000004 E81F000000                 call  surface  ; call the function
+    15 00000009 48BF-                      mov   rdi, fmt  ; print format
+    15 0000000B [1000000000000000] 
+    16 00000013 F20F100C25-                movsd xmm1, [radius] ; move float to xmm1
+    16 00000018 [00000000]         
+    17 0000001C B801000000                 mov   rax, 1 ; surface in xmm0
+    18 00000021 E8(00000000)               call  printf
+    19 00000026 C9                      leave
+    20 00000027 C3                      ret
+    21                                  ;----------------------------------------------
+    22                                  surface:
+    23 00000028 55                         push  rbp
+    24 00000029 4889E5                     mov   rbp, rsp  
+    25 0000002C F20F100425-                movsd xmm0, [radius] ; move float to xmm0
+    25 00000031 [00000000]         
+    26 00000035 F20F590425-                mulsd xmm0, [radius] ; multiply xmm0 by float
+    26 0000003A [00000000]         
+    27 0000003E F20F590425-                mulsd xmm0, [pi]     ; multiply xmm0 by float
+    27 00000043 [08000000]         
+    28 00000047 C9                      leave
+    29 00000048 C3                      ret
