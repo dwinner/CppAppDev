@@ -1,0 +1,39 @@
+pub fn add(left: u64, right: u64) -> u64
+{
+   left + right
+}
+
+// Define a function named `factorial` that, given a non-negative integer `n`,
+// returns `n!`, the factorial of `n`.
+//
+// The factorial of `n` is defined as the product of all positive integers up to
+// `n`. For example, `5!` (read "five factorial") is `5 * 4 * 3 * 2 * 1`, which
+// is `120`. `0!` is defined to be `1`.
+//
+// We expect `factorial(0)` to return `1`, `factorial(1)` to return `1`,
+// `factorial(2)` to return `2`, and so on.
+//
+// Use only what you learned! No loops yet, so you'll have to use recursion!
+
+pub fn factorial(n: u32) -> u32
+{
+   if n == 0 || n == 1
+   {
+      return 1;
+   }
+
+   n * factorial(n - 1)
+}
+
+#[cfg(test)]
+mod tests
+{
+   use super::*;
+
+   #[test]
+   fn it_works()
+   {
+      let result = add(2, 2);
+      assert_eq!(result, 4);
+   }
+}
