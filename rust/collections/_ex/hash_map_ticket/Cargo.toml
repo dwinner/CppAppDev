@@ -1,0 +1,7 @@
+[package]
+name = "hash_map_ticket"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ticket_fields = { path = "../../../_helpers/ticket_fields" }
