@@ -1,1 +1,0 @@
-This task is to make code compile, check instructions in the code's comments.
