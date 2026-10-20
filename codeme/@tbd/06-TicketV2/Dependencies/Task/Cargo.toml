@@ -1,8 +1,0 @@
-[package]
-name = "task_dependencies"
-version = "0.1.0"
-edition = "2021"
-
-# TODO
-[dependencies]
-anyhow = "1.0.*"
